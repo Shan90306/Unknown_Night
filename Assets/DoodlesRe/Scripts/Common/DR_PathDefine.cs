@@ -15,9 +15,11 @@
         // ******************************************************************************************************
         public const string XML_SavePath = "Assets/Resources/XML/";
         public const string XML_ProgramInformation = "Program";
+        public const string XML_SaveInformation = "Save";
         public const string XML_ItemInformation = "Item";
 
         public const string XML_Node_Setting = "SettingInfo/Setting";
+        public const string XML_Node_SaveSlot = "SaveInfo/Slot";
 
         #endregion
 

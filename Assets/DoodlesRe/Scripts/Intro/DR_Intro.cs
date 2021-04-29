@@ -31,6 +31,21 @@ namespace DoodlesRe
 
         #region 버튼 메서드
 
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-04-28 </para>
+        /// <para> 내    용 : 프로그램을 종료하는 버튼 메서드 </para>
+        /// </summary>
+        public void Button_ActiveSaveSlotUI(bool _isActive)
+        {
+            saveSlotUI.SetActive(_isActive);
+        }
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-04-28 </para>
+        /// <para> 내    용 : 프로그램을 종료하는 버튼 메서드 </para>
+        /// </summary>
         public void Button_ActiveOptionUI(bool _isActive)
         {
             optionUI.SetActive(_isActive);

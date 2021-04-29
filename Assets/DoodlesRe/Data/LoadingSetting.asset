@@ -9,13 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d60c14b52bf07d409370b02ddd649ba, type: 3}
-  m_Name: ProgramSetting
+  m_Script: {fileID: 11500000, guid: e8c3e3e7cf170774db1137865ba482c8, type: 3}
+  m_Name: LoadingSetting
   m_EditorClassIdentifier: 
-  saveXMLNameList:
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  tipArr:
+  - 1
+  - 2
+  - 3
+  text_LoadingTime: 1
