@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -31,6 +32,24 @@ namespace DoodlesRe
         [SerializeField] private GameObject[] existenceArr;     // 세이브가 없다면 NoData UI 활성화
 
         #region 메서드
+
+        public void Func_SetSlot(DR_SaveInformation _saveSlot)
+        {
+            if (_saveSlot != null)
+            {
+                existenceArr[0].SetActive(false);
+                existenceArr[1].SetActive(true);        // Data UI 활성화
+
+                DateTime _firstTime = Convert.ToDateTime(_saveSlot.firstStartTime);
+                DateTime _SaveTime = Convert.ToDateTime(_saveSlot.saveTime);
+                TimeSpan _dateDiff = _SaveTime - _firstTime;
+
+                text_SaveTime.text = _saveSlot.saveTime;         // 저장 시간 설정
+                text_PlayTime.text = _dateDiff.ToString();         // 플레이 타임 설정
+                text_Chapter.text = _saveSlot.chapter;           // 챕터 설정
+                text_Gold.text = _saveSlot.gold.ToString();      // 소지 골드 설정
+            }
+        }
 
         public void Func_SetSlot(Sprite _title, string _saveTime, string _playTime, string _chapter, string _gold)
         {

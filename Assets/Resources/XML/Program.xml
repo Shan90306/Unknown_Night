@@ -1,4 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <SettingInfo>
-  <Setting Date="2021-04-29 19:36" />
+  <Setting Date="2021-04-30 16:09" />
+  <Test TestAttribute1="0" TestAttribute2="0" TestAttribute3="0" />
+  <Test TestAttribute1="1" TestAttribute2="1" TestAttribute3="1" />
+  <Test TestAttribute1="2" TestAttribute2="2" TestAttribute3="2" />
 </SettingInfo>

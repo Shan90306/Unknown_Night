@@ -17,7 +17,9 @@ namespace DoodlesRe
         {
             base.Func_Init();
             //Func_LoadProgramXML();
-            Func_Create_Program_InfoXML();
+            //Func_Create_Program_InfoXML();
+            //Func_LoadSaveSlotXML(0);
+            //Func_Create_SaveSlotXML(0);
         }
 
         #region Create XML
@@ -58,6 +60,16 @@ namespace DoodlesRe
 
             _setSetting.SetAttribute("Date", System.DateTime.Now.ToString("yyyy-MM-dd HH:mm"));
 
+            for (int i = 0; i < 3; i++)
+            {
+                XmlElement _setTest = _xmlDoc.CreateElement("Test");
+                _setTest.SetAttribute("TestAttribute1", i.ToString());
+                _setTest.SetAttribute("TestAttribute2", i.ToString());
+                _setTest.SetAttribute("TestAttribute3", i.ToString());
+                _setSettingInfo.AppendChild(_setTest);
+
+            }
+
             #endregion
 
             _xmlDoc.Save(DR_PathDefine.XML_SavePath + DR_PathDefine.XML_ProgramInformation + ".xml");
@@ -67,10 +79,17 @@ namespace DoodlesRe
         /// <summary>
         /// <para> 작 성 자 : 이승엽 </para>
         /// <para> 작 성 일 : 2021.04.29 </para>
-        /// <para> 내    용 : Save XML 파일을 생성하는 메서드 </para>
+        /// <para> 내    용 : 최초 Save Slot XML 파일을 생성하는 메서드 </para>
         /// </summary>
-        private void Func_Create_Save_InfoXML(int _slotNum)
+        private void Func_Create_SaveSlotXML(int _slotNum)
         {
+            DR_SaveInformation _saveInfo = new DR_SaveInformation();
+            _saveInfo.firstStartTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            _saveInfo.saveTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            _saveInfo.chapter = "Test 챕터";
+            _saveInfo.gold = 0;
+            _saveInfo.captureName = "Test 캡쳐 이미지 이름";
+
             // xml 선언
             XmlDocument _xmlDoc = new XmlDocument();
             // xml 버전과 인코딩 방식 설정
@@ -91,27 +110,27 @@ namespace DoodlesRe
             // 슬롯노드에 들어갈 속성 생성
             // 최초 시작한 시간
             XmlElement _setFirstStartTime = _xmlDoc.CreateElement("FirstStartTime");
-            _setFirstStartTime.InnerText = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm");
+            _setFirstStartTime.InnerText = _saveInfo.firstStartTime;
             _slotSet.AppendChild(_setFirstStartTime);
 
             // 저장한 시간
             XmlElement _setSaveTime = _xmlDoc.CreateElement("SaveTime");
-            _setSaveTime.InnerText = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm");
+            _setSaveTime.InnerText = _saveInfo.saveTime;
             _slotSet.AppendChild(_setSaveTime);
 
             // 챕터 이름
             XmlElement _setChapter = _xmlDoc.CreateElement("Chapter");
-            _setChapter.InnerText = "테스트 챕터 이름";
+            _setChapter.InnerText = _saveInfo.chapter;
             _slotSet.AppendChild(_setChapter);
 
             // 소지 골드
             XmlElement _setGold = _xmlDoc.CreateElement("Gold");
-            _setGold.InnerText = "0";
+            _setGold.InnerText = _saveInfo.gold.ToString();
             _slotSet.AppendChild(_setGold);
 
             // 캡쳐 이미지 이름
             XmlElement _setCaptureName = _xmlDoc.CreateElement("CaptureName");
-            _setCaptureName.InnerText = "테스트 캡쳐 이미지 이름";
+            _setCaptureName.InnerText = _saveInfo.captureName;
             _slotSet.AppendChild(_setCaptureName);
 
             #endregion
@@ -140,12 +159,20 @@ namespace DoodlesRe
                 XmlDocument _xmlDoc = new XmlDocument();
                 _xmlDoc.LoadXml(_textAsset.text);
 
-                XmlNodeList _nodes = _xmlDoc.SelectNodes(DR_PathDefine.XML_Node_Setting);
+                //XmlNodeList _nodes = _xmlDoc.SelectNodes(DR_PathDefine.XML_Node_Setting);
 
-                _nodes[0].SelectSingleNode("Date").InnerText = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm");
-                Debug.Log(_nodes[0].SelectSingleNode("Date").InnerText);
+                //_nodes[0].SelectSingleNode("Date").InnerText = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm");
+                //Debug.Log(_nodes[0].SelectSingleNode("Date").InnerText);
 
-                _xmlDoc.Save(DR_PathDefine.XML_SavePath + DR_PathDefine.XML_ProgramInformation + ".xml");
+                //_xmlDoc.Save(DR_PathDefine.XML_SavePath + DR_PathDefine.XML_ProgramInformation + ".xml");
+
+                XmlElement _programElement = _xmlDoc["SettingInfo"];
+
+                foreach (XmlElement item in _programElement.ChildNodes)
+                {
+                    Debug.Log(item.GetAttribute("Date"));
+                }
+
             }
             else
             {
@@ -159,7 +186,7 @@ namespace DoodlesRe
         /// <para> 작 성 일 : 2021.04.29 </para>
         /// <para> 내    용 : Save XML 파일을 불러오는 메서드 </para>
         /// </summary>
-        public void Func_LoadSaveSlotXML(int _slotNum)
+        public DR_SaveInformation Func_LoadSaveSlotXML(int _slotNum)
         {
             TextAsset _textAsset = (TextAsset)Resources.Load("XML/" + DR_PathDefine.XML_SaveInformation + _slotNum);
 
@@ -169,15 +196,33 @@ namespace DoodlesRe
                 _xmlDoc.LoadXml(_textAsset.text);
 
                 XmlNodeList _nodes = _xmlDoc.SelectNodes(DR_PathDefine.XML_Node_SaveSlot);
+                
+                DR_SaveInformation _saveInfo = new DR_SaveInformation();
+                _saveInfo.firstStartTime = _nodes[0].SelectSingleNode("FirstStartTime").InnerText;
+                _saveInfo.saveTime = _nodes[0].SelectSingleNode("SaveTime").InnerText;
+                _saveInfo.chapter = _nodes[0].SelectSingleNode("Chapter").InnerText;
+                _saveInfo.gold = int.Parse(_nodes[0].SelectSingleNode("Gold").InnerText);
+                _saveInfo.captureName = _nodes[0].SelectSingleNode("CaptureName").InnerText;
 
-                _nodes[0].SelectSingleNode("SaveTime").InnerText = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm");
-                Debug.Log(_nodes[0].SelectSingleNode("SaveTime").InnerText);
+                return _saveInfo;
             }
             else
             {
-                Debug.Log(DR_PathDefine.XML_SaveInformation + _slotNum + " Save 없음!");
-                Func_Create_Save_InfoXML(_slotNum);                 // Save XML 파일 생성
+                Debug.Log(DR_PathDefine.XML_SaveInformation + _slotNum + " 슬롯 없음!");
+                return null;
             }
+        }
+
+        #endregion
+
+        #region Save XML
+
+        public void Func_SaveSlotXML(int _slotNum, DR_SaveInformation _saveInfo)
+        {
+            XmlDocument _xmlDoc = new XmlDocument();
+
+
+            _xmlDoc.Save(DR_PathDefine.XML_SavePath + DR_PathDefine.XML_SaveInformation + _slotNum + ".xml");
         }
 
         #endregion

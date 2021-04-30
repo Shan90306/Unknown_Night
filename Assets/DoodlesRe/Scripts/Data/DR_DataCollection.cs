@@ -35,7 +35,7 @@ namespace DoodlesRe
     /// <para> 내    용 : 볼륨 열거형</para>
     /// </summary>
     [System.Serializable]
-    public struct MD_Volume
+    public struct DR_Volume
     {
         [Range(0f, 1f)]
         public float volume_BGM;
@@ -45,5 +45,42 @@ namespace DoodlesRe
     }
 
     #endregion
-    
+
+    #region Class 클래스
+
+    /// <summary>
+    /// <para> 작 성 자 : 이승엽 </para>
+    /// <para> 작 성 일 : 2021.04.29 </para>
+    /// <para> 내    용 : 저장슬롯에 저장할 목록 클래스</para>
+    /// </summary>
+    public class DR_SaveInformation
+    {
+        /// <summary>
+        /// 최초 시작일
+        /// </summary>
+        public string firstStartTime;
+
+        /// <summary>
+        /// 저장시간
+        /// </summary>
+        public string saveTime;
+
+        /// <summary>
+        /// 현재 챕터
+        /// </summary>
+        public string chapter;
+
+        /// <summary>
+        /// 소지금
+        /// </summary>
+        public int gold;
+
+        /// <summary>
+        /// 캡쳐한 이미지 이름
+        /// </summary>
+        public string captureName;
+    }
+
+    #endregion
+
 }

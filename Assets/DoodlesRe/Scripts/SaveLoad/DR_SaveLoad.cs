@@ -14,9 +14,9 @@ namespace DoodlesRe
         [Header("- 저장 슬롯 배열")]
         [SerializeField] private DR_SaveSlot[] saveSlotArr;
 
-        private void Start()
+        private void OnEnable()
         {
-            //DR_XML.Instance.Func_LoadSaveSlotXML(0);
+            Func_SetSaveSlot();
         }
 
         #region 기능
@@ -32,7 +32,8 @@ namespace DoodlesRe
         {
             for (int i = 0; i < saveSlotArr.Length; i++)
             {
-
+                DR_SaveInformation _saveInfo = DR_XML.Instance.Func_LoadSaveSlotXML(i);
+                saveSlotArr[i].Func_SetSlot(_saveInfo);
             }
         }
 

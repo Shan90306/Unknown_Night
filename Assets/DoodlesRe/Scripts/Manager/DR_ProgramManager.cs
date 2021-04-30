@@ -12,7 +12,7 @@ namespace DoodlesRe
     public class DR_ProgramManager : DR_Singlton<DR_ProgramManager>
     {
         [Header("- Volume")]
-        public MD_Volume soundVolume;
+        public DR_Volume soundVolume;
 
         [Header("- Fade Value")]
         public float fadeTime = 1.5f;
