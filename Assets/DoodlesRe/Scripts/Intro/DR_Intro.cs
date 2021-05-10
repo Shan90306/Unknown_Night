@@ -20,7 +20,7 @@ namespace DoodlesRe
         [SerializeField] private GameObject optionUI;
 
         [Header("- 저장슬롯 UI")]
-        [SerializeField] private GameObject saveSlotUI;
+        [SerializeField] private DR_SaveLoad saveSlotUI;
 
         private void Start()
         {
@@ -38,7 +38,8 @@ namespace DoodlesRe
         /// </summary>
         public void Button_ActiveSaveSlotUI(bool _isActive)
         {
-            saveSlotUI.SetActive(_isActive);
+            saveSlotUI.kind = SAVELOAD_KIND.Intro;
+            saveSlotUI.gameObject.SetActive(_isActive);
         }
 
         /// <summary>

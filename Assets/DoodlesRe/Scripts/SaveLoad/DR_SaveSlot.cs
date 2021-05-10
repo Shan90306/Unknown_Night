@@ -13,6 +13,9 @@ namespace DoodlesRe
     /// </summary>
     public class DR_SaveSlot : MonoBehaviour
     {
+        [HideInInspector]
+        public DR_SaveLoad saveLoad;        // 세이브 로드 관리 스크립트
+
         [Header("- 타이틀 이미지")]
         [SerializeField] private Image image_Title;
 
@@ -25,18 +28,35 @@ namespace DoodlesRe
         [Header("- 챕터 텍스트")]
         [SerializeField] private Text text_Chapter;
 
-        [Header("- 돈 텍스트")]
+        [Header("- 골드 텍스트")]
         [SerializeField] private Text text_Gold;
+
+        [Header("- 삭제 버튼")]
+        [SerializeField] private GameObject button_Delete;
 
         [Header("- 세이브 유무 오브젝트 배열")]
         [SerializeField] private GameObject[] existenceArr;     // 세이브가 없다면 NoData UI 활성화
 
+        [Header("- 세이브 유무 체크")]
+        public bool isSave;
+
+        [Header("- 세이브 슬롯 번호")]
+        [SerializeField] private int slotNum;
+
         #region 메서드
 
-        public void Func_SetSlot(DR_SaveInformation _saveSlot)
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-04-29 </para>
+        /// <para> 내    용 : 슬롯을 채우는 기능 </para>
+        /// </summary>
+        public void Func_SetSlot(DR_SaveInformation _saveSlot, int _slotNum)
         {
+            slotNum = _slotNum;     // 슬롯 번호 저장
+
             if (_saveSlot != null)
             {
+                isSave = true;
                 existenceArr[0].SetActive(false);
                 existenceArr[1].SetActive(true);        // Data UI 활성화
 
@@ -45,25 +65,57 @@ namespace DoodlesRe
                 TimeSpan _dateDiff = _SaveTime - _firstTime;
 
                 text_SaveTime.text = _saveSlot.saveTime;         // 저장 시간 설정
-                text_PlayTime.text = _dateDiff.ToString();         // 플레이 타임 설정
+                text_PlayTime.text = _dateDiff.ToString();       // 플레이 타임 설정
                 text_Chapter.text = _saveSlot.chapter;           // 챕터 설정
                 text_Gold.text = _saveSlot.gold.ToString();      // 소지 골드 설정
             }
         }
 
-        public void Func_SetSlot(Sprite _title, string _saveTime, string _playTime, string _chapter, string _gold)
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-05-10 </para>
+        /// <para> 내    용 : Intro인지 체크 후 삭제 버튼을 활성화시키는 기능 </para>
+        /// </summary>
+        public void Func_IsIntro(bool _isIntro)
         {
-            existenceArr[0].SetActive(false);
-            existenceArr[1].SetActive(true);        // Data UI 활성화
-
-            image_Title.sprite = _title;            // 타이틀 이미지 설정
-            text_SaveTime.text = _saveTime;         // 저장 시간 설정
-            text_PlayTime.text = _playTime;         // 플레이 타임 설정
-            text_Chapter.text = _chapter;           // 챕터 설정
-            text_Gold.text = _gold;                 // 소지 골드 설정
+            if (_isIntro)
+            {
+                button_Delete.gameObject.SetActive(true);
+            }
         }
 
-        
+        public void Func_DeleteSaveSlot()
+        {
+            existenceArr[1].SetActive(false);
+            existenceArr[0].SetActive(true);
+
+            DR_XML.Func_DeleteXML(slotNum);
+            isSave = false;
+        }
+
+        #endregion
+
+        #region Button 메서드
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-04-29 </para>
+        /// <para> 내    용 : Save 슬롯을 클릭했을 때 호출되는 버튼 메서드 </para>
+        /// </summary>
+        public void Button_ClickSaveSlot()
+        {
+            saveLoad.Func_ClickSaveSlot(slotNum);
+        }
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-04-29 </para>
+        /// <para> 내    용 : 삭제 버튼 메서드. 세이브 된 파일을 지우고 빈 데이터 칸으로 만드는 기능 </para>
+        /// </summary>
+        public void Button_ClickDelete()
+        {
+            saveLoad.Func_ClickDeleteSlot(slotNum);            
+        }
 
         #endregion
     }

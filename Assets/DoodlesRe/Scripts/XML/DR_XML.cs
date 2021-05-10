@@ -20,6 +20,7 @@ namespace DoodlesRe
             //Func_Create_Program_InfoXML();
             //Func_LoadSaveSlotXML(0);
             //Func_Create_SaveSlotXML(0);
+            //Func_DeleteXML(0);
         }
 
         #region Create XML
@@ -81,7 +82,7 @@ namespace DoodlesRe
         /// <para> 작 성 일 : 2021.04.29 </para>
         /// <para> 내    용 : 최초 Save Slot XML 파일을 생성하는 메서드 </para>
         /// </summary>
-        private void Func_Create_SaveSlotXML(int _slotNum)
+        public void Func_Create_SaveSlotXML(int _slotNum)
         {
             DR_SaveInformation _saveInfo = new DR_SaveInformation();
             _saveInfo.firstStartTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
@@ -208,7 +209,6 @@ namespace DoodlesRe
             }
             else
             {
-                Debug.Log(DR_PathDefine.XML_SaveInformation + _slotNum + " 슬롯 없음!");
                 return null;
             }
         }
@@ -223,6 +223,32 @@ namespace DoodlesRe
 
 
             _xmlDoc.Save(DR_PathDefine.XML_SavePath + DR_PathDefine.XML_SaveInformation + _slotNum + ".xml");
+        }
+
+        #endregion
+
+        #region Delete XML
+
+        public static void Func_DeleteXML(int _num)
+        {
+            string _filePath = Application.dataPath + @"/Resources/XML/" + DR_PathDefine.XML_SaveInformation + _num + ".xml";
+            Debug.Log(_filePath);
+
+            if (System.IO.File.Exists(_filePath))
+            {
+                Debug.Log(DR_PathDefine.XML_SaveInformation + _num + ".xml" + "있음");
+                try
+                {
+                    System.IO.File.Delete(_filePath);
+                    System.IO.File.Delete(_filePath + ".meta");
+                    Debug.Log(DR_PathDefine.XML_SaveInformation + _num + ".xml" + "삭제");
+                }
+                catch (System.Exception e)
+                {
+                    Debug.Log(e.Message);
+                    Debug.Log(e.InnerException);
+                }
+            }
         }
 
         #endregion

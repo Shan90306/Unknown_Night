@@ -15,6 +15,7 @@ namespace DoodlesRe
     {
         In, Out
     }
+
     /// <summary>
     /// <para>작 성 자 : 이승엽</para>
     /// <para>작 성 일 : 2019.11.19</para>
@@ -25,6 +26,15 @@ namespace DoodlesRe
         Intro, Main
     }
 
+    /// <summary>
+    /// <para>작 성 자 : 이승엽</para>
+    /// <para>작 성 일 : 2021.05.10</para>
+    /// <para>내    용 : Save Load 종류</para>
+    /// </summary>
+    public enum SAVELOAD_KIND
+    {
+        Save, Load, Intro
+    }
     #endregion
 
     #region Struct 구조체
