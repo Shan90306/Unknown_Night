@@ -85,12 +85,15 @@ namespace DoodlesRe
         /// </summary>
         public void Func_Create_SaveSlotXML(int _slotNum)
         {
+            // 스크린샷 찍기
+            DR_ScreenShot.Func_SaveScreenShot(_slotNum);
+
             DR_SaveInformation _saveInfo = new DR_SaveInformation();
             _saveInfo.firstStartTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             _saveInfo.saveTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             _saveInfo.chapter = "Test 챕터";
             _saveInfo.gold = 0;
-            _saveInfo.captureName = "Test 캡쳐 이미지 이름";
+            _saveInfo.captureName = DR_PathDefine.ScreenShot_SaveName + _slotNum + ".png";
 
             // xml 선언
             XmlDocument _xmlDoc = new XmlDocument();
@@ -238,19 +241,21 @@ namespace DoodlesRe
 
         #region Delete XML
 
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021.04.29 </para>
+        /// <para> 내    용 : Save XML 파일을 삭제하는 메서드 </para>
+        /// </summary>
         public static void Func_DeleteXML(int _num)
         {
-            string _filePath = Application.dataPath + @"/Resources/XML/" + DR_PathDefine.XML_SaveName + _num + ".xml";
-            Debug.Log(_filePath);
+            string _filePath = Application.dataPath + DR_PathDefine.XML_SavePath + DR_PathDefine.XML_SaveName + _num + ".xml";
 
             if (File.Exists(_filePath))
             {
-                Debug.Log(DR_PathDefine.XML_SaveName + _num + ".xml" + "있음");
                 try
                 {
                     File.Delete(_filePath);
                     File.Delete(_filePath + ".meta");
-                    Debug.Log(DR_PathDefine.XML_SaveName + _num + ".xml" + "삭제");
                 }
                 catch (System.Exception e)
                 {

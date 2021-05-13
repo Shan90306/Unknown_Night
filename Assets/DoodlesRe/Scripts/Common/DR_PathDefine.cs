@@ -7,16 +7,23 @@
     /// </summary>
     public struct DR_PathDefine
     {
+        #region Save Path
+
+        public const string XML_SavePath = "/Resources/XML/";
+        public const string XML_SavePathName = "/Resources/XML";
+        public const string ScreenShot_SavePath = "/Resources/ScreenShot/";
+        public const string ScreenShot_SavePathName = "/Resources/ScreenShot";
+
+        #endregion
 
         #region XML
 
         // ******************************************************************************************************
         // XML
         // ******************************************************************************************************
-        public const string XML_SavePath = "/Resources/XML/";
-        public const string XML_SavePathName = "/Resources/XML";
         public const string XML_ProgramInformation = "Program";
         public const string XML_SaveName = "Save";
+        public const string ScreenShot_SaveName = "Save";
         public const string XML_ItemInformation = "Item";
 
         public const string XML_Node_Setting = "SettingInfo/Setting";
