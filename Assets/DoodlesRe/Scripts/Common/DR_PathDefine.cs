@@ -13,9 +13,10 @@
         // ******************************************************************************************************
         // XML
         // ******************************************************************************************************
-        public const string XML_SavePath = "Assets/Resources/XML/";
+        public const string XML_SavePath = "/Resources/XML/";
+        public const string XML_SavePathName = "/Resources/XML";
         public const string XML_ProgramInformation = "Program";
-        public const string XML_SaveInformation = "Save";
+        public const string XML_SaveName = "Save";
         public const string XML_ItemInformation = "Item";
 
         public const string XML_Node_Setting = "SettingInfo/Setting";

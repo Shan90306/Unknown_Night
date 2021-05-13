@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
+using System.IO;
 using UnityEngine;
 
 namespace DoodlesRe
@@ -138,8 +139,16 @@ namespace DoodlesRe
 
             #endregion
 
-            _xmlDoc.Save(DR_PathDefine.XML_SavePath + DR_PathDefine.XML_SaveInformation + _slotNum + ".xml");
-            Debug.Log(DR_PathDefine.XML_SaveInformation + _slotNum + " XML Save Success");
+            DirectoryInfo _di = new DirectoryInfo(Application.dataPath + DR_PathDefine.XML_SavePathName);
+            if (!_di.Exists)
+            {
+                _di.Create();
+                Debug.Log("XML 폴더 생성");
+            }
+
+            string _path = Application.dataPath + DR_PathDefine.XML_SavePath + DR_PathDefine.XML_SaveName + _slotNum + ".xml";
+            _xmlDoc.Save(_path);
+            Debug.Log(_path + " XML Save Success");
         }
 
         #endregion
@@ -189,15 +198,15 @@ namespace DoodlesRe
         /// </summary>
         public DR_SaveInformation Func_LoadSaveSlotXML(int _slotNum)
         {
-            TextAsset _textAsset = (TextAsset)Resources.Load("XML/" + DR_PathDefine.XML_SaveInformation + _slotNum);
-
-            if (_textAsset != null)
+            string _path = Application.dataPath + DR_PathDefine.XML_SavePath + DR_PathDefine.XML_SaveName + _slotNum + ".xml";
+            FileInfo _fileInfo = new FileInfo(_path);
+            if (_fileInfo.Exists)
             {
                 XmlDocument _xmlDoc = new XmlDocument();
-                _xmlDoc.LoadXml(_textAsset.text);
+                _xmlDoc.Load(_path);
 
                 XmlNodeList _nodes = _xmlDoc.SelectNodes(DR_PathDefine.XML_Node_SaveSlot);
-                
+
                 DR_SaveInformation _saveInfo = new DR_SaveInformation();
                 _saveInfo.firstStartTime = _nodes[0].SelectSingleNode("FirstStartTime").InnerText;
                 _saveInfo.saveTime = _nodes[0].SelectSingleNode("SaveTime").InnerText;
@@ -222,7 +231,7 @@ namespace DoodlesRe
             XmlDocument _xmlDoc = new XmlDocument();
 
 
-            _xmlDoc.Save(DR_PathDefine.XML_SavePath + DR_PathDefine.XML_SaveInformation + _slotNum + ".xml");
+            _xmlDoc.Save(DR_PathDefine.XML_SavePath + DR_PathDefine.XML_SaveName + _slotNum + ".xml");
         }
 
         #endregion
@@ -231,17 +240,17 @@ namespace DoodlesRe
 
         public static void Func_DeleteXML(int _num)
         {
-            string _filePath = Application.dataPath + @"/Resources/XML/" + DR_PathDefine.XML_SaveInformation + _num + ".xml";
+            string _filePath = Application.dataPath + @"/Resources/XML/" + DR_PathDefine.XML_SaveName + _num + ".xml";
             Debug.Log(_filePath);
 
-            if (System.IO.File.Exists(_filePath))
+            if (File.Exists(_filePath))
             {
-                Debug.Log(DR_PathDefine.XML_SaveInformation + _num + ".xml" + "있음");
+                Debug.Log(DR_PathDefine.XML_SaveName + _num + ".xml" + "있음");
                 try
                 {
-                    System.IO.File.Delete(_filePath);
-                    System.IO.File.Delete(_filePath + ".meta");
-                    Debug.Log(DR_PathDefine.XML_SaveInformation + _num + ".xml" + "삭제");
+                    File.Delete(_filePath);
+                    File.Delete(_filePath + ".meta");
+                    Debug.Log(DR_PathDefine.XML_SaveName + _num + ".xml" + "삭제");
                 }
                 catch (System.Exception e)
                 {

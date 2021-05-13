@@ -40,18 +40,25 @@ namespace DoodlesRe
         {
             for (int i = 0; i < saveSlotArr.Length; i++)
             {
-                DR_SaveInformation _saveInfo = DR_XML.Instance.Func_LoadSaveSlotXML(i);
-                if (_saveInfo != null)
-                {
-                    saveSlotArr[i].Func_SetSlot(_saveInfo, i);      // 슬롯 설정
+                Func_SetSaveSlot(i);
+            }
+        }
 
-                    if (kind == SAVELOAD_KIND.Intro)
-                    {
-                        saveSlotArr[i].Func_IsIntro(true);           // 인트로인지 체크
-                    }
-                }
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-04-29 </para>
+        /// <para> 내    용 : 저장 슬롯들을 설정하는 기능 </para>
+        /// </summary>
+        private void Func_SetSaveSlot(int _slotNum)
+        {
+            DR_SaveInformation _saveInfo = DR_XML.Instance.Func_LoadSaveSlotXML(_slotNum);
 
-                saveSlotArr[i].saveLoad = this;
+            saveSlotArr[_slotNum].Func_SetSlot(_saveInfo, _slotNum);      // 슬롯 설정
+            saveSlotArr[_slotNum].saveLoad = this;
+
+            if (kind == SAVELOAD_KIND.Intro)
+            {
+                saveSlotArr[_slotNum].Func_IsIntro(true);           // 인트로인지 체크
             }
         }
 
@@ -72,10 +79,10 @@ namespace DoodlesRe
                     }
                     else
                     {
-                        Debug.Log("새로 만들기");
+                        Debug.Log("새로 만들기 : " + _slotNum);
                         DR_XML.Instance.Func_Create_SaveSlotXML(_slotNum);
 
-                        Func_SetSaveSlot();
+                        Func_SetSaveSlot(_slotNum);
                     }
                     break;
             }

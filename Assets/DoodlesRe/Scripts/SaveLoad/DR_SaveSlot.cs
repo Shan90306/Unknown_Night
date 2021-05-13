@@ -84,6 +84,11 @@ namespace DoodlesRe
             }
         }
 
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-05-10 </para>
+        /// <para> 내    용 : 슬롯에 있는 데이터를 NoData로 바꾸는 기능 </para>
+        /// </summary>
         public void Func_DeleteSaveSlot()
         {
             existenceArr[1].SetActive(false);
