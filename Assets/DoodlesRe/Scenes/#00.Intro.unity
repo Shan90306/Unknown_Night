@@ -2147,6 +2147,21 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 714512886029889365, guid: ff8ceb2778ef2014badfce49ee85c034,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 714512886029889365, guid: ff8ceb2778ef2014badfce49ee85c034,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 714512886029889365, guid: ff8ceb2778ef2014badfce49ee85c034,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 714512886081938650, guid: ff8ceb2778ef2014badfce49ee85c034,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -2445,6 +2460,16 @@ PrefabInstance:
     - target: {fileID: 6919516138783342851, guid: ff8ceb2778ef2014badfce49ee85c034,
         type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6919516139044442380, guid: ff8ceb2778ef2014badfce49ee85c034,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6919516139094347070, guid: ff8ceb2778ef2014badfce49ee85c034,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6919516139165451421, guid: ff8ceb2778ef2014badfce49ee85c034,

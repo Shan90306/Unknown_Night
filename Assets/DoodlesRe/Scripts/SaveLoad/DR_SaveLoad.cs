@@ -92,6 +92,7 @@ namespace DoodlesRe
         {
             popUpUI.Func_SetPopUI(2);
             selectSlotNum = _slotNum;
+            DR_ScreenShot.Func_DeleteSlotScreenShot(_slotNum);
         }
 
         #endregion
