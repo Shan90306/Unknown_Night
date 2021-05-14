@@ -62,27 +62,42 @@ namespace DoodlesRe
             }
         }
 
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-04-29 </para>
+        /// <para> 내    용 : 슬롯을 클릭했을 때 호출되는 기능 </para>
+        /// </summary>
         public void Func_ClickSaveSlot(int _slotNum)
         {
             switch (kind)
             {
                 case SAVELOAD_KIND.Save:
+                    if (saveSlotArr[_slotNum].isSave)
+                    {
+                        // 덮어 씌우기
+                        popUpUI.Func_SetPopUI(1);       // 생성 팝업 활성화
+                    }
+                    else
+                    {
+                        // 현재까지 진행된 스토리 저장
+                    }
                     break;
 
                 case SAVELOAD_KIND.Load:
+
                     break;
 
                 case SAVELOAD_KIND.Intro:
                     if (saveSlotArr[_slotNum].isSave)
                     {
-                        Debug.Log("게임 시작");
+                        Debug.Log("게임 시작 : " + _slotNum);
+                        DR_ProgramManager.Instance.playSlotNum = _slotNum;
+                        DR_SceneManager.Instance.Func_SceneLoading(SCENE_KIND.Main);
                     }
                     else
                     {
-                        Debug.Log("새로 만들기 : " + _slotNum);
-                        DR_XML.Instance.Func_Create_SaveSlotXML(_slotNum);
-
-                        Func_SetSaveSlot(_slotNum);
+                        selectSlotNum = _slotNum;
+                        popUpUI.Func_SetPopUI(0);       // 생성 팝업 활성화
                     }
                     break;
             }
@@ -98,6 +113,15 @@ namespace DoodlesRe
         #endregion
 
         #region Button 메서드
+
+        public void Button_CreateSlot()
+        {
+            Debug.Log("새로 만들기 : " + selectSlotNum);
+            DR_XML.Instance.Func_Create_SaveSlotXML(selectSlotNum);
+
+            Func_SetSaveSlot(selectSlotNum);
+            popUpUI.Func_DisableAllPopUp();
+        }
 
         public void Button_DeleteSaveSlot()
         {

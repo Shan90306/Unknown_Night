@@ -17,6 +17,9 @@ namespace DoodlesRe
         [Header("- Fade Value")]
         public float fadeTime = 1.5f;
 
+        [Header("- 선택한 슬롯 번호")]
+        public int playSlotNum;
+       
         protected override void Func_Init()
         {
             base.Func_Init();
