@@ -54,6 +54,17 @@ namespace DoodlesRe
         public float volume_Effect;
     }
 
+    /// <summary>
+    /// <para> 작 성 자 : 이승엽 </para>
+    /// <para> 작 성 일 : 21/05/16 </para>
+    /// <para> 내    용 : 씬 이름에 대한 구조체 </para>
+    /// </summary>
+    public struct GP_DefineSceneName
+    {
+        public const string IntroScene = "#00.Intro";
+        public const string LoadingScene = "#01.Loading";
+        public const string MainScene = "#02.Main";
+    }
     #endregion
 
     #region Class 클래스

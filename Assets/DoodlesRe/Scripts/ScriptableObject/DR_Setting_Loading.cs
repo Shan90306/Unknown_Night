@@ -17,5 +17,8 @@ namespace DoodlesRe
 
         [Header("- 로딩 텍스트 시간")]
         public float text_LoadingTime;
+
+        [Header("- 텍스트를 읽게 기다리는 시간")]
+        public float waitReadTextTime;
     }
 }

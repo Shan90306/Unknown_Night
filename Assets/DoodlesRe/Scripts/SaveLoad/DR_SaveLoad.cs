@@ -92,7 +92,8 @@ namespace DoodlesRe
                     {
                         Debug.Log("게임 시작 : " + _slotNum);
                         DR_ProgramManager.Instance.playSlotNum = _slotNum;
-                        DR_SceneManager.Instance.Func_SceneLoading(SCENE_KIND.Main);
+                        DR_ProgramManager.Instance.Func_Fade(FADE.Out, null, () =>
+                            DR_SceneManager.Instance.Func_GoLoadingBeforScene(SCENE_KIND.Main));                       
                     }
                     else
                     {

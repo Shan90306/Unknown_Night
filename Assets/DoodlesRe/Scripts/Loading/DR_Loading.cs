@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 namespace DoodlesRe
 {
@@ -27,6 +28,7 @@ namespace DoodlesRe
 
         private void Start()
         {
+            DR_ProgramManager.Instance.Func_Fade(FADE.In, image_fade);
             Func_SetTip();              // Tip 텍스트 설정
             Func_SetLoadingText();      // 로딩 텍스트 설정
         }
@@ -75,7 +77,7 @@ namespace DoodlesRe
                 _checkNum++;
                 if (_checkNum == 1)
                 {
-
+                    StartCoroutine(Co_ChangeStart());
                 }
             }
         }
@@ -89,31 +91,45 @@ namespace DoodlesRe
         /// </summary>
         private IEnumerator Co_ChangeStart()
         {
-            WaitForSecondsRealtime _waitForSecondsRealtime = new WaitForSecondsRealtime(DR_ProgramManager.Instance.fadeTime + 0.5f);
-
-            DR_ProgramManager.Instance.Func_Fade(FADE.In);
-            yield return _waitForSecondsRealtime;
-
             // 씬매니져의 이동해야 하는 씬으로 이동 준비
-            GP_SceneManager.Instance.Func_LoadSceneName(Func_ChangeSceneName());
+            DR_SceneManager.Instance.Func_LoadSceneNameAscync(Func_ChangeSceneName());
 
-            if (GP_SceneManager.Instance.useAsync)
+            if (DR_SceneManager.Instance.useAsync)
             {
-                while (!GP_SceneManager.Instance.isDone)
+                while (!DR_SceneManager.Instance.isDone)
                 {
                     //Debug.Log(GP_SceneManager.Instance.asyncProgress);
-                    loadingBar.value = GP_SceneManager.Instance.asyncProgress;
+                    //loadingBar.value = DR_SceneManager.Instance.asyncProgress;
                     yield return new WaitForFixedUpdate();
                 }
 
-                loadingBar.value = 1f;
-                GP_PlayerController.Instance.Func_Fade(FADE.Out);
-                yield return _waitForSecondsRealtime;
-
-                GP_SceneManager.Instance.Func_AsyncOperationDone();
+                //loadingBar.value = 1f;
+                yield return new WaitForSecondsRealtime(settingLoding.waitReadTextTime);
+                DR_ProgramManager.Instance.Func_Fade(FADE.Out, image_fade, ()=> DR_SceneManager.Instance.Func_AsyncOperationDone());
             }
         }
 
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 20/12/31 </para>
+        /// <para> 내    용 : 씬 타입에 따라 넘어가야 할 씬의 이름을 리턴하는 메서드 </para>
+        /// </summary>
+        private string Func_ChangeSceneName()
+        {
+            string _sceneName = string.Empty;
+
+            switch (DR_SceneManager.Instance.sceneKind)
+            {
+                case SCENE_KIND.Intro:
+                    _sceneName = GP_DefineSceneName.IntroScene;
+                    break;
+                case SCENE_KIND.Main:
+                    _sceneName = GP_DefineSceneName.MainScene;
+                    break;
+            }
+
+            return _sceneName;
+        }
         #endregion
 
     }

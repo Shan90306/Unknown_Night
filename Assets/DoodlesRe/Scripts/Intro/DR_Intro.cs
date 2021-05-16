@@ -24,9 +24,7 @@ namespace DoodlesRe
 
         private void Start()
         {
-            fadeImage.gameObject.SetActive(true);                           // Fade 이미지 활성화
-            fadeImage.DOFade(0f, DR_ProgramManager.Instance.fadeTime);      // Fade In
-            fadeImage.raycastTarget = false;                                // 이미지 클릭 X
+            DR_ProgramManager.Instance.Func_Fade(FADE.In, fadeImage);
         }
 
         #region 버튼 메서드
@@ -59,9 +57,7 @@ namespace DoodlesRe
         /// </summary>
         public void Button_Quit()
         {
-            fadeImage.raycastTarget = true;     // 다른 UI를 클릭하지 못하게 설정
-            fadeImage.DOFade(1f, DR_ProgramManager.Instance.fadeTime)
-                .OnComplete(()=> DR_ProgramManager.Func_Quit());
+            DR_ProgramManager.Instance.Func_Fade(FADE.Out, fadeImage, () => DR_ProgramManager.Func_Quit());
         }
 
         #endregion
