@@ -14,10 +14,13 @@ namespace DoodlesRe
         [Header("- 사용하는 스크립터블 배열")]
         public DR_BaseScriptableObject[] scriptableOBJArr;
 
-        private void Start()
+        protected override void Func_Init()
         {
             DontDestroyOnLoad(gameObject);
+        }
 
+        private void Start()
+        {
             for (int i = 0; i < scriptableOBJArr.Length; i++)
             {
                 scriptableOBJArr[i].Func_Init();        // 스크립터블 오브젝트 준비
@@ -41,5 +44,6 @@ namespace DoodlesRe
 
             return null;
         }
+
     }
 }

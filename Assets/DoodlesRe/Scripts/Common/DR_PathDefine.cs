@@ -11,6 +11,7 @@
 
         public const string XML_SavePath = "/Resources/XML/";
         public const string XML_SavePathName = "/Resources/XML";
+        public const string CSV_SavePath = "/Resources/CSV/";
         public const string ScreenShot_SavePath = "/Resources/ScreenShot/";
         public const string ScreenShot_SavePathName = "/Resources/ScreenShot";
 
@@ -28,6 +29,15 @@
 
         public const string XML_Node_Setting = "SettingInfo/Setting";
         public const string XML_Node_SaveSlot = "SaveInfo/Slot";
+
+        #endregion
+
+        #region CSV
+
+        // ******************************************************************************************************
+        // CSV
+        // ******************************************************************************************************
+        public const string CSV_Dialogue = "Test.csv";
 
         #endregion
 

@@ -43,6 +43,9 @@ namespace DoodlesRe
         [Header("- 세이브 슬롯 번호")]
         [SerializeField] private int slotNum;
 
+        [Header("- 세이브 정보")]
+        [SerializeField] private DR_SaveInformation saveInfo;
+
         #region 메서드
 
         /// <summary>
@@ -56,6 +59,7 @@ namespace DoodlesRe
 
             if (_saveSlot != null)
             {
+                saveInfo = _saveSlot;
                 isSave = true;
                 existenceArr[0].SetActive(false);
                 existenceArr[1].SetActive(true);        // Data UI 활성화
@@ -110,6 +114,7 @@ namespace DoodlesRe
         /// </summary>
         public void Button_ClickSaveSlot()
         {
+            DR_ProgramManager.Instance.Func_SetSaveInfo(saveInfo);
             saveLoad.Func_ClickSaveSlot(slotNum);
         }
 

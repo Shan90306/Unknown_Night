@@ -59,12 +59,20 @@ namespace DoodlesRe
     /// <para> 작 성 일 : 21/05/16 </para>
     /// <para> 내    용 : 씬 이름에 대한 구조체 </para>
     /// </summary>
-    public struct GP_DefineSceneName
+    public struct DR_DefineSceneName
     {
         public const string IntroScene = "#00.Intro";
         public const string LoadingScene = "#01.Loading";
         public const string MainScene = "#02.Main";
     }
+
+    public struct DR_DefineSaveLoadTitle
+    {
+        public const string Save = "세이브";
+        public const string Load = "로드";
+        public const string Intro = "세이브 / 로드";
+    }
+
     #endregion
 
     #region Class 클래스
@@ -74,6 +82,7 @@ namespace DoodlesRe
     /// <para> 작 성 일 : 2021.04.29 </para>
     /// <para> 내    용 : 저장슬롯에 저장할 목록 클래스</para>
     /// </summary>
+    [System.Serializable]
     public class DR_SaveInformation
     {
         /// <summary>

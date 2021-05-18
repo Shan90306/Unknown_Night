@@ -16,7 +16,6 @@ namespace DoodlesRe
 
         protected override void Func_Init()
         {
-            base.Func_Init();
             //Func_LoadProgramXML();
             //Func_Create_Program_InfoXML();
             //Func_LoadSaveSlotXML(0);

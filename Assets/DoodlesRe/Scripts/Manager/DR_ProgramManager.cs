@@ -26,9 +26,11 @@ namespace DoodlesRe
         [Header("- 선택한 슬롯 번호")]
         public int playSlotNum;
 
+        [Header("- 선택한 세이브 정보")]
+        public DR_SaveInformation saveInfo;
+
         protected override void Func_Init()
         {
-            base.Func_Init();
             DontDestroyOnLoad(gameObject);
         }
 
@@ -59,6 +61,16 @@ namespace DoodlesRe
                        _action?.Invoke();
                    });
             }
+        }
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-05-18 </para>
+        /// <para> 내    용 : 선택한 세이브 정보를 설정하는 기능 </para>
+        /// </summary>
+        public void Func_SetSaveInfo(DR_SaveInformation _saveInfo)
+        {
+            saveInfo = _saveInfo;
         }
 
         public static void Func_Quit()

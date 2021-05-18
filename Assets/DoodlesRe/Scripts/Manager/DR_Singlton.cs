@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Compilation;
 using UnityEngine;
 
 namespace DoodlesRe
@@ -18,20 +19,43 @@ namespace DoodlesRe
             {
                 if (_instance == null)
                 {
-                    _instance = GameObject.FindObjectOfType<T>();
-                    if (_instance == null)
+                    T[] _instanceArr = FindObjectsOfType<T>();
+
+                    if (_instanceArr.Length == 0)
                     {
                         GameObject _go = new GameObject(typeof(T).ToString(), typeof(T));
                         _instance = _go.GetComponent<T>();
                     }
+
+                    if (_instanceArr.Length > 0)
+                    {
+                        _instance = _instanceArr[0];
+                    }
+
+                    if (_instanceArr.Length > 1)
+                    {
+                        for (int i = 1; i < _instanceArr.Length; i++)
+                        {
+                            Destroy(_instanceArr[i].gameObject);
+                        }
+                    }
                 }
+
                 return _instance;
             }
         }
 
-        protected virtual void Awake()
+        private void Awake()
         {
-            Func_Init();
+            if (_instance == null)
+            {
+                _instance = this as T;
+                Func_Init();
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
 
         /// <summary>
@@ -39,9 +63,7 @@ namespace DoodlesRe
         /// <para> 작 성 일 : 2020.04.03 </para>
         /// <para> 내    용 : 싱글톤 초기화 하는 메서드 </para>
         /// </summary>
-        protected virtual void Func_Init()
-        {
-            _instance = this as T;
-        }
+        protected abstract void Func_Init();
+        
     }
 }

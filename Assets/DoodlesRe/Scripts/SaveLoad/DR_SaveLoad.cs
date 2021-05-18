@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DoodlesRe
 {
@@ -11,6 +12,9 @@ namespace DoodlesRe
     /// </summary>
     public class DR_SaveLoad : MonoBehaviour
     {
+        [Header("- 세이브 로드의 타이틀 텍스트")]
+        [SerializeField] private Text text_Title;
+
         [Header("- 저장 슬롯 배열")]
         [SerializeField] private DR_SaveSlot[] saveSlotArr;
 
@@ -23,24 +27,49 @@ namespace DoodlesRe
         [Header("- 선택한 슬롯 번호")]
         [SerializeField] private int selectSlotNum;
 
-
-        private void OnEnable()
+        private void Start()
         {
-            Func_SetSaveSlot();
+            Func_SetTitle(kind);
+            StartCoroutine(Co_SetSaveSlot());
         }
 
         #region 기능
 
         /// <summary>
         /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-05-18 </para>
+        /// <para> 내    용 : Save & Load창의 타이틀 텍스트를 변경하는 기능</para>
+        /// </summary>
+        private void Func_SetTitle(SAVELOAD_KIND _kind)
+        {
+            kind = _kind;
+            switch (kind)
+            {
+                case SAVELOAD_KIND.Save:
+                    text_Title.text = DR_DefineSaveLoadTitle.Save;
+                    break;
+
+                case SAVELOAD_KIND.Load:
+                    text_Title.text = DR_DefineSaveLoadTitle.Load;
+                    break;
+
+                case SAVELOAD_KIND.Intro:
+                    text_Title.text = DR_DefineSaveLoadTitle.Intro;
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
         /// <para> 작 성 일 : 2021-04-29 </para>
         /// <para> 내    용 : 저장 슬롯들을 설정하는 기능 </para>
         /// </summary>
-        private void Func_SetSaveSlot()
+        private IEnumerator Co_SetSaveSlot()
         {
             for (int i = 0; i < saveSlotArr.Length; i++)
             {
                 Func_SetSaveSlot(i);
+                yield return null;
             }
         }
 
@@ -128,6 +157,28 @@ namespace DoodlesRe
         {
             popUpUI.Func_DisableAllPopUp();     // 모든 팝업창 닫기
             saveSlotArr[selectSlotNum].Func_DeleteSaveSlot();
+        }
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-05-18 </para>
+        /// <para> 내    용 : Save 버튼을 눌렀을 때 세이브 창이 켜지는 버튼 메서드 </para>
+        /// </summary>
+        public void Button_Save()
+        {
+            Func_SetTitle(SAVELOAD_KIND.Save);
+            gameObject.SetActive(true);
+        }
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-05-18 </para>
+        /// <para> 내    용 : Load 버튼을 눌렀을 때 로드 창이 켜지는 버튼 메서드 </para>
+        /// </summary>
+        public void Button_Load()
+        {
+            Func_SetTitle(SAVELOAD_KIND.Load);
+            gameObject.SetActive(true);
         }
 
         #endregion

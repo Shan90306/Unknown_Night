@@ -27,6 +27,8 @@ namespace DoodlesRe
 
         private AsyncOperation asyncOperation;      // Async
 
+        protected override void Func_Init() { }
+
         /// <summary>
         /// <para> 작 성 자 : 이승엽 </para>
         /// <para> 작 성 일 : 2021-05-16 </para>
@@ -35,7 +37,7 @@ namespace DoodlesRe
         public void Func_GoLoadingBeforScene(SCENE_KIND _scene)
         {
             sceneKind = _scene;
-            SceneManager.LoadScene(GP_DefineSceneName.LoadingScene);
+            SceneManager.LoadScene(DR_DefineSceneName.LoadingScene);
         }
 
         /// <summary>
@@ -90,5 +92,6 @@ namespace DoodlesRe
         {
             asyncOperation.allowSceneActivation = true;
         }
+
     }
 }

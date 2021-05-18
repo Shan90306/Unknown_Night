@@ -121,10 +121,10 @@ namespace DoodlesRe
             switch (DR_SceneManager.Instance.sceneKind)
             {
                 case SCENE_KIND.Intro:
-                    _sceneName = GP_DefineSceneName.IntroScene;
+                    _sceneName = DR_DefineSceneName.IntroScene;
                     break;
                 case SCENE_KIND.Main:
-                    _sceneName = GP_DefineSceneName.MainScene;
+                    _sceneName = DR_DefineSceneName.MainScene;
                     break;
             }
 

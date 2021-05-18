@@ -86,10 +86,13 @@ namespace DoodlesRe
         public static void Func_DeleteSlotScreenShot(int _slotNum)
         {
             string _path = Application.dataPath + DR_PathDefine.ScreenShot_SavePath + DR_PathDefine.ScreenShot_SaveName + _slotNum + ".png";
+            string _pathMeta = Application.dataPath + DR_PathDefine.ScreenShot_SavePath + DR_PathDefine.ScreenShot_SaveName + _slotNum + ".png.meta";
             System.IO.FileInfo _fileInfo = new System.IO.FileInfo(_path);
+            System.IO.FileInfo _fileMetaInfo = new System.IO.FileInfo(_pathMeta);
             if (_fileInfo.Exists)
             {
                 _fileInfo.Delete();
+                _fileMetaInfo.Delete();
             }
         }
     }

@@ -1,0 +1,18 @@
+﻿Index,Character ID,Name,Expression,Art Asset ID
+0,character.0,성지훈,Talk,character_0_1
+1,character.0,성지훈,Scream,character_0_2
+2,character.0,성지훈,Fight,character_0_3
+3,character.0,성지훈,Panic,character_0_4
+4,character.1,고은혜,Talk,character_1_1
+5,character.1,고은혜,Scream,character_1_2
+6,character.1,고은혜,Fight,character_1_3
+7,character.1,고은혜,Smile,character_1_4
+8,character.2,채아람,Talk,character_2_1
+9,character.2,채아람,Scream,character_2_2
+10,character.2,채아람,Fight,character_2_3
+11,character.2,채아람,Smile,character_2_4
+12,character.3,한소원,Talk,character_3_1
+13,character.3,한소원,Scream,character_3_2
+14,character.3,한소원,Fight,character_3_3
+15,character.3,한소원,Smile,character_3_4
+16,character.4,남학생A,Talk,character_4_1
