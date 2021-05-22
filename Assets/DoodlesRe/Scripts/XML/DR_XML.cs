@@ -90,9 +90,11 @@ namespace DoodlesRe
             DR_SaveInformation _saveInfo = new DR_SaveInformation();
             _saveInfo.firstStartTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             _saveInfo.saveTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            _saveInfo.csvReadLine = 0;
             _saveInfo.chapter = "Test 챕터";
             _saveInfo.gold = 0;
             _saveInfo.captureName = DR_PathDefine.ScreenShot_SaveName + _slotNum + ".png";
+            _saveInfo.isCommunication = true;
 
             // xml 선언
             XmlDocument _xmlDoc = new XmlDocument();
@@ -122,6 +124,11 @@ namespace DoodlesRe
             _setSaveTime.InnerText = _saveInfo.saveTime;
             _slotSet.AppendChild(_setSaveTime);
 
+            // CSV에서 읽고있는 라인
+            XmlElement _setCSVReadLine = _xmlDoc.CreateElement("CSVReadLine");
+            _setCSVReadLine.InnerText = _saveInfo.csvReadLine.ToString();
+            _slotSet.AppendChild(_setCSVReadLine);
+
             // 챕터 이름
             XmlElement _setChapter = _xmlDoc.CreateElement("Chapter");
             _setChapter.InnerText = _saveInfo.chapter;
@@ -136,6 +143,11 @@ namespace DoodlesRe
             XmlElement _setCaptureName = _xmlDoc.CreateElement("CaptureName");
             _setCaptureName.InnerText = _saveInfo.captureName;
             _slotSet.AppendChild(_setCaptureName);
+
+            // 대화중이였는지 체크
+            XmlElement _setIsCommunication = _xmlDoc.CreateElement("IsCommunication");
+            _setIsCommunication.InnerText = _saveInfo.isCommunication.ToString();
+            _slotSet.AppendChild(_setIsCommunication);
 
             #endregion
 
@@ -212,9 +224,11 @@ namespace DoodlesRe
                 DR_SaveInformation _saveInfo = new DR_SaveInformation();
                 _saveInfo.firstStartTime = _nodes[0].SelectSingleNode("FirstStartTime").InnerText;
                 _saveInfo.saveTime = _nodes[0].SelectSingleNode("SaveTime").InnerText;
+                _saveInfo.csvReadLine = int.Parse(_nodes[0].SelectSingleNode("CSVReadLine").InnerText);
                 _saveInfo.chapter = _nodes[0].SelectSingleNode("Chapter").InnerText;
                 _saveInfo.gold = int.Parse(_nodes[0].SelectSingleNode("Gold").InnerText);
                 _saveInfo.captureName = _nodes[0].SelectSingleNode("CaptureName").InnerText;
+                _saveInfo.isCommunication = bool.Parse(_nodes[0].SelectSingleNode("IsCommunication").InnerText);
 
                 return _saveInfo;
             }

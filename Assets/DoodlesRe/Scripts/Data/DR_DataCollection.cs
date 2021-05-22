@@ -96,6 +96,11 @@ namespace DoodlesRe
         public string saveTime;
 
         /// <summary>
+        /// CSV에서 읽고있는 라인
+        /// </summary>
+        public int csvReadLine;
+
+        /// <summary>
         /// 현재 챕터
         /// </summary>
         public string chapter;
@@ -109,6 +114,11 @@ namespace DoodlesRe
         /// 캡쳐한 이미지 이름
         /// </summary>
         public string captureName;
+
+        /// <summary>
+        /// 대화중이였는지 체크
+        /// </summary>
+        public bool isCommunication;
     }
 
     #endregion

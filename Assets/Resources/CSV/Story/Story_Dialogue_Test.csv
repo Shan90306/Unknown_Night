@@ -1,0 +1,4 @@
+Dialogue ID,Unique ID,Index,Type,Actor,Constraint,Text,Location_Left,Location_Middle,Location_Right,Expression_Left,Expression_Middle,Expression_Right,Area,EFFECT
+Dialogue.1,u_story_0-1,st-0-1,Text,16,,겨울은 밤이 이르다. ,,,,,,,Area_DarkStreet1,BGM_1
+Dialogue.1,u_story_0-2,st-0-2,Text,16,,해가 일찌감치 져버리면 하늘은 금방 어두워진다.,,,,,,,Area_DarkStreet1,BGM_1
+Dialogue.2,u_story_2-1,st-2-1,Text,16,,테스트문장 2-1 첫번째,,,,,,,Area_DarkStreet1,BGM_1

@@ -34,9 +34,8 @@ namespace DoodlesRe
         /// </summary>
         private void Func_SetInit()
         {
-            if (true)   // 대화중이였으면 대화스크립트 활성화       *** 현재 무엇으로 체크할지 안정해져서 언제나 true
+            if (DR_ProgramManager.Instance.saveInfo.isCommunication)   // 대화중이였으면 대화스크립트 활성화
             {
-                Debug.Log("Test - 대화 기능 On");
                 communication.Func_Init();
             }
 

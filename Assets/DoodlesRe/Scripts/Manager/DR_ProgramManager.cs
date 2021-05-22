@@ -29,11 +29,24 @@ namespace DoodlesRe
         [Header("- 선택한 세이브 정보")]
         public DR_SaveInformation saveInfo;
 
+        #region CSV Data
+
+        public static List<Dictionary<string, object>> dialogueList;    // 스토리 CSV
+        public static List<Dictionary<string, object>> characterList;   // 캐릭터 CSV
+
+        #endregion
+
+
         protected override void Func_Init()
         {
             DontDestroyOnLoad(gameObject);
         }
 
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-04-28 </para>
+        /// <para> 내    용 : Fade 이미지를 설정하고 Fade 시키는 기능 </para>
+        /// </summary>
         public void Func_Fade(FADE _fadeKind, Image _fadeImage = null, Action _action = null)
         {
             if (_fadeImage != null)
@@ -60,6 +73,25 @@ namespace DoodlesRe
                    {
                        _action?.Invoke();
                    });
+            }
+        }
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-05-18 </para>
+        /// <para> 내    용 : 선택한 세이브 정보를 설정하는 기능 </para>
+        /// </summary>
+        public void Func_SetCSVData()
+        {
+            if (dialogueList == null)
+            {
+                Debug.Log("CSV 스토리 캐싱");
+                dialogueList = DR_CSV.Func_Read(DR_PathDefine.CSV_StoryPath + DR_PathDefine.CSV_Dialogue);
+            }
+            if (characterList == null)
+            {
+                Debug.Log("CSV 캐릭터 캐싱");
+                characterList = DR_CSV.Func_Read(DR_PathDefine.CSV_StoryPath + DR_PathDefine.CSV_Character);
             }
         }
 

@@ -12,13 +12,15 @@ namespace DoodlesRe
     /// </summary>
     public class DR_Communication : MonoBehaviour
     {
-        [Header("- 이름")]
+        [Header("- 이름 텍스트")]
         [SerializeField] private Text text_name;
 
-        [Header("- 대화")]
+        [Header("- 대화 텍스트")]
         [SerializeField] private Text text_Dialogue;
 
-        private List<Dictionary<string, object>> dialogueList;
+        [Header("- 텍스트 출력을 스킵할것인지 체크")]
+        [SerializeField] private bool isSkip;
+
         private GameObject rootOBJ;     // 대화기능 UI의 root 오브젝트
 
         #region 기능
@@ -33,13 +35,29 @@ namespace DoodlesRe
             if (rootOBJ == null)
                 rootOBJ = transform.parent.gameObject;
 
-            dialogueList = DR_CSV.Func_Read(DR_PathDefine.CSV_Dialogue);
-            for (int i = 0; i < dialogueList.Count; i++)
-            {
-
-            }
+            Func_SetTextBox(DR_ProgramManager.Instance.saveInfo.csvReadLine);
 
             rootOBJ.SetActive(true);
+        }
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-05-18 </para>
+        /// <para> 내    용 : 대화박스를 설정하는 기능 </para>
+        /// </summary>
+        public void Func_SetTextBox(int _csvLineNum)
+        {
+            text_name.text = DR_ProgramManager.dialogueList[_csvLineNum]["Actor"] as string;
+            string _scriptText = DR_ProgramManager.dialogueList[_csvLineNum]["Text"] as string;
+
+            if (isSkip)
+            {
+                Debug.Log("한글자씩 출력 기능");
+            }
+            else
+            {
+                text_Dialogue.text = _scriptText;
+            }
         }
 
         #endregion

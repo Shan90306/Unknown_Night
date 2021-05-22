@@ -25,10 +25,12 @@ namespace DoodlesRe
 
             if (_fileInfo.Exists)
             {
-                StreamReader _sr = new StreamReader(_path)
-                TextAsset _data = Resources.Load(_file) as TextAsset;
+                //TextAsset _data = Resources.Load(_file) as TextAsset;
+                StreamReader _sr = new StreamReader(_path);
+                string _sorce = _sr.ReadToEnd();
+                _sr.Close();
 
-                var _line = Regex.Split(_data.text, LINE_SPLIT);
+                var _line = Regex.Split(_sorce, LINE_SPLIT);
                 if (_line.Length <= 1)
                 {
                     return _list;
@@ -69,9 +71,9 @@ namespace DoodlesRe
 
                     _list.Add(_entry);
                 }
-
-                return _list;
             }
+
+            return _list;
         }
     }
 }
