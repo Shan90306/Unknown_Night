@@ -1,20 +1,20 @@
-﻿Dialogue ID,Unique ID,Index,Type,Actor,Constraint,Text,Location_Left,Location_Middle,Location_Right,Expression_Left,Expression_Middle,Expression_Right,Area,EFFECT
-Dialogue.1,u_story_0-1,st-0-1,Text,character.4,,겨울은 밤이 이르다. ,,,,,,,Area_DarkStreet1,BGM_1
-Dialogue.1,u_story_0-2,st-0-2,Text,character.4,,해가 일찌감치 져버리면 하늘은 금방 어두워진다.,,,,,,,Area_DarkStreet1,BGM_1
-Dialogue.1,u_story_0-3,st-0-3,Text,character.4,,"사람들도 하나둘씩 돌아가고, 상점가도 그에 맞춰 평소보다 빨리 문을 닫는다. ",,,,,,,Area_DarkStreet1,BGM_1
-Dialogue.1,u_story_0-4,st-0-4,Text,character.4,,그러면 어느새인가 주위는 아무도 없던 것처럼 조용해진다. ,,,,,,,Area_DarkStreet1,BGM_1
-Dialogue.1,u_story_0-5,st-0-5,Text,character.4,,들리는 건 내 자신이 내는 발자국 소리와 귀에 스치는 바람 소리뿐. ,,,,,,,Area_DarkStreet1,BGM_1
-Dialogue.1,u_story_0-6,st-0-6,Text,character.4,,이런 날에 골목길을 걷고 있으면 ,,,,,,,Area_DarkStreet1,BGM_1
-Dialogue.1,u_story_0-7,st-0-7,Text,character.4,,지금이 한밤중처럼 느껴진다. ,,,,,,,Area_DarkStreet1,BGM_1
-Dialogue.1,u_story_0-8,st-0-7,Text,character.4,,"""......""",,,,,,,Area_DarkStreet1,BGM_1
-Dialogue.1,u_story_0-9,st-0-7,Text,character.4,,학교 갈 때 항상 가는 길이지만 오늘따라 찜찜하다. ,,,,,,,Area_DarkStreet1,BGM_1
-Dialogue.1,u_story_0-10,st-0-8,Text,character.4,,"건물 사이에 가려진 골목 안은 유난히 어둡고, 침침하게 켜져 있는 가로등은 서로 멀찍이도 떨어져 있다. ",,,,,,,Area_DarkStreet1,BGM_1
-Dialogue.1,u_story_0-11,st-0-9,Text,character.4,,가로등에서 멀어지면 멀어질수록 ,,,,,,,Area_DarkStreet2,BGM_1
-Dialogue.1,u_story_0-12,st-0-10,Text,character.4,,골목길이 어두워진다. ,,,,,,,Area_DarkStreet3,BGM_1
-Dialogue.1,u_story_0-13,st-0-11,Text,character.4,,재빨리 다음 가로등까지 걸어가면 다시 조금 밝아진다. ,,,,,,,Area_DarkStreet2,BGM_1
-Dialogue.1,u_story_0-14,st-0-12,Text,character.4,,무서워도 이렇게 가로등 몇 개만 더 지나면 집이다. ,,,,,,,Area_DarkStreet3,BGM_1
-Dialogue.1,u_story_0-15,st-0-13,Text,character.4,,빨리 돌아가야지. ,,,,,,,Area_DarkStreet2,BGM_1
-Dialogue.1,u_story_0-16,st-0-14,Text,character.4,,"""!!""",,,,,,,Area_DarkStreet4,Sound_Electricity
-Dialogue.1,u_story_0-17,st-0-15,Text,character.4,,갑자기 골목길이 어둠으로 가득 찼다.  ,,,,,,,Area_DarkStreet4,Sound_Electricity
-Dialogue.1,u_story_0-18,st-0-16,Text,character.4,,한 치 앞도 보이지 않도록 새까맣다. ,,,,,,,Area_DarkStreet4,Sound_Electricity
-Dialogue.1,u_story_0-19,st-0-17,Text,character.4,,뭐지? 가로등이 꺼진 건가? ,,,,,,,Area_DarkStreet4,
+Dialogue ID,Unique ID,Index,Type,Actor,Constraint,Text,Location_Left,Location_Middle,Location_Right,Expression_Left,Expression_Middle,Expression_Right,Area,EFFECT
+Dialogue.1,u_story_0-1,st-0-1,Text,16,,겨울은 밤이 이르다. ,,,,,,,Area_DarkStreet1,BGM_1
+Dialogue.1,u_story_0-2,st-0-2,Text,16,,해가 일찌감치 져버리면 하늘은 금방 어두워진다.,,,,,,,Area_DarkStreet1,BGM_1
+Dialogue.1,u_story_0-3,st-0-3,Text,16,,"사람들도 하나둘씩 돌아가고, 상점가도 그에 맞춰 평소보다 빨리 문을 닫는다. ",,,,,,,Area_DarkStreet1,BGM_1
+Dialogue.1,u_story_0-4,st-0-4,Text,16,,그러면 어느새인가 주위는 아무도 없던 것처럼 조용해진다. ,,,,,,,Area_DarkStreet1,BGM_1
+Dialogue.1,u_story_0-5,st-0-5,Text,16,,들리는 건 내 자신이 내는 발자국 소리와 귀에 스치는 바람 소리뿐. ,,,,,,,Area_DarkStreet1,BGM_1
+Dialogue.1,u_story_0-6,st-0-6,Text,16,,이런 날에 골목길을 걷고 있으면 ,,,,,,,Area_DarkStreet1,BGM_1
+Dialogue.1,u_story_0-7,st-0-7,Text,16,,지금이 한밤중처럼 느껴진다. ,,,,,,,Area_DarkStreet1,BGM_1
+Dialogue.1,u_story_0-8,st-0-7,Text,16,,"""......""",,,,,,,Area_DarkStreet1,BGM_1
+Dialogue.1,u_story_0-9,st-0-7,Text,16,,학교 갈 때 항상 가는 길이지만 오늘따라 찜찜하다. ,,,,,,,Area_DarkStreet1,BGM_1
+Dialogue.1,u_story_0-10,st-0-8,Text,16,,"건물 사이에 가려진 골목 안은 유난히 어둡고, 침침하게 켜져 있는 가로등은 서로 멀찍이도 떨어져 있다. ",,,,,,,Area_DarkStreet1,BGM_1
+Dialogue.1,u_story_0-11,st-0-9,Text,16,,가로등에서 멀어지면 멀어질수록 ,,,,,,,Area_DarkStreet2,BGM_1
+Dialogue.1,u_story_0-12,st-0-10,Text,16,,골목길이 어두워진다. ,,,,,,,Area_DarkStreet3,BGM_1
+Dialogue.1,u_story_0-13,st-0-11,Text,16,,재빨리 다음 가로등까지 걸어가면 다시 조금 밝아진다. ,,,,,,,Area_DarkStreet2,BGM_1
+Dialogue.1,u_story_0-14,st-0-12,Text,16,,무서워도 이렇게 가로등 몇 개만 더 지나면 집이다. ,,,,,,,Area_DarkStreet3,BGM_1
+Dialogue.1,u_story_0-15,st-0-13,Text,16,,빨리 돌아가야지. ,,,,,,,Area_DarkStreet2,BGM_1
+Dialogue.1,u_story_0-16,st-0-14,Text,16,,"""!!""",,,,,,,Area_DarkStreet4,Sound_Electricity
+Dialogue.1,u_story_0-17,st-0-15,Text,16,,갑자기 골목길이 어둠으로 가득 찼다.  ,,,,,,,Area_DarkStreet4,Sound_Electricity
+Dialogue.1,u_story_0-18,st-0-16,Text,16,,한 치 앞도 보이지 않도록 새까맣다. ,,,,,,,Area_DarkStreet4,Sound_Electricity
+Dialogue.1,u_story_0-19,st-0-17,Text,16,,뭐지? 가로등이 꺼진 건가? ,,,,,,,Area_DarkStreet4,

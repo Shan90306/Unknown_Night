@@ -409,7 +409,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text_name: {fileID: 452069667}
   text_Dialogue: {fileID: 425684762}
-  isSkip: 0
+  isFastRead: 1
+  eachScriptTime: 0.2
+  nowDialogue: 
 --- !u!1 &168120377
 GameObject:
   m_ObjectHideFlags: 0

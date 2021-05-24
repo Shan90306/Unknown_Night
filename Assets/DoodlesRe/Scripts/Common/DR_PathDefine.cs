@@ -38,7 +38,7 @@
         // ******************************************************************************************************
         // CSV
         // ******************************************************************************************************
-        public const string CSV_Dialogue = "Story_Dialogue_Test.csv";
+        public const string CSV_Dialogue = "Story_Dialogue.csv";
         public const string CSV_Character = "Story_Character.csv";
 
         #endregion
