@@ -12,15 +12,24 @@ namespace DoodlesRe
     /// </summary>
     public class DR_ButtonArea : MonoBehaviour
     {
+        [Header("- 맵 버튼 관리")]
         [SerializeField] private DR_ButtonAreaMenu buttonMenu;
 
-        [Header("- 버튼 이미지 배열")]
+        [Header("- 맵 종류")]
+        [SerializeField] private MAINMAP_KIND mapKind;
+
+        [Header("- 버튼 스프라이트 배열")]
         [SerializeField] private Sprite[] spriteArr;    // 0: 비활성화  1: 활성화
 
-        [Header("- 버튼 이미지 배열")]
+        [Header("- 버튼 이미지")]
         [SerializeField] private Image buttonImage;    // 0: 비활성화  1: 활성화
 
         private bool isClick;
+
+        private void Reset()
+        {
+            buttonImage = GetComponent<Image>();
+        }
 
         #region 기능
 
@@ -32,7 +41,7 @@ namespace DoodlesRe
         public void Func_Init()
         {
             isClick = false;
-            buttonImage.sprite = spriteArr[1];
+            buttonImage.sprite = spriteArr[0];
         }
 
         #endregion
@@ -46,9 +55,10 @@ namespace DoodlesRe
         /// </summary>
         public void Button_ClickArea()
         {
-            buttonMenu.Func_AllDisable();
+            buttonMenu.Func_InitAllButton();        // 버튼들 모두 초기화
+            buttonMenu.Func_MapSellect(mapKind);    // 맵 설정
 
-
+            buttonImage.sprite = spriteArr[1];      // 버튼 이미지 활성화
         }
 
         #endregion

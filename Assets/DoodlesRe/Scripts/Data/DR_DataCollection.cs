@@ -35,6 +35,17 @@ namespace DoodlesRe
     {
         Save, Load, Intro
     }
+
+    /// <summary>
+    /// <para>작 성 자 : 이승엽</para>
+    /// <para>작 성 일 : 2021.06.01</para>
+    /// <para>내    용 : Main 맵 종류</para>
+    /// </summary>
+    public enum MAINMAP_KIND
+    {
+        School, Shopping_Street, Church
+    }
+
     #endregion
 
     #region Struct 구조체
