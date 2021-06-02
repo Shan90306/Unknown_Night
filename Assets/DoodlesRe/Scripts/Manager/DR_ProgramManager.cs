@@ -29,6 +29,12 @@ namespace DoodlesRe
         [Header("- 선택한 세이브 정보")]
         public DR_SaveInformation saveInfo;
 
+        [Header("- 날씨")]
+        public WEATHER_KIND weather;
+
+        [Header("- 시간 대")]
+        public TIME_KIND time;
+
         #region CSV Data
 
         public static List<Dictionary<string, object>> dialogueList;    // 스토리 CSV

@@ -46,6 +46,26 @@ namespace DoodlesRe
         School, Shopping_Street, Church
     }
 
+    /// <summary>
+    /// <para>작 성 자 : 이승엽</para>
+    /// <para>작 성 일 : 2021.06.02</para>
+    /// <para>내    용 : 날씨 종류</para>
+    /// </summary>
+    public enum WEATHER_KIND
+    {
+        Sunny, Rainy, Cloudy
+    }
+
+    /// <summary>
+    /// <para>작 성 자 : 이승엽</para>
+    /// <para>작 성 일 : 2021.06.02</para>
+    /// <para>내    용 : 시간 종류</para>
+    /// </summary>
+    public enum TIME_KIND
+    {
+        Morning, Afternoon, Evening , Night
+    }
+
     #endregion
 
     #region Struct 구조체

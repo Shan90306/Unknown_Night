@@ -21,10 +21,16 @@ namespace DoodlesRe
 
         [Header("- Fade 이미지")]
         [Header("UI"), Space(20)]
-        [SerializeField] private Image fadeImage;
+        [SerializeField] private Image image_Fade;
 
         [Header("- 메인 맵")]
-        [SerializeField] private Image mainMapImage;
+        [SerializeField] private Image image_MainMap;
+
+        [Header("- 날씨 이미지")]
+        [SerializeField] private Image image_Weather;
+
+        [Header("- 시간 텍스트")]
+        [SerializeField] private Text text_Time;
 
         private void Start()
         {
@@ -47,7 +53,21 @@ namespace DoodlesRe
                 communication.Func_Init();
             }
 
-            DR_ProgramManager.Instance.Func_Fade(FADE.In, fadeImage);
+            Func_SetDay();
+
+            DR_ProgramManager.Instance.Func_Fade(FADE.In, image_Fade);
+        }
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-06-02 </para>
+        /// <para> 내    용 : 해당 일을 설정하는 기능 </para>
+        /// *** 추후 매개변수를 스토리 CSV의 해당날짜를 가져와서 사용할 예정
+        /// </summary>
+        public void Func_SetDay()
+        {
+            image_Weather.sprite = mainSetting.weatherArr[(int)DR_ProgramManager.Instance.weather];
+            text_Time.text = mainSetting.timeArr[(int)DR_ProgramManager.Instance.time];
         }
 
         #endregion
@@ -61,7 +81,7 @@ namespace DoodlesRe
         /// </summary>
         public void Func_SetMainMap(MAINMAP_KIND _kind)
         {
-            mainMapImage.sprite = mainSetting.mainMapArr[(int)_kind];
+            image_MainMap.sprite = mainSetting.mainMapArr[(int)_kind];
         }
 
         #endregion

@@ -14,5 +14,11 @@ namespace DoodlesRe
     {
         [Header("- Main Map 스프라이트 배열")]
         public Sprite[] mainMapArr;
+
+        [Header("- 날씨 스프라이트 배열")]
+        public Sprite[] weatherArr;
+
+        [Header("- 시간 텍스트 배열")]
+        public string[] timeArr;
     }
 }
