@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 namespace DoodlesRe
 {
@@ -32,12 +33,22 @@ namespace DoodlesRe
         [Header("- 시간 텍스트")]
         [SerializeField] private Text text_Time;
 
+        [Header("- 이벤트 정보 창")]
+        [SerializeField] private DR_EventInfo eventInfo;
+
+        [Header("- 이벤트 정보 창이 움직여야 할 위치")]
+        [SerializeField] private Transform eventInfoPoint;
+
+        [Header("- 이벤트 클릭 시 이벤트가 와야 할 자리")]
+        [SerializeField] private Transform eventMovePoint;
+
+        private Transform minimapRoot;      // 미니맵 부모
+
         private void Start()
         {
+            minimapRoot = image_MainMap.transform.parent;
             Func_SetInit();
         }
-
-        
 
         #region 저장된 정보를 준비
 
@@ -82,6 +93,37 @@ namespace DoodlesRe
         public void Func_SetMainMap(MAINMAP_KIND _kind)
         {
             image_MainMap.sprite = mainSetting.mainMapArr[(int)_kind];
+        }
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-06-03 </para>
+        /// <para> 내    용 : 이벤트 정보창을 설정하는 기능 </para>
+        /// </summary>
+        public void Func_SetEventInfo(Vector3 _eventPoint)
+        {
+            eventInfo.Func_SetEnable(eventInfoPoint.position);      // 정보창 활성화
+            Func_SetEnlargement(true, _eventPoint);
+        }
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-06-03 </para>
+        /// <para> 내    용 : 맵 이벤트를 확대 축소 하는 기능 </para>
+        /// </summary>
+        public void Func_SetEnlargement(bool _enlargement, Vector3 _eventPoint = new Vector3())
+        {
+            if (_enlargement)       // 확대 시
+            {
+                minimapRoot.DOScale(new Vector3(2f, 2f, 2f), eventInfo.backTime);
+                Vector3 _pos = eventMovePoint.position - (_eventPoint * 2f);
+                minimapRoot.DOMove(_pos, eventInfo.backTime);
+            }
+            else                    // 축소 시
+            {
+                minimapRoot.DOScale(Vector3.one, eventInfo.backTime);
+                minimapRoot.DOLocalMove(Vector3.zero, eventInfo.backTime);
+            }
         }
 
         #endregion
