@@ -11,7 +11,7 @@ namespace DoodlesRe
     /// <para> 작 성 일 : 2021-06-03 </para>
     /// <para> 내    용 : 맵의 이벤트 정보창 클래스 </para>
     /// </summary>
-    public class DR_EventInfo : MonoBehaviour
+    public class DR_EventInfo : MonoBehaviour, DR_IWindow
     {
         [Header("- Main")]
         [SerializeField] private DR_Main main;
@@ -62,11 +62,32 @@ namespace DoodlesRe
         /// </summary>
         public void Button_SetDisable()
         {
+            main.Func_DontClickESC();
+            Func_SetDisable();
+        }
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-06-03 </para>
+        /// <para> 내    용 : 창을 닫게하는 기능 </para>
+        /// </summary>
+        private void Func_SetDisable()
+        {
             button_Back.interactable = false;
             transform.DOMove(firstPos, backTime)
                 .OnComplete(() => gameObject.SetActive(false));
 
             main.Func_SetEnlargement(false);
+        }
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-06-03 </para>
+        /// <para> 내    용 : ESC를 눌렀을 때 창을 닫게하는 기능 </para>
+        /// </summary>
+        public void Func_Close()
+        {
+            Func_SetDisable();
         }
     }
 }

@@ -138,8 +138,15 @@ namespace DoodlesRe
             if (isFastRead)
             {
                 Debug.Log("한글자씩 출력 기능");
-                co_PrintEachText = Co_PrintEachText(scriptText);
-                StartCoroutine(co_PrintEachText);
+                if (rootOBJ.activeInHierarchy)
+                {
+                    co_PrintEachText = Co_PrintEachText(scriptText);
+                    StartCoroutine(co_PrintEachText);
+                }
+                else
+                {
+                    text_Dialogue.text = scriptText;
+                }
             }
             else
             {

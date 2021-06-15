@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DoodlesRe
 {
@@ -21,8 +22,10 @@ namespace DoodlesRe
         /// </summary>
         public void Button_SellectEvent()
         {
-            main.Func_SetEventInfo(transform.position);       // 맵 정보창 설정
-
+            if (!main.isEventInfo)
+            {
+                main.Func_SetEventInfo(transform.position);       // 맵 정보창 설정
+            }
         }
     }
 }

@@ -20,6 +20,9 @@ namespace DoodlesRe
         [Header("- 대화 기능")]
         [SerializeField] private DR_Communication communication;
 
+        [Header("- 캐릭터 정보창")]
+        private DR_CharacterInfo characterInfo;
+
         [Header("- Fade 이미지")]
         [Header("UI"), Space(20)]
         [SerializeField] private Image image_Fade;
@@ -42,13 +45,51 @@ namespace DoodlesRe
         [Header("- 이벤트 클릭 시 이벤트가 와야 할 자리")]
         [SerializeField] private Transform eventMovePoint;
 
+        [Header("- GPS 중복으로 클릭하지 못하게 설정")]
+        [HideInInspector] public bool isEventInfo;
+
         private Transform minimapRoot;      // 미니맵 부모
+        private Stack<DR_IWindow> windowStack = new Stack<DR_IWindow>();
 
         private void Start()
         {
             minimapRoot = image_MainMap.transform.parent;
             Func_SetInit();
         }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+
+            }
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (windowStack.Count != 0)
+                {
+                    windowStack.Pop().Func_Close();
+                }
+                else
+                {
+                    Debug.Log("옵션창 열기");
+                }
+            }
+        }
+
+        #region Stack 메서드
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-06-15 </para>
+        /// <para> 내    용 : ESC를 누르지 않고 기능을 창형식을 껐을 때 호출 </para>
+        /// </summary>
+        public void Func_DontClickESC()
+        {
+            windowStack.Pop();
+        }
+
+        #endregion
 
         #region 저장된 정보를 준비
 
@@ -104,6 +145,9 @@ namespace DoodlesRe
         {
             eventInfo.Func_SetEnable(eventInfoPoint.position);      // 정보창 활성화
             Func_SetEnlargement(true, _eventPoint);
+
+            // 창 닫기 추가
+            windowStack.Push(eventInfo);
         }
 
         /// <summary>
@@ -118,11 +162,13 @@ namespace DoodlesRe
                 minimapRoot.DOScale(new Vector3(2f, 2f, 2f), eventInfo.backTime);
                 Vector3 _pos = eventMovePoint.position - (_eventPoint * 2f);
                 minimapRoot.DOMove(_pos, eventInfo.backTime);
+                isEventInfo = true;
             }
             else                    // 축소 시
-            {
+            {                
                 minimapRoot.DOScale(Vector3.one, eventInfo.backTime);
                 minimapRoot.DOLocalMove(Vector3.zero, eventInfo.backTime);
+                isEventInfo = false;
             }
         }
 
