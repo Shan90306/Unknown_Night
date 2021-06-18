@@ -1208,7 +1208,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &179264582
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1349,13 +1349,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 222280788}
+  - component: {fileID: 222280789}
   m_Layer: 0
   m_Name: Status
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &222280788
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1379,6 +1380,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &222280789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 222280787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9775bd77b3b350e4a94076cb4a4f2184, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  main: {fileID: 512915584}
 --- !u!1 &241850621
 GameObject:
   m_ObjectHideFlags: 0
@@ -2613,6 +2627,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 415468888}
+  - component: {fileID: 415468889}
   m_Layer: 0
   m_Name: CharacterInfo
   m_TagString: Untagged
@@ -2642,6 +2657,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &415468889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 415468887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1b301c62e5a85144afb5d26151bb274, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  main: {fileID: 512915584}
+  infoWindowArr:
+  - {fileID: 222280789}
 --- !u!1 &425684760
 GameObject:
   m_ObjectHideFlags: 0
@@ -3212,6 +3242,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainSetting: {fileID: 11400000, guid: 6e20f1586c8570740ab5f28a175226fa, type: 2}
   communication: {fileID: 131637962}
+  characterInfo: {fileID: 415468889}
   image_Fade: {fileID: 1118251308}
   image_MainMap: {fileID: 2036651281}
   image_Weather: {fileID: 668764975}
@@ -5151,7 +5182,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -5165,7 +5196,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1662062080}
   m_FillRect: {fileID: 37811703}
   m_HandleRect: {fileID: 1662062079}
@@ -8638,7 +8669,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1750655094}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 415468889}
+        m_MethodName: Button_Status
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1750655094
 MonoBehaviour:
   m_ObjectHideFlags: 0

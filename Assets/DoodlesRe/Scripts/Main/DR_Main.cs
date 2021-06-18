@@ -21,7 +21,7 @@ namespace DoodlesRe
         [SerializeField] private DR_Communication communication;
 
         [Header("- 캐릭터 정보창")]
-        private DR_CharacterInfo characterInfo;
+        [SerializeField] private DR_CharacterInfo characterInfo;
 
         [Header("- Fade 이미지")]
         [Header("UI"), Space(20)]
@@ -50,6 +50,7 @@ namespace DoodlesRe
 
         private Transform minimapRoot;      // 미니맵 부모
         private Stack<DR_IWindow> windowStack = new Stack<DR_IWindow>();
+        private bool isOpenTab;
 
         private void Start()
         {
@@ -61,7 +62,18 @@ namespace DoodlesRe
         {
             if (Input.GetKeyDown(KeyCode.Tab))
             {
-
+                if (!isOpenTab)
+                {
+                    isOpenTab = true;
+                    characterInfo.Func_SetCharacterInfo(() => isOpenTab = false);
+                }
+                else
+                {
+                    if (windowStack.Count != 0)
+                    {
+                        windowStack.Pop().Func_Close();
+                    }
+                }
             }
 
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -78,6 +90,11 @@ namespace DoodlesRe
         }
 
         #region Stack 메서드
+
+        public void Func_PushStack(DR_IWindow _iWindow)
+        {
+            windowStack.Push(_iWindow);
+        }
 
         /// <summary>
         /// <para> 작 성 자 : 이승엽 </para>
