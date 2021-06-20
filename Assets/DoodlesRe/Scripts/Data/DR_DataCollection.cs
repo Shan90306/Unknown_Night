@@ -66,6 +66,15 @@ namespace DoodlesRe
         Morning, Afternoon, Evening , Night
     }
 
+    /// <summary>
+    /// <para>작 성 자 : 이승엽</para>
+    /// <para>작 성 일 : 2021-06-20</para>
+    /// <para>내    용 : 장비템 종류</para>
+    /// </summary>
+    public enum EQUIPMENT_KIND
+    {
+        Ring, Necklace, Wristband, Amulet
+    }
     #endregion
 
     #region Struct 구조체
