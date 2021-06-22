@@ -12,10 +12,13 @@ namespace DoodlesRe
     /// <para> 작 성 일 : 2021-05-18 </para>
     /// <para> 내    용 : Main 씬을 담당하는 클래스 </para>
     /// </summary>
-    public class DR_Main : MonoBehaviour
+    public class DR_Main : DR_Manager
     {
         [Header("- Main Setting")]
         [SerializeField] private DR_Setting_Main mainSetting;
+
+        [Header("- 저장슬롯 UI")]
+        [SerializeField] private DR_SaveLoad saveSlotUI;
 
         [Header("- 대화 기능")]
         [SerializeField] private DR_Communication communication;
@@ -49,8 +52,9 @@ namespace DoodlesRe
         [HideInInspector] public bool isEventInfo;
 
         private Transform minimapRoot;      // 미니맵 부모
-        private Stack<DR_IWindow> windowStack = new Stack<DR_IWindow>();
         private bool isOpenTab;
+
+        #region 유니티 이벤트 메서드
 
         private void Start()
         {
@@ -71,7 +75,7 @@ namespace DoodlesRe
                 {
                     if (windowStack.Count != 0)
                     {
-                        windowStack.Pop().Func_Close();
+                        windowStack.Func_Pop().Func_Close();
                     }
                 }
             }
@@ -80,7 +84,7 @@ namespace DoodlesRe
             {
                 if (windowStack.Count != 0)
                 {
-                    windowStack.Pop().Func_Close();
+                    windowStack.Func_Pop().Func_Close();
                 }
                 else
                 {
@@ -89,25 +93,8 @@ namespace DoodlesRe
             }
         }
 
-        #region Stack 메서드
-
-        public void Func_PushStack(DR_IWindow _iWindow)
-        {
-            windowStack.Push(_iWindow);
-        }
-
-        /// <summary>
-        /// <para> 작 성 자 : 이승엽 </para>
-        /// <para> 작 성 일 : 2021-06-15 </para>
-        /// <para> 내    용 : ESC를 누르지 않고 기능을 창형식을 껐을 때 호출 </para>
-        /// </summary>
-        public void Func_DontClickESC()
-        {
-            windowStack.Pop();
-        }
-
         #endregion
-
+               
         #region 저장된 정보를 준비
 
         /// <summary>
@@ -164,7 +151,7 @@ namespace DoodlesRe
             Func_SetEnlargement(true, _eventPoint);
 
             // 창 닫기 추가
-            windowStack.Push(eventInfo);
+            windowStack.Func_Push(eventInfo);
         }
 
         /// <summary>
@@ -187,6 +174,16 @@ namespace DoodlesRe
                 minimapRoot.DOLocalMove(Vector3.zero, eventInfo.backTime);
                 isEventInfo = false;
             }
+        }
+
+        #endregion
+
+        #region Save Load UI
+
+        public void Button_OnSaveUI()
+        {
+            saveSlotUI.kind = SAVELOAD_KIND.Save;
+            saveSlotUI.gameObject.SetActive(true);
         }
 
         #endregion

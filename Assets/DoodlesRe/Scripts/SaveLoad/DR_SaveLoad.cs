@@ -10,7 +10,7 @@ namespace DoodlesRe
     /// <para> 작 성 일 : 2021-04-29 </para>
     /// <para> 내    용 : Save & Load를 관리하는 클래스 </para>
     /// </summary>
-    public class DR_SaveLoad : MonoBehaviour
+    public class DR_SaveLoad : DR_Info
     {
         [Header("- 세이브 로드의 타이틀 텍스트")]
         [SerializeField] private Text text_Title;
@@ -34,6 +34,17 @@ namespace DoodlesRe
         }
 
         #region 기능
+
+        public override void Func_SetEnable()
+        {
+            gameObject.SetActive(true);
+        }
+
+        public override void Func_Close()
+        {
+            gameObject.SetActive(false);
+            popUpUI.Func_DisableAllPopUp();
+        }
 
         /// <summary>
         /// <para> 작 성 자 : 이승엽 </para>
@@ -96,7 +107,7 @@ namespace DoodlesRe
         /// <para> 작 성 일 : 2021-04-29 </para>
         /// <para> 내    용 : 슬롯을 클릭했을 때 호출되는 기능 </para>
         /// </summary>
-        public void Func_ClickSaveSlot(int _slotNum)
+        public void Func_ClickSaveSlot(int _slotNum, DR_SaveInformation _saveInfo)
         {
             switch (kind)
             {
@@ -113,6 +124,7 @@ namespace DoodlesRe
                     break;
 
                 case SAVELOAD_KIND.Load:
+                    DR_ProgramManager.Instance.Func_SetSaveInfo(_saveInfo);
 
                     break;
 
@@ -121,6 +133,7 @@ namespace DoodlesRe
                     {
                         Debug.Log("게임 시작 : " + _slotNum);
                         DR_ProgramManager.Instance.playSlotNum = _slotNum;
+                        DR_ProgramManager.Instance.Func_SetSaveInfo(_saveInfo);
                         DR_ProgramManager.Instance.Func_Fade(FADE.Out, null, () =>
                             DR_SceneManager.Instance.Func_GoLoadingBeforScene(SCENE_KIND.Main));                       
                     }
@@ -179,6 +192,12 @@ namespace DoodlesRe
         {
             Func_SetTitle(SAVELOAD_KIND.Load);
             gameObject.SetActive(true);
+        }
+
+        public void Button_DisableSaveUI()
+        {
+            manager.Func_DontClickESC();
+            Func_Close();
         }
 
         #endregion

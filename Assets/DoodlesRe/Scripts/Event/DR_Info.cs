@@ -12,7 +12,7 @@ namespace DoodlesRe
     public class DR_Info : MonoBehaviour, DR_IWindow
     {
         [Header("- Main")]
-        [SerializeField] private DR_Main main;
+        [SerializeField] protected DR_Manager manager;
 
         private void OnEnable()
         {
@@ -23,9 +23,21 @@ namespace DoodlesRe
 
         protected void Func_Init()
         {
-            main.Func_PushStack(this);
+            manager.Func_PushStack(this);
         }
 
         public virtual void Func_SetEnable() { }
+
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-06-22 </para>
+        /// <para> 내    용 : 바로 다른 Info창으로 넘어갈 때 호출되는 버튼 메서드 </para>
+        /// </summary>
+        public void Button_ChangeInfo()
+        {
+            manager.Func_DontClickESC();
+            Func_Close();
+        }
     }
 }

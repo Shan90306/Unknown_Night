@@ -38,23 +38,33 @@ namespace DoodlesRe
         /// </summary>
         public override void Func_Close()
         {
-            closeAction.Invoke();
+            closeAction?.Invoke();
             closeAction = null;
             gameObject.SetActive(false);
         }
 
         #endregion
 
-        #region 스테이터스 창 기능
+        #region 버튼 기능
 
         /// <summary>
         /// <para> 작 성 자 : 이승엽 </para>
         /// <para> 작 성 일 : 2021-06-15 </para>
-        /// <para> 내    용 : 캐릭터 정보창을 관리하는 클래스 </para>
+        /// <para> 내    용 : 캐릭터 정보창을 여는 버튼 메서드 </para>
         /// </summary>
         public void Button_Status()
         {
             infoWindowArr[0].Func_SetEnable();
+        }
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-06-22 </para>
+        /// <para> 내    용 : 장비창을 여는 버튼 메서드 </para>
+        /// </summary>
+        public void Button_Equipment()
+        {
+            infoWindowArr[1].Func_SetEnable();
         }
 
         #endregion

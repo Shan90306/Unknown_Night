@@ -114,8 +114,7 @@ namespace DoodlesRe
         /// </summary>
         public void Button_ClickSaveSlot()
         {
-            DR_ProgramManager.Instance.Func_SetSaveInfo(saveInfo);
-            saveLoad.Func_ClickSaveSlot(slotNum);
+            saveLoad.Func_ClickSaveSlot(slotNum, saveInfo);
         }
 
         /// <summary>

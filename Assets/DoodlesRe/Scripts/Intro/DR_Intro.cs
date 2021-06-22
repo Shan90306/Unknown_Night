@@ -11,7 +11,7 @@ namespace DoodlesRe
     /// <para> 작 성 일 : 2021-04-28 </para>
     /// <para> 내    용 : 인트로를 관리하는 클래스 </para>
     /// </summary>
-    public class DR_Intro : MonoBehaviour
+    public class DR_Intro : DR_Manager
     {
         [Header("- Fade 이미지")]
         [SerializeField] private Image fadeImage;
@@ -25,6 +25,21 @@ namespace DoodlesRe
         private void Start()
         {
             DR_ProgramManager.Instance.Func_Fade(FADE.In, fadeImage);
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (windowStack.Count != 0)
+                {
+                    windowStack.Func_Pop().Func_Close();
+                }
+                else
+                {
+                    Debug.Log("옵션창 열기");
+                }
+            }
         }
 
         #region 버튼 메서드
