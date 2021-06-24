@@ -30,11 +30,31 @@ namespace DoodlesRe
 
         #region XML 메서드
 
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 20201-06-24 </para>
+        /// <para> 내    용 : XML의 Element를 생성 후 속성과 값을 넣어 반환하는 메서드 </para>
+        /// </summary>
         private XmlElement Func_SetSlotNode(XmlDocument _xmlDoc, string _key, string _data)
         {
             // 슬롯노드에 들어갈 속성 생성
             XmlElement _setElement = _xmlDoc.CreateElement(_key);
             _setElement.InnerText = _data;
+
+            return _setElement;
+        }
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 20201-06-24 </para>
+        /// <para> 내    용 : XML의 Element를 생성 후 속성과 값을 넣어 반환하는 메서드 </para>
+        /// </summary>
+        private XmlElement Func_SetItemNode(XmlDocument _xmlDoc, string _key, string _id, string _count)
+        {
+            // 슬롯노드에 들어갈 속성 생성
+            XmlElement _setElement = _xmlDoc.CreateElement(_key);
+            _setElement.SetAttribute(DR_PathDefine.XML_Key_ID, _id);            // 아이템 아이디
+            _setElement.SetAttribute(DR_PathDefine.XML_Key_Count, _count);      // 아이템 소지 개수
 
             return _setElement;
         }
@@ -177,8 +197,8 @@ namespace DoodlesRe
             XmlNode _inventorySet = _xmlDoc.CreateNode(XmlNodeType.Element, "Inventory", string.Empty);
             _rootSet.AppendChild(_inventorySet);
 
-            _inventorySet.AppendChild(Func_SetSlotNode(_xmlDoc, "TestRing", "테스트 반지"));        // 반지
-            _inventorySet.AppendChild(Func_SetSlotNode(_xmlDoc, "TestRing", "테스트 반지2"));        // 반지
+            _inventorySet.AppendChild(Func_SetItemNode(_xmlDoc, DR_PathDefine.XML_Key_Item, "10001", "1"));
+            _inventorySet.AppendChild(Func_SetItemNode(_xmlDoc, DR_PathDefine.XML_Key_Item, "10002", "1"));
 
             #endregion
 
@@ -233,6 +253,29 @@ namespace DoodlesRe
             {
                 DR_Debug.Func_Log(DR_PathDefine.XML_ProgramInformation + " Save 없음!");
                 Func_Create_Program_InfoXML();
+            }
+        }
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021.06.23 </para>
+        /// <para> 내    용 : Save XML 파일을 로드하여 캐싱하는 메서드 </para>
+        /// </summary>
+        public void Func_SellectLoadXML(int _slotNum)
+        {
+            string _path = Application.dataPath + DR_PathDefine.XML_SavePath + DR_PathDefine.XML_SaveName + _slotNum + ".xml";
+            FileInfo _fileInfo = new FileInfo(_path);
+            if (_fileInfo.Exists)
+            {
+                XmlDocument _xmlDoc = new XmlDocument();
+                _xmlDoc.Load(_path);
+
+                loadXMLDoc = _xmlDoc;
+                DR_Debug.Func_Log("선택한 파일 캐싱");
+            }
+            else
+            {
+                DR_Debug.Func_Log("세이브 파일 존재하지 않음");
             }
         }
 
@@ -297,7 +340,7 @@ namespace DoodlesRe
                 }
                 else
                 {
-                    DR_Debug.Func_RedLog("세이브파일 캐싱 X", "Intro 씬부터 시작 바람");
+                    DR_Debug.Func_RedLog("세이브파일 캐싱 X 스테이터스", "Intro 씬부터 시작 바람");
                 }
             }
 
@@ -329,32 +372,37 @@ namespace DoodlesRe
                     return _wearingEquipment;
                 }
 
-                DR_Debug.Func_RedLog("세이브파일 캐싱 X", "Intro 씬부터 시작 바람");
+                DR_Debug.Func_RedLog("세이브파일 캐싱 X 착용장비", "Intro 씬부터 시작 바람");
             }
 
             return null;
         }
 
+
         /// <summary>
         /// <para> 작 성 자 : 이승엽 </para>
-        /// <para> 작 성 일 : 2021.06.23 </para>
-        /// <para> 내    용 : Save XML 파일을 선택하여 XML 클래스가 가지고 있게 하는 메서드 </para>
+        /// <para> 작 성 일 : 2021-06-25 </para>
+        /// <para> 내    용 : Save XML 파일을 불러와 플레이어가 착용한 장비 아이디를 반환하는 메서드 </para>
         /// </summary>
-        public void Func_SellectLoadXML(int _slotNum)
+        public void Func_GetLoadItem(int _slotNum)
         {
             string _path = Application.dataPath + DR_PathDefine.XML_SavePath + DR_PathDefine.XML_SaveName + _slotNum + ".xml";
             FileInfo _fileInfo = new FileInfo(_path);
             if (_fileInfo.Exists)
             {
-                XmlDocument _xmlDoc = new XmlDocument();
-                _xmlDoc.Load(_path);
+                if (loadXMLDoc == null)
+                {
+                    Func_SellectLoadXML(_slotNum);
+                }
+                XmlNodeList _nodes = loadXMLDoc.SelectNodes(DR_PathDefine.XML_Node_Inventory);
 
-                loadXMLDoc = _xmlDoc;
-                DR_Debug.Func_Log("선택한 파일 저장");
-            }
-            else
-            {
-                DR_Debug.Func_Log("선택한 파일 저장 실패");
+                foreach (XmlElement _item in _nodes[0])
+                {
+                    DR_Debug.Func_Log(_item.GetAttribute(DR_PathDefine.XML_Key_ID));
+                    DR_Debug.Func_Log(_item.GetAttribute(DR_PathDefine.XML_Key_Count));
+                }
+
+                DR_Debug.Func_RedLog("세이브파일 캐싱 X 아이템", "Intro 씬부터 시작 바람");
             }
         }
 

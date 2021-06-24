@@ -26,7 +26,11 @@
         public const string XML_ProgramInformation = "Program";
         public const string XML_SaveName = "Save";
         public const string ScreenShot_SaveName = "Save";
-        public const string XML_ItemInformation = "Item";
+
+        public const string XML_Key_Item = "Item";
+        public const string XML_Key_ID = "ID";
+        public const string XML_Key_Count = "Count";
+        
 
         public const string XML_Node_Setting = "SettingInfo/Setting";
         public const string XML_Node_SaveSlot = "SaveInfo/Slot";

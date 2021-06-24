@@ -26,6 +26,9 @@ namespace DoodlesRe
         [Header("UI"), Space(20)]
         [SerializeField] private Text[] wornEquipmentArr;
 
+        [Header("- 착용중인 아이템 UI")]
+        [SerializeField] private DR_EquipmentUI wearingEquipment;
+
         #region 상속 메서드
 
         protected override void Func_Init()
@@ -34,11 +37,17 @@ namespace DoodlesRe
 
             DR_WearingEquipment _wearingEquipment = DR_XML.Instance.Func_GetLoadWearingEquipment(DR_ProgramManager.Instance.playSlotNum);
 
-            wornEquipmentArr[0].text = _wearingEquipment.weapon;
-            wornEquipmentArr[1].text = _wearingEquipment.ring;
-            wornEquipmentArr[2].text = _wearingEquipment.necklace;
-            wornEquipmentArr[3].text = _wearingEquipment.wristband;
-            wornEquipmentArr[4].text = _wearingEquipment.amulet;
+            if (_wearingEquipment != null)
+            {
+                wornEquipmentArr[0].text = _wearingEquipment.weapon;
+                wornEquipmentArr[1].text = _wearingEquipment.ring;
+                wornEquipmentArr[2].text = _wearingEquipment.necklace;
+                wornEquipmentArr[3].text = _wearingEquipment.wristband;
+                wornEquipmentArr[4].text = _wearingEquipment.amulet;
+            }
+
+            DR_XML.Instance.Func_GetLoadItem(1);
+            //wearingEquipment.Func_SetEquipmentUI()
         }
 
         #endregion
