@@ -64,13 +64,13 @@ namespace DoodlesRe
                 existenceArr[0].SetActive(false);
                 existenceArr[1].SetActive(true);        // Data UI 활성화
 
-                DateTime _firstTime = Convert.ToDateTime(_saveSlot.firstStartTime);
-                DateTime _SaveTime = Convert.ToDateTime(_saveSlot.saveTime);
+                DateTime _firstTime = Convert.ToDateTime(_saveSlot.saveTime);
+                DateTime _SaveTime = Convert.ToDateTime(_saveSlot.playTime);
                 TimeSpan _dateDiff = _SaveTime - _firstTime;
 
                 image_Title.sprite = DR_ScreenShot.Func_GetSlotScreenShot(slotNum);
                 text_SaveTime.text = _saveSlot.saveTime;         // 저장 시간 설정
-                text_PlayTime.text = _dateDiff.ToString();       // 플레이 타임 설정
+                text_PlayTime.text = _saveSlot.playTime;       // 플레이 타임 설정
                 text_Chapter.text = _saveSlot.chapter;           // 챕터 설정
                 text_Gold.text = _saveSlot.gold.ToString();      // 소지 골드 설정
             }

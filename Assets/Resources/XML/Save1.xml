@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <SaveInfo>
   <Slot>
-    <SaveTime>2021-06-24 17:56:49</SaveTime>
-    <PlayTime>00:00:00</PlayTime>
-    <CSVReadLine>0</CSVReadLine>
+    <SaveTime>2021-06-24 17:57:17</SaveTime>
+    <PlayTime>00:00:20</PlayTime>
+    <CSVReadLine>19</CSVReadLine>
     <Chapter>Test 챕터</Chapter>
     <Gold>0</Gold>
     <CaptureName>Save0.png</CaptureName>
-    <IsCommunication>True</IsCommunication>
+    <IsCommunication>False</IsCommunication>
   </Slot>
   <Status>
     <Level>1</Level>

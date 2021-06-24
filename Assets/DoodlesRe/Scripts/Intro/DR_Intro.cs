@@ -37,7 +37,7 @@ namespace DoodlesRe
                 }
                 else
                 {
-                    Debug.Log("옵션창 열기");
+                    DR_Debug.Func_Log("옵션창 열기");
                 }
             }
         }

@@ -9,5 +9,8 @@ namespace DoodlesRe
     {
         [Header("- Save XML File 이름")]
         public List<string> saveXMLNameList;
+
+        [Header("- 로그를 출력할 지 체크")]
+        public bool isLog;
     }
 }

@@ -26,6 +26,23 @@ namespace DoodlesRe
         [Header("UI"), Space(20)]
         [SerializeField] private Text[] wornEquipmentArr;
 
+        #region 상속 메서드
+
+        protected override void Func_Init()
+        {
+            base.Func_Init();
+
+            DR_WearingEquipment _wearingEquipment = DR_XML.Instance.Func_GetLoadWearingEquipment(DR_ProgramManager.Instance.playSlotNum);
+
+            wornEquipmentArr[0].text = _wearingEquipment.weapon;
+            wornEquipmentArr[1].text = _wearingEquipment.ring;
+            wornEquipmentArr[2].text = _wearingEquipment.necklace;
+            wornEquipmentArr[3].text = _wearingEquipment.wristband;
+            wornEquipmentArr[4].text = _wearingEquipment.amulet;
+        }
+
+        #endregion
+
         /// <summary>
         /// <para> 작 성 자 : 이승엽 </para>
         /// <para> 작 성 일 : 2021-06-20 </para>

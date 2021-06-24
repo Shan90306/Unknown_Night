@@ -120,6 +120,8 @@ namespace DoodlesRe
                     else
                     {
                         // 현재까지 진행된 스토리 저장
+                        DR_XML.Instance.Func_SaveSlotXML(_slotNum, _saveInfo);
+                        Func_SetSaveSlot(_slotNum);
                     }
                     break;
 
@@ -131,7 +133,7 @@ namespace DoodlesRe
                 case SAVELOAD_KIND.Intro:
                     if (saveSlotArr[_slotNum].isSave)
                     {
-                        Debug.Log("게임 시작 : " + _slotNum);
+                        DR_Debug.Func_Log("게임 시작 : " + _slotNum);
                         DR_ProgramManager.Instance.playSlotNum = _slotNum;
                         DR_ProgramManager.Instance.Func_SetSaveInfo(_saveInfo);
                         DR_ProgramManager.Instance.Func_Fade(FADE.Out, null, () =>
@@ -159,7 +161,7 @@ namespace DoodlesRe
 
         public void Button_CreateSlot()
         {
-            Debug.Log("새로 만들기 : " + selectSlotNum);
+            DR_Debug.Func_Log("새로 만들기 : " + selectSlotNum);
             DR_XML.Instance.Func_Create_SaveSlotXML(selectSlotNum);
 
             Func_SetSaveSlot(selectSlotNum);

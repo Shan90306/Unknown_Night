@@ -10,6 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8885763896280768063}
   - component: {fileID: 8885763896280768056}
+  - component: {fileID: 1001842331}
+  - component: {fileID: 1001842333}
+  - component: {fileID: 6095056280258859264}
   m_Layer: 0
   m_Name: ProgramManager
   m_TagString: Untagged
@@ -43,7 +46,61 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c9f2e52c74f2e64aabc369384849444, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  programSetting: {fileID: 11400000, guid: 13a435fa5812a304aa23abb599a3942a, type: 2}
   soundVolume:
     volume_BGM: 0.5
     volume_Effect: 0.5
-  fadeTime: 1.5
+  fadeImage: {fileID: 0}
+  fadeTime: 1
+  playSlotNum: 0
+  saveInfo:
+    saveTime: 
+    playTime: 
+    csvReadLine: 0
+    chapter: 
+    gold: 0
+    captureName: 
+    isCommunication: 0
+  weather: 0
+  time: 0
+  startTime: 
+--- !u!114 &1001842331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8885763896280768057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9960e57f6b7afdb47ba047111693ca91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneKind: 0
+  useAsync: 1
+  asyncProgress: 0
+  isDone: 0
+--- !u!114 &1001842333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8885763896280768057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a26b6422621d6741a4d3df7cc98cab7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6095056280258859264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8885763896280768057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10437e7e6ddb2b44a9f1889ed934f91a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

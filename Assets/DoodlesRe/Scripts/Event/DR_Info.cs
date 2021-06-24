@@ -21,7 +21,7 @@ namespace DoodlesRe
 
         public virtual void Func_Close() { }
 
-        protected void Func_Init()
+        protected virtual void Func_Init()
         {
             manager.Func_PushStack(this);
         }

@@ -30,6 +30,36 @@
 
         public const string XML_Node_Setting = "SettingInfo/Setting";
         public const string XML_Node_SaveSlot = "SaveInfo/Slot";
+        public const string XML_Node_Status = "SaveInfo/Status";
+        public const string XML_Node_WearingEquipment = "SaveInfo/WearingEquipment";
+        public const string XML_Node_Inventory = "SaveInfo/Inventory";
+
+        // ******************************************************************************************************
+        // SaveInformation
+        public const string XML_NodeName_SaveInformation_1 = "SaveTime";
+        public const string XML_NodeName_SaveInformation_2 = "PlayTime";
+        public const string XML_NodeName_SaveInformation_3 = "CSVReadLine";
+        public const string XML_NodeName_SaveInformation_4 = "Chapter";
+        public const string XML_NodeName_SaveInformation_5 = "Gold";
+        public const string XML_NodeName_SaveInformation_6 = "CaptureName";
+        public const string XML_NodeName_SaveInformation_7 = "IsCommunication";
+
+        // Status
+        public const string XML_NodeName_Status_1 = "Level";
+        public const string XML_NodeName_Status_2 = "EXE";
+        public const string XML_NodeName_Status_3 = "Power";
+        public const string XML_NodeName_Status_4 = "Dex";
+        public const string XML_NodeName_Status_5 = "Health";
+        public const string XML_NodeName_Status_6 = "Patience";
+
+
+        // Wearing Equipment
+        public const string XML_NodeName_WearingEquip_1 = "Weapon";
+        public const string XML_NodeName_WearingEquip_2 = "Ring";
+        public const string XML_NodeName_WearingEquip_3 = "Necklace";
+        public const string XML_NodeName_WearingEquip_4 = "Wristband";
+        public const string XML_NodeName_WearingEquip_5 = "Amulet";
+
 
         #endregion
 

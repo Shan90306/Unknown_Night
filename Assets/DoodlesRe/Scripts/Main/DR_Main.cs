@@ -59,6 +59,7 @@ namespace DoodlesRe
         private void Start()
         {
             minimapRoot = image_MainMap.transform.parent;
+            DR_ProgramManager.Instance.startTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             Func_SetInit();
         }
 
@@ -88,7 +89,7 @@ namespace DoodlesRe
                 }
                 else
                 {
-                    Debug.Log("옵션창 열기");
+                    DR_Debug.Func_Log("옵션창 열기");
                 }
             }
         }
@@ -110,6 +111,7 @@ namespace DoodlesRe
             }
 
             Func_SetDay();
+            Func_SetPlayer();
 
             DR_ProgramManager.Instance.Func_Fade(FADE.In, image_Fade);
         }
@@ -124,6 +126,16 @@ namespace DoodlesRe
         {
             image_Weather.sprite = mainSetting.weatherArr[(int)DR_ProgramManager.Instance.weather];
             text_Time.text = mainSetting.timeArr[(int)DR_ProgramManager.Instance.time];
+        }
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-06-24 </para>
+        /// <para> 내    용 : 플레이어를 설정하는 기능 </para>
+        /// </summary>
+        private void Func_SetPlayer()
+        {
+            DR_PlayerManager.Instance.Func_SetPlayer();
         }
 
         #endregion

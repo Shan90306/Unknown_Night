@@ -14,6 +14,9 @@ namespace DoodlesRe
     /// </summary>
     public class DR_ProgramManager : DR_Singlton<DR_ProgramManager>
     {
+        [Header("- 프로그램 세팅")]
+        public DR_Setting_Program programSetting;
+
         [Header("- Volume")]
         public DR_Volume soundVolume;
 
@@ -34,6 +37,8 @@ namespace DoodlesRe
 
         [Header("- 시간 대")]
         public TIME_KIND time;
+
+        public string startTime;
 
         #region CSV Data
 
@@ -91,12 +96,12 @@ namespace DoodlesRe
         {
             if (dialogueList == null)
             {
-                Debug.Log("CSV 스토리 캐싱");
+                DR_Debug.Func_Log("CSV 스토리 캐싱");
                 dialogueList = DR_CSV.Func_Read(DR_PathDefine.CSV_StoryPath + DR_PathDefine.CSV_Dialogue);
             }
             if (characterList == null)
             {
-                Debug.Log("CSV 캐릭터 캐싱");
+                DR_Debug.Func_Log("CSV 캐릭터 캐싱");
                 characterList = DR_CSV.Func_Read(DR_PathDefine.CSV_StoryPath + DR_PathDefine.CSV_Character);
             }
         }
@@ -109,6 +114,23 @@ namespace DoodlesRe
         public void Func_SetSaveInfo(DR_SaveInformation _saveInfo)
         {
             saveInfo = _saveInfo;
+        }
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-06-23 </para>
+        /// <para> 내    용 : 세이브 슬롯 선택 후 게임을 시작하고 얼마나 시간이 지났는지 반환하는 기능 </para>
+        /// </summary>
+        public string Func_GetPlayTime()
+        {
+            DateTime _startTime = Convert.ToDateTime(startTime);
+            DateTime _SaveTime = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            DateTime _cumulativeTime = Convert.ToDateTime(saveInfo.playTime);
+            TimeSpan _dateDiff = _SaveTime - _startTime;
+
+            _cumulativeTime += _dateDiff;
+
+            return _cumulativeTime.ToString("HH:mm:ss");
         }
 
         public static void Func_Quit()

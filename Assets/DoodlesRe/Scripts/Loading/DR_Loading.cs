@@ -30,6 +30,7 @@ namespace DoodlesRe
         {
             DR_ProgramManager.Instance.Func_Fade(FADE.In, image_fade);
             DR_ProgramManager.Instance.Func_SetCSVData();
+            DR_XML.Instance.Func_SellectLoadXML(DR_ProgramManager.Instance.playSlotNum);
             Func_SetTip();              // Tip 텍스트 설정
             Func_SetLoadingText();      // 로딩 텍스트 설정
         }

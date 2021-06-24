@@ -59,6 +59,11 @@ namespace DoodlesRe
             }
         }
 
+        private void OnDisable()
+        {
+            DR_ProgramManager.Instance.saveInfo.isCommunication = false;
+        }
+
         #endregion
 
         #region 기능
@@ -97,12 +102,12 @@ namespace DoodlesRe
                 else
                 {
                     nowDialogue = string.Empty;    // 현재 Dialogue 초기화
-                    Debug.Log("스토리 끝. 메인화면으로 이동");
+                    DR_Debug.Func_Log("스토리 끝. 메인화면으로 이동");
                 }
             }
             else
             {
-                Debug.Log("전체 끝");
+                DR_Debug.Func_Log("전체 끝");
             }
         }
 
@@ -137,7 +142,7 @@ namespace DoodlesRe
 
             if (isFastRead)
             {
-                Debug.Log("한글자씩 출력 기능");
+                DR_Debug.Func_Log("한글자씩 출력 기능");
                 if (rootOBJ.activeInHierarchy)
                 {
                     co_PrintEachText = Co_PrintEachText(scriptText);
