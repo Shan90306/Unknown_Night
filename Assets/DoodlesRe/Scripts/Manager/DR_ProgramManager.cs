@@ -44,6 +44,7 @@ namespace DoodlesRe
 
         public static List<Dictionary<string, object>> dialogueList;    // 스토리 CSV
         public static List<Dictionary<string, object>> characterList;   // 캐릭터 CSV
+        public static List<Dictionary<string, object>> itemList;   // 아이템 CSV
 
         #endregion
 
@@ -87,6 +88,8 @@ namespace DoodlesRe
             }
         }
 
+        #region CSV 기능
+
         /// <summary>
         /// <para> 작 성 자 : 이승엽 </para>
         /// <para> 작 성 일 : 2021-05-18 </para>
@@ -104,7 +107,41 @@ namespace DoodlesRe
                 DR_Debug.Func_Log("CSV 캐릭터 캐싱");
                 characterList = DR_CSV.Func_Read(DR_PathDefine.CSV_StoryPath + DR_PathDefine.CSV_Character);
             }
+            if (itemList == null)
+            {
+                DR_Debug.Func_Log("CSV 아이템 캐싱");
+                itemList = DR_CSV.Func_Read(DR_PathDefine.CSV_ItemPath + DR_PathDefine.CSV_Item);
+            }
+
         }
+
+        public Dictionary<string, object> Func_GetItem(int _id)
+        {
+            Dictionary<string, object> _dic = null;
+            int _right = itemList.Count - 1;
+            for (int _left = 0; _left <= _right;)
+            {
+                int _middle = (_left + _right) / 2;
+                int _data = int.Parse(itemList[_middle][DR_PathDefine.XML_Key_ID].ToString());
+                if (_id > _data)
+                {
+                    _left = _middle + 1;
+                }
+                else if (_id < _data)
+                {
+                    _right = _middle - 1;
+                }
+                else
+                {
+                    _dic = itemList[_middle];
+                    return _dic;
+                }
+            }
+
+            return _dic;
+        }
+
+        #endregion
 
         /// <summary>
         /// <para> 작 성 자 : 이승엽 </para>

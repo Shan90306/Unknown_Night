@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <SaveInfo>
   <Slot>
-    <SaveTime>2021-06-24 17:56:49</SaveTime>
+    <SaveTime>2021-06-25 12:40:21</SaveTime>
     <PlayTime>00:00:00</PlayTime>
     <CSVReadLine>0</CSVReadLine>
     <Chapter>Test 챕터</Chapter>
@@ -30,7 +30,7 @@
     </Amulet>
   </WearingEquipment>
   <Inventory>
-    <TestRing>테스트 반지</TestRing>
-    <TestRing>테스트 반지2</TestRing>
+    <Item ID="10001" Count="1" />
+    <Item ID="10002" Count="1" />
   </Inventory>
 </SaveInfo>

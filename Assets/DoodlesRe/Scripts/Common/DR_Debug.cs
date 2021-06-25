@@ -24,7 +24,7 @@ namespace DoodlesRe
         /// <para> 작 성 일 : 2020-06-25 </para>
         /// <para> 내    용 : 일반 로그를 출력하는 기능 </para>
         /// </summary>
-        public static void Func_Log(string _log)
+        public static void Func_Log(object _log)
         {
             if (isLog)
             {

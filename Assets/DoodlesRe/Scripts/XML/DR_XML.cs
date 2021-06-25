@@ -356,6 +356,7 @@ namespace DoodlesRe
         {
             string _path = Application.dataPath + DR_PathDefine.XML_SavePath + DR_PathDefine.XML_SaveName + _slotNum + ".xml";
             FileInfo _fileInfo = new FileInfo(_path);
+
             if (_fileInfo.Exists)
             {
                 if (loadXMLDoc != null)
@@ -382,28 +383,39 @@ namespace DoodlesRe
         /// <summary>
         /// <para> 작 성 자 : 이승엽 </para>
         /// <para> 작 성 일 : 2021-06-25 </para>
-        /// <para> 내    용 : Save XML 파일을 불러와 플레이어가 착용한 장비 아이디를 반환하는 메서드 </para>
+        /// <para> 내    용 : Save XML 파일을 불러와 플레이어가 소유한 아이템 아이디를 반환하는 메서드 </para>
         /// </summary>
-        public void Func_GetLoadItem(int _slotNum)
+        public Dictionary<int, int> Func_GetLoadItem(int _slotNum)
         {
             string _path = Application.dataPath + DR_PathDefine.XML_SavePath + DR_PathDefine.XML_SaveName + _slotNum + ".xml";
             FileInfo _fileInfo = new FileInfo(_path);
+            Dictionary<int, int> _dic = new Dictionary<int, int>();
+
             if (_fileInfo.Exists)
             {
                 if (loadXMLDoc == null)
                 {
                     Func_SellectLoadXML(_slotNum);
                 }
-                XmlNodeList _nodes = loadXMLDoc.SelectNodes(DR_PathDefine.XML_Node_Inventory);
 
-                foreach (XmlElement _item in _nodes[0])
+                if (loadXMLDoc == null)
                 {
-                    DR_Debug.Func_Log(_item.GetAttribute(DR_PathDefine.XML_Key_ID));
-                    DR_Debug.Func_Log(_item.GetAttribute(DR_PathDefine.XML_Key_Count));
+                    DR_Debug.Func_RedLog("세이브파일 캐싱 X 아이템", "캐싱 안됨");
+                    return _dic;
                 }
+                else
+                {
+                    XmlNodeList _nodes = loadXMLDoc.SelectNodes(DR_PathDefine.XML_Node_Inventory);
 
-                DR_Debug.Func_RedLog("세이브파일 캐싱 X 아이템", "Intro 씬부터 시작 바람");
+                    foreach (XmlElement _item in _nodes[0])
+                    {
+                        _dic[int.Parse(_item.GetAttribute(DR_PathDefine.XML_Key_ID))] =
+                            int.Parse(_item.GetAttribute(DR_PathDefine.XML_Key_Count));
+                    }
+                }
             }
+
+            return _dic;
         }
 
         #endregion

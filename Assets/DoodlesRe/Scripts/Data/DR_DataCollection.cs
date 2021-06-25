@@ -73,7 +73,7 @@ namespace DoodlesRe
     /// </summary>
     public enum EQUIPMENT_KIND
     {
-        Weapon, Ring, Necklace, Wristband, Amulet
+        Sword, Spear, Axe, Ring, Necklace, Wristband, Amulet, Weapon
     }
     #endregion
 

@@ -31,6 +31,7 @@ namespace DoodlesRe
         /// </summary>
         public void Func_SetPlayer()
         {
+            DR_Debug.Func_Log("플레이어 설정");
             Func_SetStatus();               // 스텟 설정
             Func_SetWearingEquipment();     // 장비 설정
         }

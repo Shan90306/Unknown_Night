@@ -110,6 +110,9 @@ namespace DoodlesRe
                 communication.Func_Init();
             }
 
+            DR_ProgramManager.Instance.Func_SetCSVData();
+            DR_XML.Instance.Func_SellectLoadXML(1);
+
             Func_SetDay();
             Func_SetPlayer();
 

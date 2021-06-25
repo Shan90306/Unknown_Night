@@ -13,6 +13,7 @@
         public const string XML_SavePathName = "/Resources/XML";
         public const string CSV_SavePath = "/Resources/CSV/";
         public const string CSV_StoryPath = "/Story/";
+        public const string CSV_ItemPath = "/Item/";
         public const string ScreenShot_SavePath = "/Resources/ScreenShot/";
         public const string ScreenShot_SavePathName = "/Resources/ScreenShot";
 
@@ -74,6 +75,12 @@
         // ******************************************************************************************************
         public const string CSV_Dialogue = "Story_Dialogue.csv";
         public const string CSV_Character = "Story_Character.csv";
+        public const string CSV_Item = "Test_Item.csv";
+
+        public const string CSV_Key_ItemName = "Korea Name";
+        public const string CSV_Key_ItemType = "Type";
+        public const string CSV_Key_ItemStrength = "Strength";
+        public const string CSV_Key_ItemDexterity = "Dexterity";
 
         #endregion
 

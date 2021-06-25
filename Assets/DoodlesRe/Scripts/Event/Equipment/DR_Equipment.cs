@@ -12,9 +12,6 @@ namespace DoodlesRe
     /// </summary>
     public class DR_Equipment : DR_Info
     {
-        [Header("- 클릭한 장비")]
-        [SerializeField] private EQUIPMENT_KIND clickEquipment;
-
         [Header("- 선택 장비 라인")]
         [SerializeField] private GameObject line;
 
@@ -29,25 +26,36 @@ namespace DoodlesRe
         [Header("- 착용중인 아이템 UI")]
         [SerializeField] private DR_EquipmentUI wearingEquipment;
 
+        [Header("- 착용중인 아이템 UI")]
+        [SerializeField] private DR_Equipment_Inventory[] inventoryArr;
+
+        private Dictionary<int, int> itemDic;
+        private string[] wearingEqipArr = new string[5];
+
         #region 상속 메서드
 
         protected override void Func_Init()
         {
             base.Func_Init();
+            Func_ResetEquipment();
 
-            DR_WearingEquipment _wearingEquipment = DR_XML.Instance.Func_GetLoadWearingEquipment(DR_ProgramManager.Instance.playSlotNum);
+            itemDic = DR_XML.Instance.Func_GetLoadItem(DR_ProgramManager.Instance.playSlotNum);
 
+            DR_WearingEquipment _wearingEquipment = DR_PlayerManager.Instance.wearingEquipment;
             if (_wearingEquipment != null)
             {
-                wornEquipmentArr[0].text = _wearingEquipment.weapon;
-                wornEquipmentArr[1].text = _wearingEquipment.ring;
-                wornEquipmentArr[2].text = _wearingEquipment.necklace;
-                wornEquipmentArr[3].text = _wearingEquipment.wristband;
-                wornEquipmentArr[4].text = _wearingEquipment.amulet;
-            }
+                Func_SetWearingEquipment(0, _wearingEquipment.weapon);
+                Func_SetWearingEquipment(1, _wearingEquipment.ring);
+                Func_SetWearingEquipment(2, _wearingEquipment.necklace);
+                Func_SetWearingEquipment(3, _wearingEquipment.wristband);
+                Func_SetWearingEquipment(4, _wearingEquipment.amulet);
 
-            DR_XML.Instance.Func_GetLoadItem(1);
-            //wearingEquipment.Func_SetEquipmentUI()
+                wearingEqipArr[0] = _wearingEquipment.weapon;
+                wearingEqipArr[1] = _wearingEquipment.ring;
+                wearingEqipArr[2] = _wearingEquipment.necklace;
+                wearingEqipArr[3] = _wearingEquipment.wristband;
+                wearingEqipArr[4] = _wearingEquipment.amulet;
+            }
         }
 
         #endregion
@@ -76,7 +84,23 @@ namespace DoodlesRe
 
         #region 착용한 장비를 설정하는 기능
 
-
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-06-25 </para>
+        /// <para> 내    용 : 장착한 아이템의 코드로 이름을 가져와서 텍스트 출력 </para>
+        /// </summary>
+        private void Func_SetWearingEquipment(int _textNum, string _id)
+        {
+            if (_id != string.Empty)
+            {
+                wornEquipmentArr[_textNum].text = DR_ProgramManager.Instance.Func_GetItem(int.Parse(_id))
+                    [DR_PathDefine.CSV_Key_ItemName].ToString();
+            }
+            else
+            {
+                wornEquipmentArr[_textNum].text = string.Empty;
+            }
+        }
 
         #endregion
 
@@ -89,8 +113,20 @@ namespace DoodlesRe
         /// </summary>
         public void Button_ClickWorn(int _clickNum)
         {
-            clickEquipment = (EQUIPMENT_KIND)_clickNum;
             rightPage.SetActive(true);
+
+            // 착용한 아이템 능력 UI 설정
+            if (wearingEqipArr[_clickNum] != string.Empty)
+            {
+                wearingEquipment.Func_SetEquipmentUI(int.Parse(wearingEqipArr[_clickNum]));
+            }
+            else
+            {
+                wearingEquipment.gameObject.SetActive(false);
+            }
+
+            // 해당 인벤토리 설정
+            inventoryArr[_clickNum].Func_SetInventory(itemDic);
         }
 
         #endregion
