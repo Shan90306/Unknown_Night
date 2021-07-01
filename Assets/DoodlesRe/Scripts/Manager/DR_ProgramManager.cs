@@ -115,6 +115,11 @@ namespace DoodlesRe
 
         }
 
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-06-22 </para>
+        /// <para> 내    용 : 아이디로 아이템을 탐색하여 해당 아이템의 딕셔너리를 반환 </para>
+        /// </summary>
         public Dictionary<string, object> Func_GetItem(int _id)
         {
             Dictionary<string, object> _dic = null;

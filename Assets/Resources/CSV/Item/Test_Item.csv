@@ -1,3 +1,11 @@
 index,Name,Korea Name,ID,Type,Rare,Attack Power,Defence,Strength,Dexterity,HP,Range,Attack Speed,Information
-0,Wood Sowrd,나무 검,10001,0,0,10,0,1,1,0,1,1,주위에서 흔하게 볼 수 있는 나무 검이다.
+0,Wood Sowrd,나무 검,10001,0,0,10,0,1,0,0,1,1,주위에서 흔하게 볼 수 있는 나무 검이다.
 1,Iron Sowrd,철 검,10002,0,1,20,1,10,5,100,1,1,강도 높은 철로 제작된 검이다.
+2,Wood Ring,나무 반지,40001,3,0,0,0,2,2,0,0,0,나무 반지이다.
+3,Iron Ring,철 반지,40002,3,1,0,0,4,4,0,0,0,철반지 이다.
+4,wood Necklace,나무 목걸이,50001,4,0,0,0,3,3,0,0,0,나무 목걸이 이다.
+5,Jewelry Necklace,보석 목걸이,50002,4,3,0,0,8,8,0,0,0,보석 목걸이 이다.
+6,Wood Wristband,나무 팔찌,60001,5,0,0,0,1,2,0,0,0,나무 팔찌임
+7,Iron Wristband,철 팔찌,60002,5,1,0,0,2,3,0,0,0,철 팔찌임
+8,Wood Amulet,나무 부적,70001,6,0,0,0,5,5,0,0,0,나무 부적임
+9,Iron Amulet,철 부적,70002,6,1,0,0,7,7,0,0,0,철 부적임

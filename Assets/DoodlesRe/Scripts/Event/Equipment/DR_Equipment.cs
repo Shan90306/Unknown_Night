@@ -26,8 +26,8 @@ namespace DoodlesRe
         [Header("- 착용중인 아이템 UI")]
         [SerializeField] private DR_EquipmentUI wearingEquipment;
 
-        [Header("- 착용중인 아이템 UI")]
-        [SerializeField] private DR_Equipment_Inventory[] inventoryArr;
+        [Header("- 아이템 인벤토리")]
+        [SerializeField] private DR_Equipment_Inventory inventory;
 
         private Dictionary<int, int> itemDic;
         private string[] wearingEqipArr = new string[5];
@@ -37,25 +37,9 @@ namespace DoodlesRe
         protected override void Func_Init()
         {
             base.Func_Init();
-            Func_ResetEquipment();
-
-            itemDic = DR_XML.Instance.Func_GetLoadItem(DR_ProgramManager.Instance.playSlotNum);
-
-            DR_WearingEquipment _wearingEquipment = DR_PlayerManager.Instance.wearingEquipment;
-            if (_wearingEquipment != null)
-            {
-                Func_SetWearingEquipment(0, _wearingEquipment.weapon);
-                Func_SetWearingEquipment(1, _wearingEquipment.ring);
-                Func_SetWearingEquipment(2, _wearingEquipment.necklace);
-                Func_SetWearingEquipment(3, _wearingEquipment.wristband);
-                Func_SetWearingEquipment(4, _wearingEquipment.amulet);
-
-                wearingEqipArr[0] = _wearingEquipment.weapon;
-                wearingEqipArr[1] = _wearingEquipment.ring;
-                wearingEqipArr[2] = _wearingEquipment.necklace;
-                wearingEqipArr[3] = _wearingEquipment.wristband;
-                wearingEqipArr[4] = _wearingEquipment.amulet;
-            }
+            Func_ResetEquipment();                  // 장비창 초기화
+            Func_SetWearingEquipment();             // 착용 장비 설정
+            //StartCoroutine(Co_SetInventory());      // 인벤토리 설정
         }
 
         #endregion
@@ -82,14 +66,86 @@ namespace DoodlesRe
             Func_ResetEquipment();          // 초기화
         }
 
+        #region 인벤토리 설정
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-06-29 </para>
+        /// <para> 내    용 : 인벤토리 설정하는 기능 </para>
+        /// </summary>
+        private IEnumerator Co_SetInventory()
+        {
+            int _num = 0;
+
+            if (itemDic == null)
+            {
+                // 초기 설정
+                itemDic = DR_XML.Instance.Func_GetLoadItem(DR_ProgramManager.Instance.playSlotNum);
+
+                foreach (var _item in itemDic)
+                {
+                    Dictionary<string, object> _dic = DR_ProgramManager.Instance.Func_GetItem(_item.Key);
+                    int _type = int.Parse(_dic[DR_PathDefine.CSV_Key_ItemType].ToString());
+                    
+
+                    for (int i = 0; i < itemDic[_item.Key]; i++)
+                    {
+                        if (_type < 3)
+                        {
+                            // 무기종류
+
+                        }
+                        else
+                        {
+                            // 장신구 종류
+                            
+
+                        }
+                    }
+
+                    if (++_num > 10)
+                    {
+                        _num = 0;
+                        yield return null;
+                    }
+                }
+            }
+            else
+            {
+                // 바뀐점이 있는지 체크
+                //itemDic.
+                DR_Debug.Func_Log("인벤토리 바뀐것 있음");
+            }
+        }
+
+        #endregion
+
         #region 착용한 장비를 설정하는 기능
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-06-25 </para>
+        /// <para> 내    용 : 장착한 아이템을 설정 </para>
+        /// </summary>
+        private void Func_SetWearingEquipment()
+        {
+            DR_WearingEquipment _wearingEquipment = DR_PlayerManager.Instance.wearingEquipment;
+            if (_wearingEquipment != null)
+            {
+                Func_SetWearingEquipment_Text(0, _wearingEquipment.weapon);
+                Func_SetWearingEquipment_Text(1, _wearingEquipment.ring);
+                Func_SetWearingEquipment_Text(2, _wearingEquipment.necklace);
+                Func_SetWearingEquipment_Text(3, _wearingEquipment.wristband);
+                Func_SetWearingEquipment_Text(4, _wearingEquipment.amulet);
+            }
+        }
 
         /// <summary>
         /// <para> 작 성 자 : 이승엽 </para>
         /// <para> 작 성 일 : 2021-06-25 </para>
         /// <para> 내    용 : 장착한 아이템의 코드로 이름을 가져와서 텍스트 출력 </para>
         /// </summary>
-        private void Func_SetWearingEquipment(int _textNum, string _id)
+        private void Func_SetWearingEquipment_Text(int _textNum, string _id)
         {
             if (_id != string.Empty)
             {
@@ -100,6 +156,8 @@ namespace DoodlesRe
             {
                 wornEquipmentArr[_textNum].text = string.Empty;
             }
+
+            wearingEqipArr[_textNum] = _id;
         }
 
         #endregion
@@ -126,7 +184,7 @@ namespace DoodlesRe
             }
 
             // 해당 인벤토리 설정
-            inventoryArr[_clickNum].Func_SetInventory(itemDic);
+            inventory.Func_SetInventory(_clickNum);
         }
 
         #endregion

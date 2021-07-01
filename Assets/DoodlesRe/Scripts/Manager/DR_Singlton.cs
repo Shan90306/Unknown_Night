@@ -35,6 +35,7 @@ namespace DoodlesRe
                     {
                         for (int i = 1; i < _instanceArr.Length; i++)
                         {
+                            DR_Debug.Func_RedLog(_instanceArr[i].gameObject.name);
                             Destroy(_instanceArr[i].gameObject);
                         }
                     }

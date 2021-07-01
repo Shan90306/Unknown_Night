@@ -29,7 +29,15 @@
     </Amulet>
   </WearingEquipment>
   <Inventory>
-    <Item ID="10001" Count="1" />
-    <Item ID="10002" Count="1" />
+    <Item ID="10001" Count="3" />
+    <Item ID="10002" Count="2" />
+    <Item ID="40001" Count="1" />
+    <Item ID="40002" Count="2" />
+    <Item ID="50001" Count="3" />
+    <Item ID="50002" Count="1" />
+    <Item ID="60001" Count="1" />
+    <Item ID="60002" Count="1" />
+    <Item ID="70001" Count="6" />
+    <Item ID="70002" Count="2" />
   </Inventory>
 </SaveInfo>

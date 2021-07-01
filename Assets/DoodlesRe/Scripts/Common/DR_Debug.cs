@@ -37,7 +37,7 @@ namespace DoodlesRe
         /// <para> 작 성 일 : 2020-06-25 </para>
         /// <para> 내    용 : 붉은색 로그를 출력하는 기능 </para>
         /// </summary>
-        public static void Func_RedLog(string _redLog, string _log = null)
+        public static void Func_RedLog(object _redLog, object _log = null)
         {
             if (isLog)
             {

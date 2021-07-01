@@ -78,6 +78,7 @@
         public const string CSV_Item = "Test_Item.csv";
 
         public const string CSV_Key_ItemName = "Korea Name";
+        public const string CSV_Key_ItemID = "ID";
         public const string CSV_Key_ItemType = "Type";
         public const string CSV_Key_ItemStrength = "Strength";
         public const string CSV_Key_ItemDexterity = "Dexterity";
