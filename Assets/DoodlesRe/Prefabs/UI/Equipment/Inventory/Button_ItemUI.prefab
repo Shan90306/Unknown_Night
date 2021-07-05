@@ -223,3 +223,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventory: {fileID: 0}
   text_name: {fileID: 5341679263665926195}
+  image_BG: {fileID: 5341679264012333823}

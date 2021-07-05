@@ -110,6 +110,7 @@ namespace DoodlesRe
                 communication.Func_Init();
             }
 
+            DR_Debug.Func_Log("테스트 CSV 캐싱");
             DR_ProgramManager.Instance.Func_SetCSVData();
             DR_XML.Instance.Func_SellectLoadXML(1);
 

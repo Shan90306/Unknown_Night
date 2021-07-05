@@ -29,6 +29,9 @@ namespace DoodlesRe
         [Header("- 아이템 인벤토리")]
         [SerializeField] private DR_Equipment_Inventory inventory;
 
+        [Header("- 인벤토리 아이템 장착 버튼 배열")]
+        [SerializeField] private GameObject[] inventoryButtonArr;
+
         private Dictionary<int, int> itemDic;
         private string[] wearingEqipArr = new string[5];
 
@@ -86,7 +89,7 @@ namespace DoodlesRe
                 {
                     Dictionary<string, object> _dic = DR_ProgramManager.Instance.Func_GetItem(_item.Key);
                     int _type = int.Parse(_dic[DR_PathDefine.CSV_Key_ItemType].ToString());
-                    
+
 
                     for (int i = 0; i < itemDic[_item.Key]; i++)
                     {
@@ -98,7 +101,7 @@ namespace DoodlesRe
                         else
                         {
                             // 장신구 종류
-                            
+
 
                         }
                     }
@@ -173,18 +176,26 @@ namespace DoodlesRe
         {
             rightPage.SetActive(true);
 
+            for (int i = 0; i < inventoryButtonArr.Length; i++)
+            {
+                inventoryButtonArr[i].SetActive(false);
+            }
+
+
             // 착용한 아이템 능력 UI 설정
             if (wearingEqipArr[_clickNum] != string.Empty)
             {
                 wearingEquipment.Func_SetEquipmentUI(int.Parse(wearingEqipArr[_clickNum]));
+                inventoryButtonArr[1].SetActive(true);
             }
             else
             {
                 wearingEquipment.gameObject.SetActive(false);
+                inventoryButtonArr[0].SetActive(true);
             }
 
             // 해당 인벤토리 설정
-            inventory.Func_SetInventory(_clickNum);
+            inventory.Func_SetInventory(_clickNum, wearingEqipArr[_clickNum]);
         }
 
         #endregion
