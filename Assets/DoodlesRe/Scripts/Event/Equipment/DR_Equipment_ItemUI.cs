@@ -23,11 +23,6 @@ namespace DoodlesRe
 
         private int itemID;                         // 아이템 UI의 아이템 아이디
 
-        private void OnDisable()
-        {
-            image_BG.color = Color.white;
-        }
-
         /// <summary>
         /// <para> 작 성 자 : 이승엽 </para>
         /// <para> 작 성 일 : 2021-06-25 </para>
@@ -35,6 +30,7 @@ namespace DoodlesRe
         /// </summary>
         public void Func_SetName(int _id, DR_Equipment_Inventory _inventory)
         {
+            image_BG.color = Color.white;
             inventory = _inventory;
             itemID = _id;
             text_name.text = DR_ProgramManager.Instance.Func_GetItem(itemID)[DR_PathDefine.CSV_Key_ItemName].ToString();

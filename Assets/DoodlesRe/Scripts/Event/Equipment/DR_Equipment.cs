@@ -73,54 +73,37 @@ namespace DoodlesRe
 
         /// <summary>
         /// <para> 작 성 자 : 이승엽 </para>
-        /// <para> 작 성 일 : 2021-06-29 </para>
-        /// <para> 내    용 : 인벤토리 설정하는 기능 </para>
+        /// <para> 작 성 일 : 2021-07-06 </para>
+        /// <para> 내    용 : 특정 부위의 아이템을 장착하는 기능 </para>
         /// </summary>
-        private IEnumerator Co_SetInventory()
+        public void Func_SetEquipmentPart(int _partNum, string _id)
         {
-            int _num = 0;
-
-            if (itemDic == null)
+            switch (_partNum)
             {
-                // 초기 설정
-                itemDic = DR_XML.Instance.Func_GetLoadItem(DR_ProgramManager.Instance.playSlotNum);
+                case 0:
+                    DR_PlayerManager.Instance.wearingEquipment.weapon = _id;
+                    break;
 
-                foreach (var _item in itemDic)
-                {
-                    Dictionary<string, object> _dic = DR_ProgramManager.Instance.Func_GetItem(_item.Key);
-                    int _type = int.Parse(_dic[DR_PathDefine.CSV_Key_ItemType].ToString());
+                case 1:
+                    DR_PlayerManager.Instance.wearingEquipment.ring = _id;
+                    break;
 
+                case 2:
+                    DR_PlayerManager.Instance.wearingEquipment.necklace = _id;
+                    break;
 
-                    for (int i = 0; i < itemDic[_item.Key]; i++)
-                    {
-                        if (_type < 3)
-                        {
-                            // 무기종류
+                case 3:
+                    DR_PlayerManager.Instance.wearingEquipment.wristband = _id;
+                    break;
 
-                        }
-                        else
-                        {
-                            // 장신구 종류
-
-
-                        }
-                    }
-
-                    if (++_num > 10)
-                    {
-                        _num = 0;
-                        yield return null;
-                    }
-                }
+                case 4:
+                    DR_PlayerManager.Instance.wearingEquipment.amulet = _id;
+                    break;
             }
-            else
-            {
-                // 바뀐점이 있는지 체크
-                //itemDic.
-                DR_Debug.Func_Log("인벤토리 바뀐것 있음");
-            }
+            Func_ResetEquipment();                  // 장비창 초기화
+            Func_SetWearingEquipment(_partNum);     // 특정 부위 설정
         }
-
+        
         #endregion
 
         #region 착용한 장비를 설정하는 기능
@@ -140,6 +123,41 @@ namespace DoodlesRe
                 Func_SetWearingEquipment_Text(2, _wearingEquipment.necklace);
                 Func_SetWearingEquipment_Text(3, _wearingEquipment.wristband);
                 Func_SetWearingEquipment_Text(4, _wearingEquipment.amulet);
+            }
+        }
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-07-06 </para>
+        /// <para> 내    용 : 특정 부위 장착한 아이템 설정 </para>
+        /// </summary>
+        private void Func_SetWearingEquipment(int _partNum)
+        {
+            DR_WearingEquipment _wearingEquipment = DR_PlayerManager.Instance.wearingEquipment;
+            if (_wearingEquipment != null)
+            {
+                switch (_partNum)
+                {
+                    case 0:
+                        Func_SetWearingEquipment_Text(0, _wearingEquipment.weapon);
+                        break;
+
+                    case 1:
+                        Func_SetWearingEquipment_Text(1, _wearingEquipment.ring);
+                        break;
+
+                    case 2:
+                        Func_SetWearingEquipment_Text(2, _wearingEquipment.necklace);
+                        break;
+
+                    case 3:
+                        Func_SetWearingEquipment_Text(3, _wearingEquipment.wristband);
+                        break;
+
+                    case 4:
+                        Func_SetWearingEquipment_Text(4, _wearingEquipment.amulet);
+                        break;
+                }
             }
         }
 

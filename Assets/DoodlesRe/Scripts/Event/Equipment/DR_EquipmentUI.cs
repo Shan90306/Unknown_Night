@@ -189,7 +189,7 @@ namespace DoodlesRe
                 else
                 {
                     // 파랑
-                    text_Ability.text += "(<color=#0000FF>-" + _dif + "</color>)";
+                    text_Ability.text += "(<color=#0000FF>" + _dif + "</color>)";
                 }
 
                 return true;

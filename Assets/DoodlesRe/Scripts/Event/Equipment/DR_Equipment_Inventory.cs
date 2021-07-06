@@ -12,6 +12,9 @@ namespace DoodlesRe
     /// </summary>
     public class DR_Equipment_Inventory : MonoBehaviour
     {
+        [Header("- 장비창 클래스")]
+        [SerializeField] private DR_Equipment equipment;
+
         [Header("- 인벤토리에 표시할 장비 종류")]
         [SerializeField] private EQUIPMENT_KIND kind;
 
@@ -25,8 +28,11 @@ namespace DoodlesRe
         [SerializeField] private DR_ObjectPool objectPool;
 
         private Dictionary<int, int> itemDic;           // 소유한 아이템 목록과 갯수
-        public string equipID;                         // 장착한 아이템의 아이디
+        private string equipID;                         // 장착한 아이템의 아이디
         private bool isEquipCheck = false;              // 장착한 아이템을 인벤토리에 표시했는지 체크
+        private int clickItemID;                        // 인벤토리에서 클릭한 아이템의 아이디
+
+        #region 메서드 
 
         /// <summary>
         /// <para> 작 성 자 : 이승엽 </para>
@@ -45,12 +51,12 @@ namespace DoodlesRe
             }
 
             Func_DisableInventoryView();
+            gameObject.SetActive(true);
             StartCoroutine(Co_SetInventory(_equipID));
         }
 
         private IEnumerator Co_SetInventory(string _equipID)
         {
-            gameObject.SetActive(true);
             int _num = 0;
             equipID = _equipID;
             isEquipCheck = false;
@@ -109,6 +115,7 @@ namespace DoodlesRe
                 objectPool.Func_ReturnOBJ(_list[i].gameObject);     // 오브젝트 풀에 넣기
             }
 
+            isEquipCheck = false;
             equipmentUI.gameObject.SetActive(false);                // 인벤토리의 아이템 장착 UI 비활성화
         }
 
@@ -160,7 +167,34 @@ namespace DoodlesRe
         {
             DR_Debug.Func_Log("능력치 보여주기 : " + _id);
             equipmentUI.Func_ComparisonEquipmentUI(kind, _id);
+            clickItemID = _id;
             gameObject.SetActive(false);
         }
+
+        #endregion
+
+        #region Button 기능
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-07-06 </para>
+        /// <para> 내    용 : 인벤토리 아이템을 클릭하여 장착할 때 호출 </para>
+        /// </summary>
+        public void Button_Equip()
+        {
+            int _partNum = 0;
+            if (kind == EQUIPMENT_KIND.Weapon)
+            {
+                _partNum = 0;
+            }
+            else
+            {
+                _partNum = (int)kind - 2;
+            }
+
+            equipment.Func_SetEquipmentPart(_partNum, clickItemID.ToString());
+        }
+
+        #endregion
     }
 }
