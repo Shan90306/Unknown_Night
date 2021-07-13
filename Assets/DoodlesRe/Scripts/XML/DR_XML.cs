@@ -49,6 +49,21 @@ namespace DoodlesRe
         /// <para> 작 성 일 : 20201-06-24 </para>
         /// <para> 내    용 : XML의 Element를 생성 후 속성과 값을 넣어 반환하는 메서드 </para>
         /// </summary>
+        private XmlElement Func_SetSkillNode(XmlDocument _xmlDoc, string _key, string _skill, string _sp)
+        {
+            // 슬롯노드에 들어갈 속성 생성
+            XmlElement _setElement = _xmlDoc.CreateElement(_key);
+            _setElement.SetAttribute(DR_PathDefine.XML_Key_ID, _skill);      // 스킬 번호
+            _setElement.SetAttribute(DR_PathDefine.XML_Key_SP, _sp);      // SP
+
+            return _setElement;
+        }
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 20201-06-24 </para>
+        /// <para> 내    용 : XML의 Element를 생성 후 속성과 값을 넣어 반환하는 메서드 </para>
+        /// </summary>
         private XmlElement Func_SetItemNode(XmlDocument _xmlDoc, string _key, string _id, string _count)
         {
             // 슬롯노드에 들어갈 속성 생성
@@ -188,6 +203,28 @@ namespace DoodlesRe
             _wearingEquipmentSet.AppendChild(Func_SetSlotNode(_xmlDoc, DR_PathDefine.XML_NodeName_WearingEquip_3, string.Empty));   // 목걸이
             _wearingEquipmentSet.AppendChild(Func_SetSlotNode(_xmlDoc, DR_PathDefine.XML_NodeName_WearingEquip_4, string.Empty));   // 팔찌
             _wearingEquipmentSet.AppendChild(Func_SetSlotNode(_xmlDoc, DR_PathDefine.XML_NodeName_WearingEquip_5, string.Empty));   // 부적
+
+            #endregion
+
+            #region 스킬 노드 생성
+
+            // 스킬 노드 생성
+            XmlNode _skillSet = _xmlDoc.CreateNode(XmlNodeType.Element, "Skill", string.Empty);
+            _rootSet.AppendChild(_skillSet);
+            string _skill_ID = string.Empty;
+
+            _skillSet.AppendChild(Func_SetSlotNode(_xmlDoc, DR_PathDefine.XML_Key_SP, "0"));    // 플레이어 SP 설정
+
+            // 스킬의 각 SP 설정
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 12; j++)
+                {
+                    _skill_ID = i.ToString() + "-" + j.ToString();
+                    _skillSet.AppendChild(Func_SetSkillNode(_xmlDoc, DR_PathDefine.XML_Key_Skill, _skill_ID, "0"));
+                }
+            }
+
 
             #endregion
 
@@ -379,7 +416,6 @@ namespace DoodlesRe
             return null;
         }
 
-
         /// <summary>
         /// <para> 작 성 자 : 이승엽 </para>
         /// <para> 작 성 일 : 2021-06-25 </para>
@@ -418,6 +454,18 @@ namespace DoodlesRe
             return _dic;
         }
 
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-07-13 </para>
+        /// <para> 내    용 : Save XML 파일을 불러와 N번째 스킬의 부적스킬들을 반환하는 메서드 </para>
+        /// </summary>
+        public Dictionary<int, int> Func_GetLoadSkill(int _skillNum)
+        {
+            Dictionary<int, int> _dic = new Dictionary<int, int>();
+
+            return _dic;
+        }
+
         #endregion
 
         #region Save XML
@@ -428,21 +476,52 @@ namespace DoodlesRe
             DR_ScreenShot.Func_SaveScreenShot(_slotNum);
 
             XmlDocument _xmlDoc = loadXMLDoc;
+            DR_PlayerManager _playerManager = DR_PlayerManager.Instance;
 
-            DR_SaveInformation _saveInfo_New = DR_ProgramManager.Instance.saveInfo;
-            _saveInfo_New.saveTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            _saveInfo.saveTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             _saveInfo.captureName = DR_PathDefine.ScreenShot_SaveName + _slotNum + ".png";
 
-            XmlNodeList _node = _xmlDoc.SelectNodes(DR_PathDefine.XML_Node_SaveSlot);
-            XmlNode _slotInfo = _node[0];
+            #region 슬롯 정보 저장
 
-            _slotInfo.SelectSingleNode("SaveTime").InnerText = _saveInfo_New.saveTime;
-            _slotInfo.SelectSingleNode("PlayTime").InnerText = DR_ProgramManager.Instance.Func_GetPlayTime();
-            _slotInfo.SelectSingleNode("CSVReadLine").InnerText = _saveInfo_New.csvReadLine.ToString();
-            _slotInfo.SelectSingleNode("Chapter").InnerText = _saveInfo_New.chapter;
-            _slotInfo.SelectSingleNode("Gold").InnerText = _saveInfo_New.gold.ToString();
-            _slotInfo.SelectSingleNode("CaptureName").InnerText = _saveInfo_New.captureName;
-            _slotInfo.SelectSingleNode("IsCommunication").InnerText = _saveInfo_New.isCommunication.ToString();
+            XmlNodeList _slotNode = _xmlDoc.SelectNodes(DR_PathDefine.XML_Node_SaveSlot);
+            XmlNode _slotInfo = _slotNode[0];
+
+            _slotInfo.SelectSingleNode(DR_PathDefine.XML_NodeName_SaveInformation_1).InnerText = _saveInfo.saveTime;
+            _slotInfo.SelectSingleNode(DR_PathDefine.XML_NodeName_SaveInformation_2).InnerText = DR_ProgramManager.Instance.Func_GetPlayTime();
+            _slotInfo.SelectSingleNode(DR_PathDefine.XML_NodeName_SaveInformation_3).InnerText = _saveInfo.csvReadLine.ToString();
+            _slotInfo.SelectSingleNode(DR_PathDefine.XML_NodeName_SaveInformation_4).InnerText = _saveInfo.chapter;
+            _slotInfo.SelectSingleNode(DR_PathDefine.XML_NodeName_SaveInformation_5).InnerText = _saveInfo.gold.ToString();
+            _slotInfo.SelectSingleNode(DR_PathDefine.XML_NodeName_SaveInformation_6).InnerText = _saveInfo.captureName;
+            _slotInfo.SelectSingleNode(DR_PathDefine.XML_NodeName_SaveInformation_7).InnerText = _saveInfo.isCommunication.ToString();
+
+            #endregion
+
+            #region 스테이터스 저장
+
+            XmlNodeList _statusNode = _xmlDoc.SelectNodes(DR_PathDefine.XML_Node_Status);
+            XmlNode _statusInfo = _statusNode[0];
+
+            _statusInfo.SelectSingleNode(DR_PathDefine.XML_NodeName_Status_1).InnerText = _playerManager.status.level.ToString();
+            _statusInfo.SelectSingleNode(DR_PathDefine.XML_NodeName_Status_2).InnerText = _playerManager.status.exe.ToString();
+            _statusInfo.SelectSingleNode(DR_PathDefine.XML_NodeName_Status_3).InnerText = _playerManager.status.power.ToString();
+            _statusInfo.SelectSingleNode(DR_PathDefine.XML_NodeName_Status_4).InnerText = _playerManager.status.dex.ToString();
+            _statusInfo.SelectSingleNode(DR_PathDefine.XML_NodeName_Status_5).InnerText = _playerManager.status.health.ToString();
+            _statusInfo.SelectSingleNode(DR_PathDefine.XML_NodeName_Status_6).InnerText = _playerManager.status.patience.ToString();
+
+            #endregion
+
+            #region 장착 장비 저장
+
+            XmlNodeList _equipNode = _xmlDoc.SelectNodes(DR_PathDefine.XML_Node_WearingEquipment);
+            XmlNode _equipInfo = _equipNode[0];
+
+            _equipInfo.SelectSingleNode(DR_PathDefine.XML_NodeName_WearingEquip_1).InnerText = _playerManager.wearingEquipment.weapon;
+            _equipInfo.SelectSingleNode(DR_PathDefine.XML_NodeName_WearingEquip_2).InnerText = _playerManager.wearingEquipment.ring;
+            _equipInfo.SelectSingleNode(DR_PathDefine.XML_NodeName_WearingEquip_3).InnerText = _playerManager.wearingEquipment.necklace;
+            _equipInfo.SelectSingleNode(DR_PathDefine.XML_NodeName_WearingEquip_4).InnerText = _playerManager.wearingEquipment.wristband;
+            _equipInfo.SelectSingleNode(DR_PathDefine.XML_NodeName_WearingEquip_5).InnerText = _playerManager.wearingEquipment.amulet;
+
+            #endregion
 
 
             _xmlDoc.Save(Application.dataPath + DR_PathDefine.XML_SavePath + DR_PathDefine.XML_SaveName + _slotNum + ".xml");

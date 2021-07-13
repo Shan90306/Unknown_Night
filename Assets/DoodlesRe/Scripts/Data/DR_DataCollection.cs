@@ -75,6 +75,29 @@ namespace DoodlesRe
     {
         Sword, Spear, Axe, Ring, Necklace, Wristband, Amulet, Weapon
     }
+
+    /// <summary>
+    /// <para>작 성 자 : 이승엽</para>
+    /// <para>작 성 일 : 2021-07-07</para>
+    /// <para>내    용 : 스킬의 부적 종류</para>
+    /// </summary>
+    public enum SKILL_AMULET
+    {
+        Amulet_1, Amulet_2, Amulet_3
+    }
+
+    /// <summary>
+    /// <para>작 성 자 : 이승엽</para>
+    /// <para>작 성 일 : 2021-07-07</para>
+    /// <para>내    용 : 스킬의 종류</para>
+    /// </summary>
+    public enum SKILL_KIND
+    {
+        Skill_1_1, Skill_1_2, Skill_1_3, Skill_1_4,
+        Skill_2_1, Skill_2_2, Skill_2_3, Skill_2_4,
+        Skill_3_1, Skill_3_2, Skill_3_3, Skill_3_4
+    }
+
     #endregion
 
     #region Struct 구조체
@@ -247,6 +270,41 @@ namespace DoodlesRe
         /// </summary>
         public string amulet;
     }
+
+    /// <summary>
+    /// <para> 작 성 자 : 이승엽 </para>
+    /// <para> 작 성 일 : 2021.07.07 </para>
+    /// <para> 내    용 : 플레이어가 선택한 스킬 클래스</para>
+    /// </summary>
+    [System.Serializable]
+    public class DR_PlayerSellectSkill
+    {
+        /// <summary>
+        /// 스킬의 부적 종류
+        /// </summary>
+        public SKILL_AMULET skill_Amulet;
+
+        /// <summary>
+        /// 첫번째 스킬 종류
+        /// </summary>
+        public SKILL_KIND skill_First;
+
+        /// <summary>
+        /// 두번째 스킬 종류
+        /// </summary>
+        public SKILL_KIND skill_Second;
+
+        /// <summary>
+        /// 세번째 스킬 종류
+        /// </summary>
+        public SKILL_KIND skill_Third;
+
+        /// <summary>
+        /// 네번째 스킬 종류
+        /// </summary>
+        public SKILL_KIND skill_Fourth;
+    }
+
     #endregion
 
 }

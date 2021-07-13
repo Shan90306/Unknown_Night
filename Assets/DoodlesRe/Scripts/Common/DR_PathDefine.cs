@@ -28,6 +28,8 @@
         public const string XML_SaveName = "Save";
         public const string ScreenShot_SaveName = "Save";
 
+        public const string XML_Key_Skill = "Skill";
+        public const string XML_Key_SP = "SP";
         public const string XML_Key_Item = "Item";
         public const string XML_Key_ID = "ID";
         public const string XML_Key_Count = "Count";
@@ -37,6 +39,7 @@
         public const string XML_Node_SaveSlot = "SaveInfo/Slot";
         public const string XML_Node_Status = "SaveInfo/Status";
         public const string XML_Node_WearingEquipment = "SaveInfo/WearingEquipment";
+        public const string XML_Node_Skill = "SaveInfo/Skill";
         public const string XML_Node_Inventory = "SaveInfo/Inventory";
 
         // ******************************************************************************************************

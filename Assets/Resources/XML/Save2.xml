@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<SaveInfo>
+  <Slot>
+    <SaveTime>2021-07-06 23:41:14</SaveTime>
+    <PlayTime>00:00:42</PlayTime>
+    <CSVReadLine>19</CSVReadLine>
+    <Chapter>Test 챕터</Chapter>
+    <Gold>0</Gold>
+    <CaptureName>Save0.png</CaptureName>
+    <IsCommunication>False</IsCommunication>
+  </Slot>
+  <Status>
+    <Level>1</Level>
+    <EXE>0</EXE>
+    <Power>5</Power>
+    <Dex>5</Dex>
+    <Health>5</Health>
+    <Patience>5</Patience>
+  </Status>
+  <WearingEquipment>
+    <Weapon>10002</Weapon>
+    <Ring>40002</Ring>
+    <Necklace>50001</Necklace>
+    <Wristband>
+    </Wristband>
+    <Amulet>
+    </Amulet>
+  </WearingEquipment>
+  <Inventory>
+    <Item ID="10001" Count="3" />
+    <Item ID="10002" Count="2" />
+    <Item ID="40001" Count="1" />
+    <Item ID="40002" Count="2" />
+    <Item ID="50001" Count="3" />
+    <Item ID="50002" Count="1" />
+    <Item ID="60001" Count="1" />
+    <Item ID="60002" Count="1" />
+    <Item ID="70001" Count="6" />
+    <Item ID="70002" Count="2" />
+  </Inventory>
+</SaveInfo>

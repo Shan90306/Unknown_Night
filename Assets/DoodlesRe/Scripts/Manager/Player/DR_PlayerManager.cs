@@ -17,6 +17,12 @@ namespace DoodlesRe
         [Header("- 플레이어 착용 장비")]
         public DR_WearingEquipment wearingEquipment;
 
+        [Header("- 플레이어 스킬")]
+        public DR_PlayerSellectSkill skill;
+
+        [Header("- 플레이어 스킬 포인트")]
+        public int sp;
+
         protected override void Func_Init()
         {
             DontDestroyOnLoad(gameObject);
