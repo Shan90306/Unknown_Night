@@ -12,6 +12,9 @@ namespace DoodlesRe
     /// </summary>
     public class DR_SkillUI : MonoBehaviour
     {
+        [Header("- 스킬 스크립트")]
+        [SerializeField] private DR_Skill skill;
+
         [Header("- 스킬 종류")]
         [SerializeField] private SKILL_KIND kind;
 
@@ -33,8 +36,8 @@ namespace DoodlesRe
         [Header("- 부적 별 스킬 SP 업그레이드 배열")]
         [SerializeField] private int[] spUpgradeArr;
 
-        [Header("- 부적 별 스킬 SP 업그레이드 배열")]
-        [SerializeField] private int nosSkillSP;
+        [Header("- 현재 부적 스킬의 SP")]
+        [SerializeField] private int nowSkillSP;
 
         private void Start()
         {
@@ -66,26 +69,54 @@ namespace DoodlesRe
         public void Func_SetSkillUIImage(int _amuletNum)
         {
             image_skill.sprite = skillSpriteArr[_amuletNum];
+            nowSkillSP = spUpgradeArr[_amuletNum];
 
-            if (spUpgradeArr[_amuletNum] != 0)
+            if (nowSkillSP != 0)
             {
                 // 현재 스킬의 테두리 설정
                 image_skillFrame.sprite = frameSpriteArr[_amuletNum];
             }
             else
             {
-                clickDefender.SetActive(true);
+                image_skillFrame.sprite = frameSpriteArr[0];
             }
         }
 
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2020-07-15 </para>
+        /// <para> 내    용 : 현재 부적의 스킬의 마스터 유무 </para>
+        /// </summary>
+        public bool Func_IsSkillMaster()
+        {
+            return nowSkillSP >= 3;
+        }
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2020-07-15 </para>
+        /// <para> 내    용 : 스킬을 잠가야 하는지 체크 </para>
+        /// </summary>
+        public void Func_SetSkillLock(bool _isLock)
+        {
+            if (!_isLock)
+            {
+                clickDefender.SetActive(true);
+            }
+        }
 
         #endregion
 
         #region Button 메서드
 
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2020-07-15 </para>
+        /// <para> 내    용 : 스킬 UI를 클릭했을 때 호출 </para>
+        /// </summary>
         public void Button_ClickSkillUI()
         {
-
+            skill.Func_SetUpgradeUI(kind);
         }
 
         #endregion

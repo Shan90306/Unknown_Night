@@ -64,7 +64,7 @@ namespace DoodlesRe
         {
             StringBuilder _sb = new StringBuilder(123);
             WaitForSecondsRealtime _waitForSecondsRealtime = new WaitForSecondsRealtime(eachScriptTime);
-            isNowLineEnd = false;
+            //isNowLineEnd = false;
 
             for (int i = 0; i < _scriptText.Length; i++)
             {
@@ -73,7 +73,7 @@ namespace DoodlesRe
                 yield return _waitForSecondsRealtime;
             }
 
-            isNowLineEnd = true;
+            //isNowLineEnd = true;
         }
 
         public void Func_EndText()
