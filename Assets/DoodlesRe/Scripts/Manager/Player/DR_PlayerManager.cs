@@ -40,6 +40,7 @@ namespace DoodlesRe
             DR_Debug.Func_Log("플레이어 설정");
             Func_SetStatus();               // 스텟 설정
             Func_SetWearingEquipment();     // 장비 설정
+            Func_SetSP();                   // SP 설정
         }
 
         /// <summary>
@@ -60,6 +61,16 @@ namespace DoodlesRe
         private void Func_SetWearingEquipment()
         {
             wearingEquipment = DR_XML.Instance.Func_GetLoadWearingEquipment(DR_ProgramManager.Instance.playSlotNum);
+        }
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-07-19 </para>
+        /// <para> 내    용 : 플레이어의 SP를 설정하는 기능 </para>
+        /// </summary>
+        private void Func_SetSP()
+        {
+            sp = DR_XML.Instance.Func_GetLoadSkillPoint(DR_ProgramManager.Instance.playSlotNum);
         }
 
         #endregion

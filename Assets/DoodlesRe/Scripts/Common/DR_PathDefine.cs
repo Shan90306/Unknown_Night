@@ -68,6 +68,8 @@
         public const string XML_NodeName_WearingEquip_4 = "Wristband";
         public const string XML_NodeName_WearingEquip_5 = "Amulet";
 
+        // SkillPoint
+        public const string XML_NodeName_SkillPoint = "SP";
 
         #endregion
 

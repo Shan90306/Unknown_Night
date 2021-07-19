@@ -34,15 +34,20 @@ namespace DoodlesRe
         [SerializeField] private GameObject clickDefender;      // SP가 0이거나 하위스킬 마스터가 아닐때 활성화
 
         [Header("- 부적 별 스킬 SP 업그레이드 배열")]
-        [SerializeField] private int[] spUpgradeArr;
+        [SerializeField] private DR_SkillPoint amuletSkillPoint;
 
         [Header("- 현재 부적 스킬의 SP")]
         [SerializeField] private int nowSkillSP;
 
-        private void Start()
-        {
-            Func_SetAmuletSkillSP();     // 부적 별 스킬의 SP 업그레이드 설정
-        }
+        [Header("- 하위스킬인지 체크")]
+        [SerializeField] private bool isLowSkill;
+
+        private bool isUpgradeable;         // 하위 스킬이 마스터가 되어있어서 배울 수 있는지 체크
+
+        //private void Start()
+        //{
+        //    Func_SetAmuletSkillSP();     // 부적 별 스킬의 SP 업그레이드 설정
+        //}
 
         #region 기능들
 
@@ -51,14 +56,9 @@ namespace DoodlesRe
         /// <para> 작 성 일 : 2020-07-13 </para>
         /// <para> 내    용 : 부적 별 스킬의 SP 업그레이드 설정 </para>
         /// </summary>
-        private void Func_SetAmuletSkillSP()
+        public void Func_SetAmuletSkillSP(DR_SkillPoint _sp)
         {
-            Dictionary<int, int> _dic = DR_XML.Instance.Func_GetLoadSkill((int)kind);
-            int _num = 0;
-            foreach (var _item in _dic)
-            {
-                spUpgradeArr[_num++] = _item.Value;
-            }
+            amuletSkillPoint = _sp;
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace DoodlesRe
         public void Func_SetSkillUIImage(int _amuletNum)
         {
             image_skill.sprite = skillSpriteArr[_amuletNum];
-            nowSkillSP = spUpgradeArr[_amuletNum];
+            nowSkillSP = amuletSkillPoint.skillPoint[_amuletNum];
 
             if (nowSkillSP != 0)
             {
@@ -89,7 +89,7 @@ namespace DoodlesRe
         /// </summary>
         public bool Func_IsSkillMaster()
         {
-            return nowSkillSP >= 3;
+            return nowSkillSP == 3;
         }
 
         /// <summary>
@@ -99,9 +99,24 @@ namespace DoodlesRe
         /// </summary>
         public void Func_SetSkillLock(bool _isLock)
         {
-            if (!_isLock)
+            if (!isLowSkill)
             {
-                clickDefender.SetActive(true);
+                // 상위스킬일 때
+                if (!_isLock)
+                {
+                    isUpgradeable = false;
+                    clickDefender.SetActive(true);
+                }
+                else
+                {
+                    isUpgradeable = true;
+                    clickDefender.SetActive(false);
+                }
+            }
+            else
+            {
+                // 하위스킬이면 언제든지 업그레이드 가능
+                isUpgradeable = true;
             }
         }
 
@@ -116,7 +131,7 @@ namespace DoodlesRe
         /// </summary>
         public void Button_ClickSkillUI()
         {
-            skill.Func_SetUpgradeUI(kind);
+            skill.Func_SetUpgradeUI(kind, amuletSkillPoint, isUpgradeable);
         }
 
         #endregion

@@ -456,12 +456,70 @@ namespace DoodlesRe
 
         /// <summary>
         /// <para> 작 성 자 : 이승엽 </para>
-        /// <para> 작 성 일 : 2021-07-13 </para>
-        /// <para> 내    용 : Save XML 파일을 불러와 N번째 스킬의 부적스킬들을 반환하는 메서드 </para>
+        /// <para> 작 성 일 : 2021-07-19 </para>
+        /// <para> 내    용 : Save XML 파일을 불러와 스킬포인트를 반환하는 메서드 </para>
         /// </summary>
-        public Dictionary<int, int> Func_GetLoadSkill(int _skillNum)
+        public int Func_GetLoadSkillPoint(int _slotNum)
         {
-            Dictionary<int, int> _dic = new Dictionary<int, int>();
+            string _path = Application.dataPath + DR_PathDefine.XML_SavePath + DR_PathDefine.XML_SaveName + _slotNum + ".xml";
+            FileInfo _fileInfo = new FileInfo(_path);
+            int _sp = 0;
+            if (_fileInfo.Exists)
+            {
+                if (loadXMLDoc == null)
+                {
+                    Func_SellectLoadXML(_slotNum);
+                }
+                if (loadXMLDoc == null)
+                {
+                    DR_Debug.Func_RedLog("세이브파일 캐싱 X 아이템", "캐싱 안됨");
+                    return _sp;
+                }
+                else
+                {
+                    XmlNodeList _nodes = loadXMLDoc.SelectNodes(DR_PathDefine.XML_Node_Status);
+
+                    _sp = int.Parse(_nodes[0].SelectSingleNode(DR_PathDefine.XML_NodeName_SkillPoint).InnerText);
+                }
+            }
+
+            return _sp;
+        }
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-07-13 </para>
+        /// <para> 내    용 : Save XML 파일을 불러와 스킬의 부적스킬들을 반환하는 메서드 </para>
+        /// </summary>
+        public Dictionary<string, int> Func_GetLoadAmuletSkill(int _slotNum)
+        {
+            Dictionary<string, int> _dic = new Dictionary<string, int>();
+
+            string _path = Application.dataPath + DR_PathDefine.XML_SavePath + DR_PathDefine.XML_SaveName + _slotNum + ".xml";
+            FileInfo _fileInfo = new FileInfo(_path);
+
+            if (_fileInfo.Exists)
+            {
+                if (loadXMLDoc == null)
+                {
+                    Func_SellectLoadXML(_slotNum);
+                }
+                if (loadXMLDoc == null)
+                {
+                    DR_Debug.Func_RedLog("세이브파일 캐싱 X 아이템", "캐싱 안됨");
+                    return _dic;
+                }
+                else
+                {
+                    XmlNodeList _nodes = loadXMLDoc.SelectNodes(DR_PathDefine.XML_Node_Skill);
+
+                    foreach (XmlElement _item in _nodes[0])
+                    {
+                        _dic[_item.GetAttribute(DR_PathDefine.XML_Key_ID)] =
+                            int.Parse(_item.GetAttribute(DR_PathDefine.XML_Key_SP));
+                    }
+                }
+            }
 
             return _dic;
         }

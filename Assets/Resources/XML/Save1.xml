@@ -16,6 +16,7 @@
     <Dex>5</Dex>
     <Health>5</Health>
     <Patience>5</Patience>
+    <SP>4</SP>
   </Status>
   <WearingEquipment>
     <Weapon>
@@ -30,8 +31,7 @@
     </Amulet>
   </WearingEquipment>
   <Skill>
-    <SP>0</SP>
-    <Skill ID="0-0" SP="0" />
+    <Skill ID="0-0" SP="1" />
     <Skill ID="0-1" SP="0" />
     <Skill ID="0-2" SP="0" />
     <Skill ID="0-3" SP="0" />

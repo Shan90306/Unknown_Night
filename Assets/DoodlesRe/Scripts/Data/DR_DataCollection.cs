@@ -305,6 +305,22 @@ namespace DoodlesRe
         public SKILL_KIND skill_Fourth;
     }
 
+    /// <summary>
+    /// <para> 작 성 자 : 이승엽 </para>
+    /// <para> 작 성 일 : 2021.07.07 </para>
+    /// <para> 내    용 : 각 부적 별 스킬 포인트 클래스</para>
+    /// </summary>
+    [System.Serializable]
+    public class DR_SkillPoint
+    {
+        public DR_SkillPoint(int _count)
+        {
+            skillPoint = new int[_count];
+        }
+
+        public int[] skillPoint;
+    }
+
     #endregion
 
 }

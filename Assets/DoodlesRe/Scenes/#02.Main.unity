@@ -2264,7 +2264,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 0.5176471}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2602,7 +2602,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.24705882, g: 0.24705882, b: 0.24705882, a: 0.5176471}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3543,7 +3543,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.24705882, g: 0.24705882, b: 0.24705882, a: 0.5176471}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3862,8 +3862,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c02f8aa98a070ca40b2c8f50694ac7d6, type: 3}
   - {fileID: 21300000, guid: 15ec324b46e10db47b736ff151dd581d, type: 3}
   clickDefender: {fileID: 1931152963}
-  spUpgradeArr: 010000000200000003000000
+  amuletSkillPoint:
+    skillPoint: 000000000000000000000000
   nowSkillSP: 0
+  isLowSkill: 1
 --- !u!114 &346716931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4021,8 +4023,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c02f8aa98a070ca40b2c8f50694ac7d6, type: 3}
   - {fileID: 21300000, guid: 15ec324b46e10db47b736ff151dd581d, type: 3}
   clickDefender: {fileID: 226127390}
-  spUpgradeArr: 010000000200000003000000
+  amuletSkillPoint:
+    skillPoint: 000000000000000000000000
   nowSkillSP: 0
+  isLowSkill: 0
 --- !u!114 &356457871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4564,6 +4568,7 @@ MonoBehaviour:
   infoWindowArr:
   - {fileID: 222280789}
   - {fileID: 1268997298}
+  - {fileID: 1001326675}
 --- !u!1 &425684760
 GameObject:
   m_ObjectHideFlags: 0
@@ -6065,7 +6070,7 @@ RectTransform:
   - {fileID: 333769518}
   - {fileID: 582219277}
   m_Father: {fileID: 781335228}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -6978,12 +6983,12 @@ RectTransform:
   m_Children:
   - {fileID: 551305810}
   - {fileID: 1441786108}
-  m_Father: {fileID: 2039624012}
-  m_RootOrder: 0
+  m_Father: {fileID: 781335228}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 960, y: -352.50003}
+  m_AnchoredPosition: {x: 49.999878, y: 137.49997}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &720166453
@@ -7240,7 +7245,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.24705882, g: 0.24705882, b: 0.24705882, a: 0.5176471}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -7356,6 +7361,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1750655092}
+  - {fileID: 720166452}
   - {fileID: 2061939581}
   - {fileID: 583889182}
   - {fileID: 1041435521}
@@ -7580,7 +7586,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.24705882, g: 0.24705882, b: 0.24705882, a: 0.5176471}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -8086,8 +8092,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c02f8aa98a070ca40b2c8f50694ac7d6, type: 3}
   - {fileID: 21300000, guid: 15ec324b46e10db47b736ff151dd581d, type: 3}
   clickDefender: {fileID: 323083102}
-  spUpgradeArr: 010000000200000003000000
+  amuletSkillPoint:
+    skillPoint: 000000000000000000000000
   nowSkillSP: 0
+  isLowSkill: 1
 --- !u!114 &813396851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8695,8 +8703,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c02f8aa98a070ca40b2c8f50694ac7d6, type: 3}
   - {fileID: 21300000, guid: 15ec324b46e10db47b736ff151dd581d, type: 3}
   clickDefender: {fileID: 1913912133}
-  spUpgradeArr: 010000000200000003000000
+  amuletSkillPoint:
+    skillPoint: 000000000000000000000000
   nowSkillSP: 0
+  isLowSkill: 0
 --- !u!114 &886732718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9291,8 +9301,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c02f8aa98a070ca40b2c8f50694ac7d6, type: 3}
   - {fileID: 21300000, guid: 15ec324b46e10db47b736ff151dd581d, type: 3}
   clickDefender: {fileID: 1214858703}
-  spUpgradeArr: 010000000200000003000000
+  amuletSkillPoint:
+    skillPoint: 000000000000000000000000
   nowSkillSP: 0
+  isLowSkill: 0
 --- !u!114 &934930525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9570,8 +9582,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c02f8aa98a070ca40b2c8f50694ac7d6, type: 3}
   - {fileID: 21300000, guid: 15ec324b46e10db47b736ff151dd581d, type: 3}
   clickDefender: {fileID: 1965786997}
-  spUpgradeArr: 010000000200000003000000
+  amuletSkillPoint:
+    skillPoint: 000000000000000000000000
   nowSkillSP: 0
+  isLowSkill: 0
 --- !u!114 &940953908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10146,7 +10160,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.2924528, g: 0.2924528, b: 0.2924528, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -10164,7 +10178,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 972964235}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1584465094}
+        m_MethodName: Button_ClickLearn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &972964235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10268,8 +10293,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c02f8aa98a070ca40b2c8f50694ac7d6, type: 3}
   - {fileID: 21300000, guid: 15ec324b46e10db47b736ff151dd581d, type: 3}
   clickDefender: {fileID: 257912175}
-  spUpgradeArr: 010000000200000003000000
+  amuletSkillPoint:
+    skillPoint: 000000000000000000000000
   nowSkillSP: 0
+  isLowSkill: 0
 --- !u!114 &982331366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10523,6 +10550,7 @@ MonoBehaviour:
   - {fileID: 1303725236}
   - {fileID: 940953907}
   skillUpgradeUI: {fileID: 1584465094}
+  text_SP: {fileID: 1761466096}
 --- !u!1 &1014982405
 GameObject:
   m_ObjectHideFlags: 0
@@ -10743,7 +10771,7 @@ RectTransform:
   - {fileID: 1907955760}
   - {fileID: 50976126}
   m_Father: {fileID: 781335228}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -12557,7 +12585,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.24705882, g: 0.24705882, b: 0.24705882, a: 0.5176471}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -12798,8 +12826,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c02f8aa98a070ca40b2c8f50694ac7d6, type: 3}
   - {fileID: 21300000, guid: 15ec324b46e10db47b736ff151dd581d, type: 3}
   clickDefender: {fileID: 1776028493}
-  spUpgradeArr: 010000000200000003000000
+  amuletSkillPoint:
+    skillPoint: 000000000000000000000000
   nowSkillSP: 0
+  isLowSkill: 0
 --- !u!114 &1237463699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12824,7 +12854,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -13255,8 +13285,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c02f8aa98a070ca40b2c8f50694ac7d6, type: 3}
   - {fileID: 21300000, guid: 15ec324b46e10db47b736ff151dd581d, type: 3}
   clickDefender: {fileID: 1485355038}
-  spUpgradeArr: 010000000200000003000000
+  amuletSkillPoint:
+    skillPoint: 000000000000000000000000
   nowSkillSP: 0
+  isLowSkill: 0
 --- !u!114 &1303725237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14494,8 +14526,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c02f8aa98a070ca40b2c8f50694ac7d6, type: 3}
   - {fileID: 21300000, guid: 15ec324b46e10db47b736ff151dd581d, type: 3}
   clickDefender: {fileID: 1594291046}
-  spUpgradeArr: 010000000200000003000000
+  amuletSkillPoint:
+    skillPoint: 000000000000000000000000
   nowSkillSP: 0
+  isLowSkill: 1
 --- !u!114 &1459277433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14739,7 +14773,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.24705882, g: 0.24705882, b: 0.24705882, a: 0.5176471}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -15550,8 +15584,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c02f8aa98a070ca40b2c8f50694ac7d6, type: 3}
   - {fileID: 21300000, guid: 15ec324b46e10db47b736ff151dd581d, type: 3}
   clickDefender: {fileID: 740326754}
-  spUpgradeArr: 010000000200000003000000
+  amuletSkillPoint:
+    skillPoint: 000000000000000000000000
   nowSkillSP: 0
+  isLowSkill: 1
 --- !u!114 &1553592591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15847,6 +15883,7 @@ MonoBehaviour:
   skill: {fileID: 1001326675}
   text_SkillName: {fileID: 988051099}
   text_SkillExplanation: {fileID: 1197985133}
+  button_Learn: {fileID: 972964234}
 --- !u!1 &1588574214
 GameObject:
   m_ObjectHideFlags: 0
@@ -16051,7 +16088,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.24705882, g: 0.24705882, b: 0.24705882, a: 0.5176471}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -18254,7 +18291,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.24705882, g: 0.24705882, b: 0.24705882, a: 0.5176471}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -18343,8 +18380,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c02f8aa98a070ca40b2c8f50694ac7d6, type: 3}
   - {fileID: 21300000, guid: 15ec324b46e10db47b736ff151dd581d, type: 3}
   clickDefender: {fileID: 792157751}
-  spUpgradeArr: 010000000200000003000000
+  amuletSkillPoint:
+    skillPoint: 000000000000000000000000
   nowSkillSP: 0
+  isLowSkill: 0
 --- !u!114 &1776253642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18845,7 +18884,7 @@ RectTransform:
   - {fileID: 279878642}
   - {fileID: 836840990}
   m_Father: {fileID: 781335228}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -19686,7 +19725,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.24705882, g: 0.24705882, b: 0.24705882, a: 0.5176471}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -19958,7 +19997,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.24705882, g: 0.24705882, b: 0.24705882, a: 0.5176471}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -20492,7 +20531,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.24705882, g: 0.24705882, b: 0.24705882, a: 0.5176471}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -21592,8 +21631,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 720166452}
+  m_Children: []
   m_Father: {fileID: 415468888}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -22321,7 +22359,7 @@ RectTransform:
   - {fileID: 127777662}
   - {fileID: 1322881191}
   m_Father: {fileID: 781335228}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -22370,7 +22408,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2061939583}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 415468889}
+        m_MethodName: Button_Skill
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2061939583
 MonoBehaviour:
   m_ObjectHideFlags: 0

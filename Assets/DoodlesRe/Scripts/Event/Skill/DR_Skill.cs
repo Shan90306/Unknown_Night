@@ -30,25 +30,42 @@ namespace DoodlesRe
         [Header("- 스킬 업그레이드 UI")]
         [SerializeField] private DR_SkillUpgradeUI skillUpgradeUI;
 
-        private int sp;     // 플레이어한테 남아있는 스킬 포인트
-        
-        /// <summary>
-        /// 플레이어한테 남아있는 스킬 포인트
-        /// </summary>
-        public int SP
-        {
-            get
-            {
-                return sp;
-            }
-        }
+        [Header("- SP")]
+        [SerializeField] private Text text_SP;
 
         private void Start()
         {
+            Func_SetAmuletSkills();
             Func_SetSkillUI(0);
         }
 
+        #region 상속 메서드
+
+        public override void Func_SetEnable() 
+        {
+            gameObject.SetActive(true);
+        }
+
+        #endregion
+
         #region 기능
+
+        private void Func_SetAmuletSkills()
+        {
+            Dictionary<string, int> _dic = DR_XML.Instance.Func_GetLoadAmuletSkill(DR_ProgramManager.Instance.playSlotNum);
+
+            for (int i = 0; i < skillUIArr.Length; i++)
+            {
+                DR_SkillPoint _sp = new DR_SkillPoint(3);
+
+                for (int j = 0; j < 3; j++)
+                {
+                    _sp.skillPoint[j] = _dic[j + "-" + i];
+                }
+
+                skillUIArr[i].Func_SetAmuletSkillSP(_sp);
+            }
+        }
 
         /// <summary>
         /// <para> 작 성 자 : 이승엽 </para>
@@ -62,6 +79,8 @@ namespace DoodlesRe
                 skillUIArr[i].Func_SetSkillUIImage(_amuletNum);     // 부적 설정
                 skillUIArr[i].Func_SetSkillLock(skillUIArr[i % 4].Func_IsSkillMaster());
             }
+
+            text_SP.text = DR_PlayerManager.Instance.sp.ToString();
         }
 
         /// <summary>
@@ -69,9 +88,9 @@ namespace DoodlesRe
         /// <para> 작 성 일 : 2020-07-15 </para>
         /// <para> 내    용 : 스킬 업그레이드 UI를 활성화시키는 기능 </para>
         /// </summary>
-        public void Func_SetUpgradeUI(SKILL_KIND _skillKind)
+        public void Func_SetUpgradeUI(SKILL_KIND _skillKind, DR_SkillPoint _sp, bool _isUpgradeable)
         {
-            skillUpgradeUI.Func_SetSkillAbility(skill.skill_Amulet, _skillKind);
+            skillUpgradeUI.Func_SetSkillAbility(skill.skill_Amulet, _skillKind, _sp, _isUpgradeable);
         }
 
         #endregion
@@ -95,7 +114,7 @@ namespace DoodlesRe
 
             Func_SetSkillUI(_num);
         }
-             
+
         #endregion
     }
 }

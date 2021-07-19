@@ -67,6 +67,15 @@ namespace DoodlesRe
             infoWindowArr[1].Func_SetEnable();
         }
 
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-06-22 </para>
+        /// <para> 내    용 : 스킬창을 여는 버튼 메서드 </para>
+        /// </summary>
+        public void Button_Skill()
+        {
+            infoWindowArr[2].Func_SetEnable();
+        }
         #endregion
     }
 }
