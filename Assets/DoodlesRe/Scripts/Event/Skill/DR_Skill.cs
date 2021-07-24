@@ -93,6 +93,16 @@ namespace DoodlesRe
             skillUpgradeUI.Func_SetSkillAbility(skill.skill_Amulet, _skillKind, _sp, _isUpgradeable);
         }
 
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2020-07-23 </para>
+        /// <para> 내    용 : 플레이어 SP를 업데이트하여 표시하는 기능 </para>
+        /// </summary>
+        public void Func_UpdateSP()
+        {
+            text_SP.text = DR_PlayerManager.Instance.sp.ToString();
+        }
+
         #endregion
 
         #region Button 기능

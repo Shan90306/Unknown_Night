@@ -189,6 +189,7 @@ namespace DoodlesRe
             _statusSet.AppendChild(Func_SetSlotNode(_xmlDoc, DR_PathDefine.XML_NodeName_Status_4, "5")); // 민첩
             _statusSet.AppendChild(Func_SetSlotNode(_xmlDoc, DR_PathDefine.XML_NodeName_Status_5, "5")); // 체력
             _statusSet.AppendChild(Func_SetSlotNode(_xmlDoc, DR_PathDefine.XML_NodeName_Status_6, "5")); // 인내
+            _statusSet.AppendChild(Func_SetSlotNode(_xmlDoc, DR_PathDefine.XML_NodeName_SkillPoint, "5")); // 스킬포인트
 
             #endregion
 
@@ -527,7 +528,7 @@ namespace DoodlesRe
         #endregion
 
         #region Save XML
-
+         
         public void Func_SaveSlotXML(int _slotNum, DR_SaveInformation _saveInfo)
         {
             // 스크린샷 찍기
@@ -565,6 +566,7 @@ namespace DoodlesRe
             _statusInfo.SelectSingleNode(DR_PathDefine.XML_NodeName_Status_4).InnerText = _playerManager.status.dex.ToString();
             _statusInfo.SelectSingleNode(DR_PathDefine.XML_NodeName_Status_5).InnerText = _playerManager.status.health.ToString();
             _statusInfo.SelectSingleNode(DR_PathDefine.XML_NodeName_Status_6).InnerText = _playerManager.status.patience.ToString();
+            _statusInfo.SelectSingleNode(DR_PathDefine.XML_NodeName_SkillPoint).InnerText = _playerManager.sp.ToString();
 
             #endregion
 
@@ -581,6 +583,11 @@ namespace DoodlesRe
 
             #endregion
 
+            #region 스킬 저장
+
+
+
+            #endregion
 
             _xmlDoc.Save(Application.dataPath + DR_PathDefine.XML_SavePath + DR_PathDefine.XML_SaveName + _slotNum + ".xml");
         }

@@ -74,7 +74,7 @@ namespace DoodlesRe
             if (nowSkillSP != 0)
             {
                 // 현재 스킬의 테두리 설정
-                image_skillFrame.sprite = frameSpriteArr[_amuletNum];
+                image_skillFrame.sprite = frameSpriteArr[nowSkillSP - 1];
             }
             else
             {
