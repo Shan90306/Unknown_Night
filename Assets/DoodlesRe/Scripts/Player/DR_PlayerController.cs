@@ -19,21 +19,37 @@ namespace DoodlesRe
         [Header("- 캐릭터 캐싱")]
         [SerializeField] private Animator anim;     // 애니메이터
         public Rigidbody2D m_rigidbody;             // 강체 캐싱
-        public CapsuleCollider2D m_CapsulleCollider;   // 플레이어 콜라이더 캐싱
+        public Collider2D playerCollider;           // 플레이어 콜라이더 캐싱
 
         [HideInInspector] public int currentJumpCount;          // 현재 점프 숫자
-        [HideInInspector] public bool isGround;                 // 
+        [HideInInspector] public bool isGround;                 // 캐릭터가 바닥에 있는지 체크
+        [HideInInspector] public bool isWall;                   // 플레이어가 가는 방향에 벽이 있는지 체크
         [HideInInspector] public bool isDownJumpGroundCheck;    // 현재 밑이 블럭인지 땅인지 체크
 
         private float moveX;
         private bool isSit;
         private bool isDie;
-        private bool isAttack;
+        public bool isAttack;
 
         // Update is called once per frame
         void Update()
         {
             Func_InputCheck();
+        }
+
+        private void FixedUpdate()
+        {
+            if (isGround && isAttack)
+            {
+                return;
+            }
+
+            if (isWall)
+            {
+                moveX = 0;
+            }
+
+            m_rigidbody.velocity = new Vector2(moveX * moveSpeed, m_rigidbody.velocity.y);
         }
 
         #region 메서드
@@ -68,15 +84,39 @@ namespace DoodlesRe
                 return;
             }
 
+            if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+            {
+                if (Input.GetKey(KeyCode.Z))
+                {
+                    Func_Attack();                    
+                }
+                else
+                {
+                    isAttack = false;
+                }
+
+                if (!isAttack)
+                {
+                    if (moveX == 0 || isWall)
+                    {
+                        anim.Play("Idle");
+                    }
+                    else
+                    {
+                        anim.Play("Run");
+                    }
+                }
+            }
+
             if (Input.GetKey(KeyCode.LeftArrow))
             {
+                if (isAttack)
+                {
+                    return;
+                }
+
                 if (isGround)
                 {
-                    if (isAttack)
-                    {
-                        return;
-                    }
-
                     moveX = -1;
                 }
                 else
@@ -88,12 +128,12 @@ namespace DoodlesRe
             }
             else if (Input.GetKey(KeyCode.RightArrow))
             {
+                if (isAttack)
+                {
+                    return;
+                }
                 if (isGround)
                 {
-                    if (isAttack)
-                    {
-                        return;
-                    }
 
                     moveX = 1;
                 }
@@ -120,35 +160,6 @@ namespace DoodlesRe
                     moveX = Input.GetAxis("Horizontal");
                 }
             }
-
-            //moveX = Input.GetAxis("Horizontal");
-            if (!isAttack)
-            {
-                if (moveX == 0)
-                {
-                    anim.Play("Idle");
-                }
-                else
-                {
-                    anim.Play("Run");
-
-                }
-            }
-
-            if (isGround)
-            {
-                if (isAttack)
-                {
-                    return;
-                }
-
-                transform.Translate(Vector2.right * moveX * moveSpeed * Time.deltaTime);
-            }
-            else
-            {
-                transform.Translate(new Vector3(moveX * moveSpeed * Time.deltaTime, 0, 0));
-            }
-
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -224,7 +235,7 @@ namespace DoodlesRe
 
                 isGround = false;
 
-                m_CapsulleCollider.enabled = false;
+                playerCollider.enabled = false;
                 m_rigidbody.AddForce(-Vector2.up * 10);
                 StartCoroutine(Co_GroundColliderTimmerFuc());
             }
@@ -238,8 +249,15 @@ namespace DoodlesRe
         IEnumerator Co_GroundColliderTimmerFuc()
         {
             yield return new WaitForSeconds(0.3f);
-            m_CapsulleCollider.enabled = true;
+            playerCollider.enabled = true;
         }
+
+        private void Func_Attack()
+        {
+            isAttack = true;
+            anim.Play("Attack");
+        }
+
 
         #endregion
     }
