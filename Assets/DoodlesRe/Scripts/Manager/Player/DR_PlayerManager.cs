@@ -14,6 +14,9 @@ namespace DoodlesRe
         [Header("- 플레이어 스텟")]
         public DR_DefineStatus status;
 
+        [Header("- 플레이어 디테일 스텟")]
+        public DR_DefineDetailStatus detailStatus;
+
         [Header("- 플레이어 착용 장비")]
         public DR_WearingEquipment wearingEquipment;
 

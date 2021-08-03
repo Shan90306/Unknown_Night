@@ -189,6 +189,49 @@ namespace DoodlesRe
             patience = _patience;
         }
     }
+
+    /// <summary>
+    /// <para> 작 성 자 : 이승엽 </para>
+    /// <para> 작 성 일 : 21/08/02 </para>
+    /// <para> 내    용 : 디테일 스텟에 대한 구조체 </para>
+    /// </summary>
+    [System.Serializable]
+    public struct DR_DefineDetailStatus
+    {
+        /// <summary>
+        /// HP
+        /// </summary>
+        public int hp;
+
+        /// <summary>
+        /// 공격력
+        /// </summary>
+        public int attackPoint;
+
+        /// <summary>
+        /// 공격 속도
+        /// </summary>
+        public float attackSpeed;
+
+        /// <summary>
+        /// 공격 사거리
+        /// </summary>
+        public float attackDistance;
+
+        /// <summary>
+        /// 방어력
+        /// </summary>
+        public int defensivePoint;
+
+        public DR_DefineDetailStatus(int _hp, int _attackPoint, float _attackSpeed, float _attackDistance, int _defensivePoint)
+        {
+            hp = _hp;
+            attackPoint = _attackPoint;
+            attackSpeed = _attackSpeed;
+            attackDistance = _attackDistance;
+            defensivePoint = _defensivePoint;
+        }
+    }
     #endregion
 
     #region Class 클래스

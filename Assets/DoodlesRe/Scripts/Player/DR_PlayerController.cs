@@ -81,6 +81,8 @@ namespace DoodlesRe
                         Func_DownJump();
                     }
                 }
+
+                moveX = 0;
                 return;
             }
 

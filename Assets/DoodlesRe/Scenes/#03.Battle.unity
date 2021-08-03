@@ -1042,6 +1042,81 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3445467997999769260, guid: 1105ae3e3d7d373439d7be01d1f16ac8,
+        type: 3}
+      propertyPath: status.dex
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445467997999769260, guid: 1105ae3e3d7d373439d7be01d1f16ac8,
+        type: 3}
+      propertyPath: status.exe
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445467997999769260, guid: 1105ae3e3d7d373439d7be01d1f16ac8,
+        type: 3}
+      propertyPath: status.level
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445467997999769260, guid: 1105ae3e3d7d373439d7be01d1f16ac8,
+        type: 3}
+      propertyPath: status.power
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445467997999769260, guid: 1105ae3e3d7d373439d7be01d1f16ac8,
+        type: 3}
+      propertyPath: status.health
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445467997999769260, guid: 1105ae3e3d7d373439d7be01d1f16ac8,
+        type: 3}
+      propertyPath: detailStatus.hp
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445467997999769260, guid: 1105ae3e3d7d373439d7be01d1f16ac8,
+        type: 3}
+      propertyPath: status.patience
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445467997999769260, guid: 1105ae3e3d7d373439d7be01d1f16ac8,
+        type: 3}
+      propertyPath: skill.skill_Third
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445467997999769260, guid: 1105ae3e3d7d373439d7be01d1f16ac8,
+        type: 3}
+      propertyPath: skill.skill_Fourth
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445467997999769260, guid: 1105ae3e3d7d373439d7be01d1f16ac8,
+        type: 3}
+      propertyPath: skill.skill_Second
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445467997999769260, guid: 1105ae3e3d7d373439d7be01d1f16ac8,
+        type: 3}
+      propertyPath: wearingEquipment.weapon
+      value: 10001
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445467997999769260, guid: 1105ae3e3d7d373439d7be01d1f16ac8,
+        type: 3}
+      propertyPath: detailStatus.attackPoint
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445467997999769260, guid: 1105ae3e3d7d373439d7be01d1f16ac8,
+        type: 3}
+      propertyPath: detailStatus.attackSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445467997999769260, guid: 1105ae3e3d7d373439d7be01d1f16ac8,
+        type: 3}
+      propertyPath: detailStatus.attackDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445467997999769260, guid: 1105ae3e3d7d373439d7be01d1f16ac8,
+        type: 3}
+      propertyPath: detailStatus.defensivePoint
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3445467997999769261, guid: 1105ae3e3d7d373439d7be01d1f16ac8,
         type: 3}
       propertyPath: m_RootOrder
@@ -8591,6 +8666,7 @@ GameObject:
   - component: {fileID: 50952265086131463}
   - component: {fileID: 1247490753341337}
   - component: {fileID: 1247490753341336}
+  - component: {fileID: 1247490753341338}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -8647,6 +8723,25 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.65, y: 1.3}
   m_EdgeRadius: 0
+--- !u!114 &1247490753341338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247490753341335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e2d5de096ab33046a047dab657a2145, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  status:
+    hp: 0
+    attackPoint: 0
+    attackSpeed: 0
+    attackDistance: 0
+    defensivePoint: 0
+  sprite_Weapon: {fileID: 212006398530922373}
 --- !u!1 &1303578941554139
 GameObject:
   m_ObjectHideFlags: 0
