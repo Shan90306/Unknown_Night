@@ -17,9 +17,9 @@ TagManager:
   - 
   - 
   - SaveSlot
-  - 
-  - 
-  - 
+  - Attack
+  - AttackSensor
+  - Wall
   - 
   - 
   - 

@@ -98,6 +98,16 @@ namespace DoodlesRe
         Skill_3_1, Skill_3_2, Skill_3_3, Skill_3_4
     }
 
+    /// <summary>
+    /// <para>작 성 자 : 이승엽</para>
+    /// <para>작 성 일 : 2021-08-05</para>
+    /// <para>내    용 : FSM 종류</para>
+    /// </summary>
+    public enum FSM
+    {
+        Attack, Jump, Move, Sit, Die, Idle
+    }
+
     #endregion
 
     #region Struct 구조체

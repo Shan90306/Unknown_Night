@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DoodlesRe
 {
@@ -12,6 +13,7 @@ namespace DoodlesRe
     public class DR_PlayerController : MonoBehaviour
     {
         [Header("- 설정")]
+        [SerializeField] private FSM fsm;           // 현재 행동
         [SerializeField] private int moveSpeed;     // 캐릭터 스피드
         [SerializeField] private int maxJumpCount;  // 최대 점프 횟수
         [SerializeField] private int jumpForce;     // 점프 파워
@@ -20,21 +22,31 @@ namespace DoodlesRe
         [SerializeField] private Animator anim;     // 애니메이터
         public Rigidbody2D m_rigidbody;             // 강체 캐싱
         public Collider2D playerCollider;           // 플레이어 콜라이더 캐싱
+        public DR_AttackSensor attackedSensor;        // 플레이어 피격 센서 캐싱
+        public Slider slider_HP;                    // HP 슬라이더 캐싱
 
         [HideInInspector] public int currentJumpCount;          // 현재 점프 숫자
         [HideInInspector] public bool isGround;                 // 캐릭터가 바닥에 있는지 체크
         [HideInInspector] public bool isWall;                   // 플레이어가 가는 방향에 벽이 있는지 체크
         [HideInInspector] public bool isDownJumpGroundCheck;    // 현재 밑이 블럭인지 땅인지 체크
 
-        private float moveX;
-        private bool isSit;
-        private bool isDie;
-        public bool isAttack;
+        private DR_PlayerAbility playerAbility;     // 플레이어 능력 캐싱
+        private float moveX;                        // 방향 스칼라
+        private bool isSit;                         // 앉았는지 체크
+        private bool isDie;                         // 죽었는지 체크
+        //private bool isFirstDie;                    // 죽음 애니메이션을 한번 했는지 체크
+        private bool isAttack;                      // 공격중인지 체크
+
+        private void Start()
+        {
+            playerAbility = GetComponent<DR_PlayerAbility>();
+        }
 
         // Update is called once per frame
         void Update()
         {
             Func_InputCheck();
+            Func_FSM();
         }
 
         private void FixedUpdate()
@@ -44,7 +56,7 @@ namespace DoodlesRe
                 return;
             }
 
-            if (isWall)
+            if (isWall || isDie)
             {
                 moveX = 0;
             }
@@ -52,7 +64,7 @@ namespace DoodlesRe
             m_rigidbody.velocity = new Vector2(moveX * moveSpeed, m_rigidbody.velocity.y);
         }
 
-        #region 메서드
+        #region 이동 관련 메서드
 
         /// <summary>
         /// <para> 작 성 자 : 이승엽 </para>
@@ -61,117 +73,147 @@ namespace DoodlesRe
         /// </summary>
         private void Func_InputCheck()
         {
-            if (Input.GetKeyDown(KeyCode.DownArrow))  //아래 버튼 눌렀을때
+            if (!isDie)
             {
-                anim.Play("Sit");
-                isSit = true;
-            }
-            else if (Input.GetKeyUp(KeyCode.DownArrow)) //아래 버튼 뗐을 때
-            {
-                anim.Play("Idle");
-                isSit = false;
-            }
-
-            if (isSit || isDie)
-            {
-                if (Input.GetKeyDown(KeyCode.Space) && !isDie)
-                {
-                    if (currentJumpCount < maxJumpCount)
-                    {
-                        Func_DownJump();
-                    }
-                }
-
-                moveX = 0;
-                return;
-            }
-
-            if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
-            {
-                if (Input.GetKey(KeyCode.Z))
-                {
-                    Func_Attack();                    
-                }
-                else
-                {
-                    isAttack = false;
-                }
-
-                if (!isAttack)
-                {
-                    if (moveX == 0 || isWall)
-                    {
-                        anim.Play("Idle");
-                    }
-                    else
-                    {
-                        anim.Play("Run");
-                    }
-                }
-            }
-
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                if (isAttack)
-                {
-                    return;
-                }
-
+                // 땅에 있을 때
                 if (isGround)
                 {
-                    moveX = -1;
-                }
-                else
-                {
-                    moveX = Input.GetAxis("Horizontal");
-                }
-
-                Func_Flip(true);
-            }
-            else if (Input.GetKey(KeyCode.RightArrow))
-            {
-                if (isAttack)
-                {
-                    return;
-                }
-                if (isGround)
-                {
-
-                    moveX = 1;
-                }
-                else
-                {
-                    moveX = Input.GetAxis("Horizontal");
-                }
-
-                Func_Flip(false);
-            }
-            else
-            {
-                if (isGround)
-                {
-                    if (isAttack)
+                    if (Input.GetKey(KeyCode.DownArrow))  //아래 버튼 눌렀을때
                     {
+                        fsm = FSM.Sit;
+                        isSit = true;
+                    }
+                    else if (Input.GetKeyUp(KeyCode.DownArrow)) //아래 버튼 뗐을 때
+                    {
+                        fsm = FSM.Idle;
+                        isSit = false;
+                    }
+
+                    if (Input.GetKey(KeyCode.Space))
+                    {
+                        if (isAttack)
+                        {
+                            return;
+                        }
+
+                        if (currentJumpCount < maxJumpCount)
+                        {
+                            fsm = FSM.Jump;
+                        }
+
                         return;
                     }
 
-                    moveX = 0;
+                    if (isSit)
+                    {
+                        moveX = 0;
+                        return;
+                    }
+                    else
+                    {
+                        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+                        {
+                            if (Input.GetKey(KeyCode.Z))
+                            {
+                                isAttack = true;
+                                fsm = FSM.Attack;
+
+                            }
+                            else
+                            {
+                                isAttack = false;
+                            }
+                        }
+                    }
+
+                    if (!isAttack)
+                    {
+                        if (Input.GetKey(KeyCode.LeftArrow))
+                        {
+                            fsm = FSM.Move;
+                            Func_Move(true);
+                        }
+                        else if (Input.GetKey(KeyCode.RightArrow))
+                        {
+                            fsm = FSM.Move;
+                            Func_Move(false);
+                        }
+                        else
+                        {
+                            fsm = FSM.Idle;
+                            moveX = 0;
+                        }
+                    }
                 }
+                // 공중일 때
                 else
                 {
-                    moveX = Input.GetAxis("Horizontal");
+                    if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+                    {
+                        if (Input.GetKey(KeyCode.Z))
+                        {
+                            isAttack = true;
+                            fsm = FSM.Attack;
+                        }
+                        else
+                        {
+                            isAttack = false;
+                            anim.SetTrigger("Jump");
+                            fsm = FSM.Jump;
+                        }
+                    }
+
+                    if (Input.GetKeyUp(KeyCode.DownArrow)) //아래 버튼 뗐을 때
+                    {
+                        anim.SetTrigger("Jump");
+                        isSit = false;
+                    }
+                    else if (Input.GetKey(KeyCode.LeftArrow))
+                    {
+                        Func_Move(true);
+                    }
+                    else if (Input.GetKey(KeyCode.RightArrow))
+                    {
+                        Func_Move(false);
+                    }
+                    else
+                    {
+                        moveX = Input.GetAxis("Horizontal");
+                    }
                 }
             }
-
-            if (Input.GetKeyDown(KeyCode.Space))
+            else
             {
-                if (isAttack)
-                {
-                    return;
-                }
+                fsm = FSM.Die;
+            }
 
-                if (currentJumpCount < maxJumpCount)
-                {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                DR_Debug.Func_Log("테스트 죽기");
+                isDie = true;
+                fsm = FSM.Die;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                DR_Debug.Func_Log("테스트 살리기");
+                Func_Resurrection();
+            }
+        }
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-08-05 </para>
+        /// <para> 내    용 : 입력 값으로 행동하는 기능 </para>
+        /// </summary>
+        private void Func_FSM()
+        {
+            switch (fsm)
+            {
+                case FSM.Attack:
+                    Func_Attack_Nomal();
+                    break;
+
+                case FSM.Jump:
                     if (isSit)
                     {
                         Func_DownJump();
@@ -180,16 +222,47 @@ namespace DoodlesRe
                     {
                         Func_Jump();
                     }
-                }
-            }
+                    break;
 
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                DR_Debug.Func_Log("테스트 죽기");
-                anim.Play("Die");
+                case FSM.Move:
+                    anim.SetTrigger("Move");
+                    break;
+
+                case FSM.Sit:
+                    anim.SetTrigger("Sit");
+                    break;
+
+                case FSM.Die:
+                    if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Die"))
+                    {
+                        DR_Debug.Func_Log("죽음");
+                        anim.SetTrigger("Die");
+                    }
+                    break;
+
+                case FSM.Idle:
+                    anim.SetTrigger("Idle");
+                    break;
             }
         }
 
+        private void Func_Move(bool _isLeft)
+        {
+            if (isAttack)
+            {
+                return;
+            }
+            if (isGround)
+            {
+                moveX = _isLeft ? -1 : 1;
+            }
+            else
+            {
+                moveX = Input.GetAxis("Horizontal");
+            }
+
+            Func_Flip(_isLeft);
+        }
 
         /// <summary>
         /// <para> 작 성 자 : 이승엽 </para>
@@ -214,7 +287,7 @@ namespace DoodlesRe
             isGround = false;
             currentJumpCount++;
 
-            anim.Play("Jump");
+            anim.SetTrigger("Jump");
             m_rigidbody.velocity = new Vector2(0, 0);
             m_rigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
@@ -233,13 +306,12 @@ namespace DoodlesRe
 
             if (!isDownJumpGroundCheck)
             {
-                anim.Play("Jump");
-
                 isGround = false;
 
-                playerCollider.enabled = false;
+                anim.SetTrigger("Jump");
+                playerCollider.enabled = false;                     // 플레이어 콜라이더 끄기
                 m_rigidbody.AddForce(-Vector2.up * 10);
-                StartCoroutine(Co_GroundColliderTimmerFuc());
+                StartCoroutine(Co_GroundColliderTimmer());       // 일정시간후에 플레이어 콜라이더 켜기
             }
         }
 
@@ -248,19 +320,68 @@ namespace DoodlesRe
         /// <para> 작 성 일 : 2021-07-28 </para>
         /// <para> 내    용 : 밑으로 점프할 때 잠깐의 시간후 플레이어의 콜라이더를 켜는 코루틴 기능 </para>
         /// </summary>
-        IEnumerator Co_GroundColliderTimmerFuc()
+        IEnumerator Co_GroundColliderTimmer()
         {
             yield return new WaitForSeconds(0.3f);
             playerCollider.enabled = true;
         }
 
-        private void Func_Attack()
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-08-06 </para>
+        /// <para> 내    용 : 살아났을 때  코루틴 기능 </para>
+        /// </summary>
+        IEnumerator Co_AttackSensorColliderTimmer()
         {
-            isAttack = true;
-            anim.Play("Attack");
+            attackedSensor.Func_IsAttackedable(false);
+            
+            yield return new WaitForSeconds(1f);
+            attackedSensor.Func_IsAttackedable(true);
         }
 
+        #endregion
+
+        #region 전투 관련 메서드
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-07-29 </para>
+        /// <para> 내    용 : 일반 공격 기능 </para>
+        /// </summary>
+        private void Func_Attack_Nomal()
+        {
+            anim.SetTrigger("Attack");
+        }
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-08-05 </para>
+        /// <para> 내    용 : 피격당했을 때 호출 기능 </para>
+        /// </summary>
+        public void Func_Attacked(float _percent)
+        {
+            slider_HP.value = _percent;
+
+            if (_percent <= 0)
+            {
+                DR_Debug.Func_Log("DIE");
+                isDie = true;
+            }
+        }
 
         #endregion
+
+        #region 버프 관련 메서드
+
+        public void Func_Resurrection()
+        {
+            isDie = false;
+            playerAbility.Func_Resurrection();
+            slider_HP.value = 1f;
+            StartCoroutine(Co_AttackSensorColliderTimmer());       // 일정시간 후에 플레이어 피격 센서 켜기
+        }
+
+        #endregion
+
     }
 }
