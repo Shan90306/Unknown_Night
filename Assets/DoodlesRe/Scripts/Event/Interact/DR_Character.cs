@@ -13,7 +13,6 @@ namespace DoodlesRe
     {
         [Header("- 캐릭터 세팅")]
         [SerializeField] protected DR_DefineDetailStatus status;        // 디테일 스텟
-        [SerializeField] protected float attackCoolTime;                // 공격당하고 다음 공격때까지 쿨타임
 
         protected void OnTriggerEnter2D(Collider2D _coll)
         {
