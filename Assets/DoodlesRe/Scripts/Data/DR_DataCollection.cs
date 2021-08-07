@@ -108,6 +108,16 @@ namespace DoodlesRe
         Attack, Jump, Move, Sit, Die, Idle
     }
 
+    /// <summary>
+    /// <para>작 성 자 : 이승엽</para>
+    /// <para>작 성 일 : 2021-08-07</para>
+    /// <para>내    용 : Interaction Object 종류</para>
+    /// </summary>
+    public enum OBJECT_KIND
+    {
+        Attack_Static, Attack_Move, Box, Collider
+    }
+
     #endregion
 
     #region Struct 구조체

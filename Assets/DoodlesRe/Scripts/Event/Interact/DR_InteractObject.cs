@@ -11,6 +11,33 @@ namespace DoodlesRe
     /// </summary>
     public class DR_InteractObject : DR_Interact
     {
+        [Header("- 오브젝트 종류")]
+        [SerializeField] private OBJECT_KIND kind;
 
+        private void Start()
+        {
+            Func_CheckObject();
+        }
+
+        private void Func_CheckObject()
+        {
+            switch (kind)
+            {
+                case OBJECT_KIND.Attack_Static:
+                    break;
+
+                case OBJECT_KIND.Attack_Move:
+                    Func_Move();
+                    break;
+
+                case OBJECT_KIND.Box:
+                    break;
+
+                case OBJECT_KIND.Collider:
+                    break;
+            }
+        }
+
+        protected virtual void Func_Move() {    }
     }
 }

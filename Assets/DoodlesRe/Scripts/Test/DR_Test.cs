@@ -12,19 +12,26 @@ namespace DoodlesRe
     /// </summary>
     public class DR_Test : MonoBehaviour
     {
-        public Transform[] posArr;
-        public float time;
+        public Animator anim;
 
-        private void Start()
+        private void Update()
         {
-            Sequence aa = DOTween.Sequence();
-            aa.Append(transform.DOMove(posArr[0].position, time)
-                .SetEase(Ease.Linear));
-            //aa.Append(transform.DOMove(posArr[1].position, time)
-            //    .SetEase(Ease.Linear));
-            aa.SetLoops(-1, LoopType.Yoyo);
-            aa.SetSpeedBased(true);
-            aa.Play();
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                anim.SetTrigger("Attack");
+            }
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                anim.SetTrigger("Move");
+            }
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                anim.SetTrigger("Hit");
+            }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                anim.SetTrigger("Idle");
+            }
         }
 
     }
