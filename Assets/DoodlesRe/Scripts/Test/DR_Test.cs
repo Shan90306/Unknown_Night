@@ -28,6 +28,10 @@ namespace DoodlesRe
             {
                 anim.SetTrigger("Hit");
             }
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                anim.SetTrigger("Die");
+            }
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 anim.SetTrigger("Idle");
