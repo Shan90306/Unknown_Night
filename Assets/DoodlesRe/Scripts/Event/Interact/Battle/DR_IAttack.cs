@@ -17,6 +17,6 @@ namespace DoodlesRe
         /// <para> 내    용 : 공격당했을 때 호출 </para>
         /// </summary>
         /// <param name="_damage">데미지</param>
-        void Func_Attack(int _damage);
+        void Func_Attack(int _damage, bool _isMonster);
     }
 }

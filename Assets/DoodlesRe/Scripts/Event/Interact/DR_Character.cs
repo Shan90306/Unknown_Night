@@ -33,7 +33,7 @@ namespace DoodlesRe
         /// <para> 작 성 일 : 2021-08-04 </para>
         /// <para> 내    용 :  공격당했을 때 데미지를 주는 기능. 공격한쪽에서 호출</para>
         /// </summary>
-        public virtual void Func_Attacked(int _damage) { }
+        public virtual void Func_Hit(int _damage) { }
 
         #endregion
     }

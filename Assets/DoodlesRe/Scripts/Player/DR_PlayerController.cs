@@ -22,7 +22,7 @@ namespace DoodlesRe
         [SerializeField] private Animator anim;     // 애니메이터
         public Rigidbody2D m_rigidbody;             // 강체 캐싱
         public Collider2D playerCollider;           // 플레이어 콜라이더 캐싱
-        public DR_AttackSensor attackedSensor;        // 플레이어 피격 센서 캐싱
+        public DR_HitSensor attackedSensor;        // 플레이어 피격 센서 캐싱
         public Slider slider_HP;                    // HP 슬라이더 캐싱
 
         [HideInInspector] public int currentJumpCount;          // 현재 점프 숫자
@@ -367,6 +367,12 @@ namespace DoodlesRe
                 DR_Debug.Func_Log("DIE");
                 isDie = true;
             }
+        }
+
+        public void Func_Boom()
+        {
+            moveX = -5f;
+            m_rigidbody.AddForce(new Vector2(5f, 5f), ForceMode2D.Impulse);
         }
 
         #endregion

@@ -110,6 +110,16 @@ namespace DoodlesRe
 
     /// <summary>
     /// <para>작 성 자 : 이승엽</para>
+    /// <para>작 성 일 : 2021-08-16</para>
+    /// <para>내    용 : 몬스터 FSM 종류</para>
+    /// </summary>
+    public enum FSM_MONSTER
+    {
+        Idle, Follow, Hit, Attack, Die
+    }
+
+    /// <summary>
+    /// <para>작 성 자 : 이승엽</para>
     /// <para>작 성 일 : 2021-08-07</para>
     /// <para>내    용 : Interaction Object 종류</para>
     /// </summary>

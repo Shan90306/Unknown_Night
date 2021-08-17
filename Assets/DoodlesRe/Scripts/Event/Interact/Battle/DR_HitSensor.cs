@@ -9,10 +9,11 @@ namespace DoodlesRe
     /// <para> 작 성 일 : 2021-08-04 </para>
     /// <para> 내    용 : 공격을 당했는지 체크하는 기능</para>
     /// </summary>
-    public class DR_AttackSensor : MonoBehaviour, DR_IAttack
+    public class DR_HitSensor : MonoBehaviour, DR_IAttack
     {
         [Header("- 몸체")]
         [SerializeField] private DR_Character character;
+        [SerializeField] private bool isMonster;
 
         [Header("- 피격 후 다음 피격까지의 시간")]
         [SerializeField] private float attackedTime;
@@ -21,17 +22,20 @@ namespace DoodlesRe
         private IEnumerator coAttackedCoolTime;
 
         // 공격 당했을 때 호출
-        public void Func_Attack(int _damage)
+        public void Func_Attack(int _damage, bool _isMonster)
         {
-            if (isAttackedable)
+            if (isMonster != _isMonster)
             {
-                character.Func_Attacked(_damage);
-                coAttackedCoolTime = Co_AttackedCoolTime();          // 무적시간 설정
-                StartCoroutine(coAttackedCoolTime);
-            }
-            else
-            {
-                DR_Debug.Func_Log("피격 쿨타임");
+                if (isAttackedable)
+                {
+                    character.Func_Hit(_damage);
+                    coAttackedCoolTime = Co_AttackedCoolTime();          // 무적시간 설정
+                    StartCoroutine(coAttackedCoolTime);
+                }
+                else
+                {
+                    DR_Debug.Func_Log("피격 쿨타임");
+                }
             }
         }
 

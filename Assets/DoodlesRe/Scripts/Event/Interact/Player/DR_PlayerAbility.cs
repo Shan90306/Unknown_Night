@@ -67,12 +67,13 @@ namespace DoodlesRe
         /// <para> 작 성 일 : 2021-08-04 </para>
         /// <para> 내    용 : 공격당했을 때 호출 </para>
         /// </summary>
-        public override void Func_Attacked(int _damage)
+        public override void Func_Hit(int _damage)
         {
             if (currentHP > 0)
             {
                 Func_CulculateDamage(_damage);                  // 데미지 계산
                 DR_Debug.Func_Log("공격당함 : " + _damage);
+                m_playerController.Func_Boom();
             }
         }
 

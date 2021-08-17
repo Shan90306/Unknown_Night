@@ -13,6 +13,7 @@ namespace DoodlesRe
     {
         [Header("- SETTING")]
         [SerializeField] private int damage;
+        [SerializeField] private bool isMonster;
 
         private void OnTriggerEnter2D(Collider2D _coll)
         {
@@ -22,7 +23,7 @@ namespace DoodlesRe
             }
             else
             {
-                _coll.GetComponent<DR_AttackSensor>()?.Func_Attack(damage);
+                _coll.GetComponent<DR_HitSensor>()?.Func_Attack(damage, isMonster);
             }
         }
     }
