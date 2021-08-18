@@ -10,11 +10,10 @@ namespace DoodlesRe
         [Header("- 몬스터")]
         [SerializeField] private DR_Monster monster;
 
-        private void OnTriggerStay2D(Collider2D _coll)
+        private void OnTriggerEnter2D(Collider2D _coll)
         {
             if (_coll.CompareTag("Player"))
             {
-                DR_Debug.Func_Log("발견");
                 monster.Func_FollowPlayer(_coll.transform);
             }
         }

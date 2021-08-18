@@ -27,17 +27,17 @@ namespace DoodlesRe
                     player.isDownJumpGroundCheck = false;
                 }
 
-                if (player.m_rigidbody.velocity.y <= 0.5f)
-                {
-                    player.isGround = true;
-                    player.currentJumpCount = 0;
-                }
+                player.isGround = true;
+                player.currentJumpCount = 0;
             }
         }
 
         void OnTriggerExit2D(Collider2D other)
         {
-            player.isGround = false;
+            if (other.CompareTag("Ground") || other.CompareTag("Block"))
+            {
+                player.isGround = false;
+            }
         }
     }
 }
