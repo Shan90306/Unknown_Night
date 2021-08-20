@@ -191,8 +191,12 @@ namespace DoodlesRe
             }
             else
             {
+                if (anim.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+                    return;
+
                 // 따라가는 기능
                 anim.SetTrigger("Move");
+                Debug.Log("무빙");
                 Func_MoveX((transform.position - target.position).x < 0);
             }
         }
@@ -221,12 +225,13 @@ namespace DoodlesRe
                 {
                     StartCoroutine(Co_AttackCoolTime());
                     moveX = 0;
-                    DR_Debug.Func_Log("공격");
                     anim.SetTrigger("Attack");
+                    DR_Debug.Func_Log("공격");
                 }
             }
             else
             {
+                Debug.Log("aaa");
                 monsterFSM = FSM_MONSTER.Follow;
             }
         }
