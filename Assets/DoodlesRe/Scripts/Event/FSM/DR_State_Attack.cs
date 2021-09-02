@@ -35,24 +35,19 @@ namespace DoodlesRe
         /// </summary>
         public override void UpdateState(DR_Monster _character)
         {
-            // 죽음 유무 확인
-            if (_character.currentHP <= 0)
-            {
-                _character.Func_ChangeState(FSM_Die.Instance);
-            }
-
             attackTimer += Time.deltaTime;
             if (_character.Func_CheckRange())
             {
                 if (attackTimer >= _character.attackCoolTime)
                 {
                     attackTimer = 0;
-                    Debug.Log("공격!");
+                    _character.Func_Attack();
                 }
             }
             else
             {
-                _character.Func_ChangeState(FSM_Move.Instance);
+                if (!_character.anim.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+                    _character.Func_ChangeState(FSM_MONSTER.Idle);
             }
         }
 
@@ -63,7 +58,7 @@ namespace DoodlesRe
         /// </summary>
         public override void ExitState(DR_Monster _character)
         {
-
+            attackTimer = 0;
         }
 
     }

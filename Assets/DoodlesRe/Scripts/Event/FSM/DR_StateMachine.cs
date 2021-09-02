@@ -6,15 +6,17 @@ namespace DoodlesRe
     /// <para> 작 성 일 : 2021-08-20 </para>
     /// <para> 내    용 : FSM을 실행하는 클래스 </para>
     /// </summary>
-    public class DR_StateMachine<T>
+    public class DR_StateMachine<T> where T : DR_Monster 
     {
         private T Owner;                            // 상태의 주인
         private DR_FSM_State<T> currentState;       // 현재 상태
         private DR_FSM_State<T> previousState;      // 이전 상태
 
-        private DR_FSM_State<T> state_Move;
-        private DR_FSM_State<T> state_Attack;
-        private DR_FSM_State<T> state_Die;
+        private DR_FSM_State<T> state_Idle;         // 대기 상태
+        private DR_FSM_State<T> state_Follow;       // 적 발견 상태
+        private DR_FSM_State<T> state_Hit;          // 맞은 상태
+        private DR_FSM_State<T> state_Attack;       // 공격 상태
+        private DR_FSM_State<T> state_Die;          // 죽은 상태
 
         /// <summary>
         /// <para> 작 성 자 : 이승엽 </para>
@@ -32,14 +34,52 @@ namespace DoodlesRe
         /// <para> 작 성 일 : 2021-08-20 </para>
         /// <para> 내    용 : 초기 상태 설정 </para>
         /// </summary>    
-        public void Initial_Setting(T _owner, DR_FSM_State<T> _moveState, DR_FSM_State<T> _attackState, DR_FSM_State<T> _dieState)
+        public void Initial_Setting(T _owner, 
+            DR_FSM_State<T> _idleState, DR_FSM_State<T>  _followState, DR_FSM_State<T> _attackState, DR_FSM_State<T> _hitState, DR_FSM_State<T> _dieState)
         {
-            Owner = _owner;
-            state_Move = _moveState;
-            state_Attack = _attackState;
-            state_Die = _dieState;
+            Owner = _owner;                 // 주인 캐싱
 
-            Func_ChangeState(state_Move);
+            // 각 상태별 캐싱
+            state_Idle = _idleState;        // 대기
+            state_Follow = _followState;    // 적 발견
+            state_Attack = _attackState;    // 공격
+            state_Hit = _hitState;          // 맞음
+            state_Die = _dieState;          // 죽음
+
+            Func_ChangeState(state_Idle);   // 시작할 때는 대기상태로 시작
+        }
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-08-20 </para>
+        /// <para> 내    용 : 열거형에 따라 상태를 바꾸는 기능 </para>
+        /// </summary>
+        public void Func_ChangeState(FSM_MONSTER _state)
+        {
+            Owner.Func_CheckState(_state);
+
+            switch (_state)
+            {
+                case FSM_MONSTER.Idle:
+                    Func_ChangeState(state_Idle);
+                    break;
+
+                case FSM_MONSTER.Follow:
+                    Func_ChangeState(state_Follow);
+                    break;
+
+                case FSM_MONSTER.Hit:
+                    Func_ChangeState(state_Hit);
+                    break;
+
+                case FSM_MONSTER.Attack:
+                    Func_ChangeState(state_Attack);
+                    break;
+
+                case FSM_MONSTER.Die:
+                    Func_ChangeState(state_Die);
+                    break;
+            }
         }
 
         /// <summary>
@@ -47,7 +87,7 @@ namespace DoodlesRe
         /// <para> 작 성 일 : 2021-08-20 </para>
         /// <para> 내    용 : 상태를 바꾸는 기능 </para>
         /// </summary>
-        public void Func_ChangeState(DR_FSM_State<T> _newState)
+        private void Func_ChangeState(DR_FSM_State<T> _newState)
         {
             // 같은 상태를 변경하려하면 리턴
             if (_newState == currentState)
@@ -76,7 +116,7 @@ namespace DoodlesRe
         /// <para> 작 성 일 : 2021-08-20 </para>
         /// <para> 내    용 : 현재 상태의 Update </para>
         /// </summary>    
-        public void Update()
+        public void Func_Update()
         {
             if (currentState != null)
             {

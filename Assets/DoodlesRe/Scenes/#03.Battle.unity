@@ -9622,7 +9622,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61ba3d63063cb6b4c87be69cf215ef4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 2
+  damage: 20
   isMonster: 0
 --- !u!61 &2031366924
 BoxCollider2D:
@@ -10544,7 +10544,13 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 3444194844452645152, guid: 5ae0de0800edaef48b54f7e126712ea9,
+        type: 3}
+      propertyPath: currentHP
+      value: 100
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3210381351654903993, guid: 5ae0de0800edaef48b54f7e126712ea9, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5ae0de0800edaef48b54f7e126712ea9, type: 3}
 --- !u!4 &3815886195299436752 stripped
 Transform:

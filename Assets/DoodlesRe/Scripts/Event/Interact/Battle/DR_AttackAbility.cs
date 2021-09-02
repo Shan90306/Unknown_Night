@@ -23,7 +23,6 @@ namespace DoodlesRe
             }
             else
             {
-                DR_Debug.Func_Log("Attack");
                 _coll.GetComponent<DR_HitSensor>()?.Func_Attack(damage, isMonster);
             }
         }

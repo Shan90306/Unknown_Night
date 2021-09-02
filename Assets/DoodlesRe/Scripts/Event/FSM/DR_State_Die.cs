@@ -9,7 +9,8 @@ namespace DoodlesRe
     {
         public override void EnterState(DR_Monster _character)
         {
-
+            _character.anim.SetTrigger("Die");
+            _character.Func_Die();
         }
 
         public override void UpdateState(DR_Monster _character)

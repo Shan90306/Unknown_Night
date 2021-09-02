@@ -12,22 +12,19 @@ namespace DoodlesRe
     public class DR_Monster : DR_Character
     {
         [Header("- 몬스터 능력")]
-        [SerializeField] private FSM_MONSTER monsterFSM;
-        public int currentHP;         // 현재 HP
+        [SerializeField] private FSM_MONSTER monsterState;
+        public int currentHP;                           // 현재 HP
         [SerializeField] private int moveSpeed;         // 몬스터 스피드
         [SerializeField] private float attackRange;     // 공격 사거리
-        public float attackCoolTime;  // 공격 쿨타임
+        public float attackCoolTime;                    // 공격 쿨타임
 
         [Header("- 몬스터 캐싱")]
-        [SerializeField] private Animator anim;
+        public Animator anim;
         [SerializeField] private Rigidbody2D m_rigidbody2D;
 
-        [HideInInspector] public Transform target;
-        private DR_StateMachine<DR_Monster> stateMachine;
-        private float moveX;                        // 방향 스칼라
-        private bool isAttack;                      // 공격중인지 체크
-        private bool isAttackCoolTime = true;       // 공격중인지 체크
-        private bool isDie;                         // 죽었는지 체크
+        [HideInInspector] public Transform target;          // 공격 타겟
+        private DR_StateMachine<DR_Monster> stateMachine;   // FSM
+        private float moveX;                                // 방향 스칼라
 
         public int CurrentHP
         {
@@ -38,38 +35,12 @@ namespace DoodlesRe
         }
         private void Awake()
         {
-            Func_SetInit();            
-        }
-
-        #region 초기 설정
-
-        protected virtual void Func_SetInit()
-        {
-            DR_FSM_State<DR_Monster> _moveState = new DR_State_Move();
-            DR_FSM_State<DR_Monster> _attackState = new DR_State_Attack();
-            DR_FSM_State<DR_Monster> _dieState = new DR_State_Die();
-
-            stateMachine = new DR_StateMachine<DR_Monster>();            
-            stateMachine.Initial_Setting(this, _moveState, _attackState, _dieState);
-        }
-
-        #endregion
-
-
-
-        /// <summary>
-        /// <para> 작 성 자 : 이승엽 </para>
-        /// <para> 작 성 일 : 2021-08-02 </para>
-        /// <para> 내    용 : 캐릭터에 닿았을 때 호출 </para>
-        /// </summary>
-        protected override void Func_TriggerOn(Collider2D _coll)
-        {
-
+            Func_SetInit();
         }
 
         private void Update()
         {
-
+            stateMachine.Func_Update();
         }
 
         protected void FixedUpdate()
@@ -78,94 +49,58 @@ namespace DoodlesRe
             m_rigidbody2D.velocity = new Vector2(moveX * moveSpeed, m_rigidbody2D.velocity.y);
         }
 
-        #region FSM
-
-        public void Func_ChangeState(DR_FSM_State<DR_Monster> _state)
-        {
-
-        }
+        #region 초기 설정
 
         /// <summary>
         /// <para> 작 성 자 : 이승엽 </para>
-        /// <para> 작 성 일 : 2021-08-16 </para>
-        /// <para> 내    용 : FSM을 체크하는 기능 </para>
+        /// <para> 작 성 일 : 2021-09-02 </para>
+        /// <para> 내    용 : FSM 초기 설정 </para>
         /// </summary>
-        private void Func_CheckFSM()
+        protected virtual void Func_SetInit()
         {
-            if (!isDie)     // 죽지 않았을 때
-            {
-                if (currentHP < 0)
-                {
-                    isDie = true;
-                    return;
-                }
+            DR_FSM_State<DR_Monster> _idleState = new DR_State_Idle();
+            DR_FSM_State<DR_Monster> _followState = new DR_State_Follow();
+            DR_FSM_State<DR_Monster> _attackState = new DR_State_Attack();
+            DR_FSM_State<DR_Monster> _hitState = new DR_State_Hit();
+            DR_FSM_State<DR_Monster> _dieState = new DR_State_Die();
 
-                if (monsterFSM == FSM_MONSTER.Idle)
-                {
-
-                }
-                else
-                {
-                    // Follow, Hit, Attack 상태일 때
-
-                }
-
-            }
-            else  // 죽었을 때
-            {
-                monsterFSM = FSM_MONSTER.Die;
-            }
+            stateMachine = new DR_StateMachine<DR_Monster>();
+            stateMachine.Initial_Setting(this, _idleState, _followState, _attackState, _hitState, _dieState);
         }
+
+        #endregion
 
         /// <summary>
         /// <para> 작 성 자 : 이승엽 </para>
-        /// <para> 작 성 일 : 2021-08-16 </para>
-        /// <para> 내    용 : FSM을 실행하는 기능 </para>
+        /// <para> 작 성 일 : 2021-08-02 </para>
+        /// <para> 내    용 : 캐릭터에 닿았을 때 호출 </para>
         /// </summary>
-        private void Func_FSM()
-        {
-            switch (monsterFSM)
-            {
-                case FSM_MONSTER.Idle:
-                    Func_Move();
-                    break;
+        protected override void Func_TriggerOn(Collider2D _coll)    { }
 
-                case FSM_MONSTER.Follow:
-                    Func_Follow();
-                    break;
 
-                case FSM_MONSTER.Hit:
-                    break;
-
-                case FSM_MONSTER.Attack:
-                    Func_Attack();
-                    break;
-
-                case FSM_MONSTER.Die:
-                    Func_Die();
-                    break;
-            }
-        }
+        #region Monster 기능
 
         /// <summary>
         /// <para> 작 성 자 : 이승엽 </para>
         /// <para> 작 성 일 : 2021-08-16 </para>
-        /// <para> 내    용 : 플레이어를 찾았을 때 호출되는 기능 </para>
+        /// <para> 내    용 : DR_CheckPlayer에서 플레이어를 찾았을 때 호출되는 기능 </para>
         /// </summary>
         public void Func_FollowPlayer(Transform _targetTr)
         {
-            monsterFSM = FSM_MONSTER.Follow;
             target = _targetTr;
+            stateMachine.Func_ChangeState(FSM_MONSTER.Follow);
         }
 
         /// <summary>
         /// <para> 작 성 자 : 이승엽 </para>
         /// <para> 작 성 일 : 2021-08-16 </para>
-        /// <para> 내    용 : 플레이어를 찾았을 때 호출되는 기능 </para>
+        /// <para> 내    용 : 플레이어가 발견 사거리 밖으로 나갈 때 호출되는 기능 </para>
         /// </summary>
         public void Func_ExitPlayer()
         {
-            monsterFSM = FSM_MONSTER.Idle;
+            target = null;
+            moveX = 0;
+            stateMachine.Func_ChangeState(FSM_MONSTER.Idle);
         }
 
         private void Func_MoveX(bool _isLeft)
@@ -189,37 +124,12 @@ namespace DoodlesRe
 
         /// <summary>
         /// <para> 작 성 자 : 이승엽 </para>
-        /// <para> 작 성 일 : 2021-08-16 </para>
-        /// <para> 내    용 : 일반적으로 움직이는 기능 </para>
+        /// <para> 작 성 일 : 2021-09-02 </para>
+        /// <para> 내    용 : 주변을 탐색하는 기능 </para>
         /// </summary>
-        protected virtual void Func_Move()
+        public virtual void Func_SearchArea()
         {
-            moveX = 0;
-            //anim.SetTrigger("Idle");
 
-        }
-
-        /// <summary>
-        /// <para> 작 성 자 : 이승엽 </para>
-        /// <para> 작 성 일 : 2021-08-16 </para>
-        /// <para> 내    용 : 일반적으로 플레이어를 따라가는 기능 </para>
-        /// </summary>
-        protected virtual void Func_Follow()
-        {
-            if (Vector2.Distance(transform.position, target.position) <= attackRange)     // 공격 사거리 안일 때
-            {
-                monsterFSM = FSM_MONSTER.Attack;
-            }
-            else
-            {
-                if (anim.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
-                    return;
-
-                // 따라가는 기능
-                anim.SetTrigger("Move");
-                Debug.Log("무빙");
-                Func_MoveX((transform.position - target.position).x < 0);
-            }
         }
 
         /// <summary>
@@ -229,29 +139,18 @@ namespace DoodlesRe
         /// </summary>
         public override void Func_Hit(int _damage)
         {
-            anim.SetTrigger("Hit");
-            DR_Debug.Func_Log("맞음");
-        }
+            currentHP -= _damage;
 
-        /// <summary>
-        /// <para> 작 성 자 : 이승엽 </para>
-        /// <para> 작 성 일 : 2021-08-18 </para>
-        /// <para> 내    용 : 사거리에 따라 공격하는 기능</para>
-        /// </summary>
-        protected virtual void Func_Attack()
-        {
-            moveX = 0;
-            anim.SetTrigger("Attack");
-            DR_Debug.Func_Log("공격");
+            if (currentHP >= 0)
+            {
+                stateMachine.Func_ChangeState(FSM_MONSTER.Hit);
+            }
+            else
+            {
+                currentHP = 0;
+                stateMachine.Func_ChangeState(FSM_MONSTER.Die);
+            }
         }
-
-        protected virtual void Func_Die()
-        {
-            anim.SetTrigger("Die");
-            enabled = false;        // FSM 안돌게 비활성화
-        }
-
-        #endregion
 
         /// <summary>
         /// <para> 작 성 자 : 이승엽 </para>
@@ -260,8 +159,83 @@ namespace DoodlesRe
         /// </summary>
         public bool Func_CheckRange()
         {
+            if (target == null)
+                return false;
+
             return Vector2.Distance(target.position, transform.position) <= attackRange;
         }
+
+        #endregion
+
+        #region FSM
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-09-02 </para>
+        /// <para> 내    용 : FSM을 바꾸는 기능 </para>
+        /// </summary>
+        public void Func_ChangeState(FSM_MONSTER _state)
+        {
+            monsterState = _state;
+            stateMachine.Func_ChangeState(_state);
+        }
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-09-02 </para>
+        /// <para> 내    용 : 현재 상태가 무엇인지 체크 </para>
+        /// </summary>
+        public void Func_CheckState(FSM_MONSTER _state)
+        {
+            monsterState = _state;
+        }
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-08-16 </para>
+        /// <para> 내    용 : 대기중일 때 </para>
+        /// </summary>
+        protected virtual void Func_Idle()
+        {
+            moveX = 0;
+        }
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-08-16 </para>
+        /// <para> 내    용 : 일반적으로 플레이어를 따라가는 기능 </para>
+        /// </summary>
+        public virtual void Func_Follow()
+        {
+            if (target == null)
+                return;
+
+            Func_MoveX((transform.position - target.position).x < 0);
+        }
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-08-18 </para>
+        /// <para> 내    용 : 사거리에 따라 공격하는 기능</para>
+        /// </summary>
+        public virtual void Func_Attack()
+        {
+            moveX = 0;
+            anim.SetTrigger("Attack");
+        }
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-08-18 </para>
+        /// <para> 내    용 : 죽었을 때 호출되는 기능</para>
+        /// </summary>
+        public virtual void Func_Die()
+        {
+            enabled = false;        // FSM 안돌게 비활성화
+        }
+
+        #endregion
+
 
     }
 }
