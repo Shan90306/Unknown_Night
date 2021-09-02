@@ -13,16 +13,17 @@ namespace DoodlesRe
     {
         [Header("- 몬스터 능력")]
         [SerializeField] private FSM_MONSTER monsterFSM;
-        [SerializeField] private int currentHP;         // 현재 HP
+        public int currentHP;         // 현재 HP
         [SerializeField] private int moveSpeed;         // 몬스터 스피드
         [SerializeField] private float attackRange;     // 공격 사거리
-        [SerializeField] private float attackCoolTime;  // 공격 쿨타임
+        public float attackCoolTime;  // 공격 쿨타임
 
         [Header("- 몬스터 캐싱")]
         [SerializeField] private Animator anim;
         [SerializeField] private Rigidbody2D m_rigidbody2D;
 
-        private Transform target;
+        [HideInInspector] public Transform target;
+        private DR_StateMachine<DR_Monster> stateMachine;
         private float moveX;                        // 방향 스칼라
         private bool isAttack;                      // 공격중인지 체크
         private bool isAttackCoolTime = true;       // 공격중인지 체크
@@ -35,6 +36,25 @@ namespace DoodlesRe
                 return currentHP;
             }
         }
+        private void Awake()
+        {
+            Func_SetInit();            
+        }
+
+        #region 초기 설정
+
+        protected virtual void Func_SetInit()
+        {
+            DR_FSM_State<DR_Monster> _moveState = new DR_State_Move();
+            DR_FSM_State<DR_Monster> _attackState = new DR_State_Attack();
+            DR_FSM_State<DR_Monster> _dieState = new DR_State_Die();
+
+            stateMachine = new DR_StateMachine<DR_Monster>();            
+            stateMachine.Initial_Setting(this, _moveState, _attackState, _dieState);
+        }
+
+        #endregion
+
 
 
         /// <summary>
@@ -44,16 +64,12 @@ namespace DoodlesRe
         /// </summary>
         protected override void Func_TriggerOn(Collider2D _coll)
         {
-            //if (_coll.CompareTag(""))
-            //{
 
-            //}
         }
 
         private void Update()
         {
-            Func_CheckFSM();
-            Func_FSM();
+
         }
 
         protected void FixedUpdate()
@@ -63,6 +79,11 @@ namespace DoodlesRe
         }
 
         #region FSM
+
+        public void Func_ChangeState(DR_FSM_State<DR_Monster> _state)
+        {
+
+        }
 
         /// <summary>
         /// <para> 작 성 자 : 이승엽 </para>
@@ -219,43 +240,28 @@ namespace DoodlesRe
         /// </summary>
         protected virtual void Func_Attack()
         {
-            if (Vector2.Distance(transform.position, target.position) <= attackRange)     // 공격 사거리 안일 때
-            {
-                if (isAttackCoolTime)
-                {
-                    StartCoroutine(Co_AttackCoolTime());
-                    moveX = 0;
-                    anim.SetTrigger("Attack");
-                    DR_Debug.Func_Log("공격");
-                }
-            }
-            else
-            {
-                Debug.Log("aaa");
-                monsterFSM = FSM_MONSTER.Follow;
-            }
+            moveX = 0;
+            anim.SetTrigger("Attack");
+            DR_Debug.Func_Log("공격");
         }
 
-        /// <summary>
-        /// <para> 작 성 자 : 이승엽 </para>
-        /// <para> 작 성 일 : 2021-08-18 </para>
-        /// <para> 내    용 : 공격 쿨타임을 재는 코루틴 기능</para>
-        /// </summary>
-        private IEnumerator Co_AttackCoolTime()
-        {
-            isAttackCoolTime = false;
-            yield return new WaitForSeconds(attackCoolTime);
-
-            isAttackCoolTime = true;
-        }
-
-        private void Func_Die()
+        protected virtual void Func_Die()
         {
             anim.SetTrigger("Die");
             enabled = false;        // FSM 안돌게 비활성화
-
         }
+
         #endregion
+
+        /// <summary>
+        /// <para> 작 성 자 : 이승엽 </para>
+        /// <para> 작 성 일 : 2021-08-26 </para>
+        /// <para> 내    용 : 타겟을 공격할 수 있는 사거리인지 체크</para>
+        /// </summary>
+        public bool Func_CheckRange()
+        {
+            return Vector2.Distance(target.position, transform.position) <= attackRange;
+        }
 
     }
 }
